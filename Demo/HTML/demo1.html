@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Demo</title>
+</head>
+<body>
+    <ol>
+        <li><a href="#1stPara">1st paragraph</a></li>
+        <li><a href="#2ndPara">2nd paragraph</a></li>
+    </ol>
+
+    <h1>Hello world</h1>
+    <h2>Level 2 heading</h2>
+    <h3>Level 3 heading</h3>
+
+    <img src="USmap.png" alt="an US map">
+
+    <p id="1stPara">  this is a paragraph, and a  <a href="https://github.com/login">link</a> is followed.</p>
+
+    <ul>    
+        <li>First</li>
+        <ul>
+            <li>one row</li>
+        </ul>
+        <li>Second</li>
+    </ul>
+
+    <p id="2ndPara">
+        Try try try
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>john</td>
+                <td>30</td>
+                <td>Male</td>
+            </tr>
+            <tr>
+                <td>Henry</td>
+                <td>21</td>
+                <td>Female</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- action attr represents the receiver of the form data 
+    name attr is the variable name-->
+    <form method="post" action="">
+        Name:
+        <input type="text" name="user_name" size="50" placeholder="please enter your name" required autocomplete>
+        <br>
+        <label for="">
+            Name:
+            <input type="text" name="user_name" size="50">
+        </label>
+        <br>
+        <br>
+        <label for="">
+            Comments:
+            <textarea name="Comments" id="" cols="30" rows="10", autofocus></textarea>
+        </label>
+        <br>
+        <br>
+        <label for="">
+            Password:
+            <input type="password" name="password">
+        </label>
+        <br>
+        <br>
+        <label for="">
+            Things you like
+            <input type="checkbox" name="thsLiked" value="bsktball">bsktball
+            <input type="checkbox" name="thsLiked" value="badminton">badminton
+            <input type="checkbox" name="thsLiked" value="tennis">tennis
+        </label>
+        <label for="">
+            Baseketball
+            <input type="checkbox">
+        </label>
+        <label for="">
+            Age
+            <input type="number" name="age">
+        </label>
+        <br>
+        <br>
+        <label for="">Rate our website:
+            <select name="rating" id="">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </label>
+        <input type="text" list="rate" name="rate">
+        <datalist id="rate">
+            <option value="1">One</option>
+        </datalist>
+
+        <input type="submit" name="submit" value="send">
+        <input type="reset" name="reset" value="clear">
+        <!-- how to specify hidden data? -->
+        <input type="hidden" name="hidnvar" value="hiddendata">
+    </form>
+</body>
+</html>

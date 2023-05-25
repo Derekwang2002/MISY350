@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Registration</title>
+</head>
+<body>
+    <h1>Regist for friendship!</h1>
+    <form action="home.html", method="post">
+        <label for="user_name">Your Name(required):</label>
+        <input type="text" id="user_name" name="user_name" autocomplete required autofocus>
+        <br>
+        <label for="password">Password:(required)</label>
+        <input type="password" id='password' name="password" required placeholder="8-64 length">
+        <br>
+        <label for="phone">Enter your phone number:</label>
+        <input type="tel" name="phone" placeholder="type in: xxx-xxxx-xxxx" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+        <br>
+        <label for="email">Email:(required)</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="">
+            Sex:
+            <input type="radio" name="sex" value="male"> male
+            <input type="radio" name="sex" value="female"> female
+        </label>
+        <br>
+        <label for="met">How long we've met</label>
+        <input type="number" id="met" name="met" min="0" step="1">
+        <label for="met_scale">(by:</label>
+        <select namet="met_scale" id="met_scale">
+            <option value="days">days</option>
+            <option value="weeks">weeks</option>
+            <option value="months">months</option>
+            <option value="years">years</option>
+        </select>)
+        <br>
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday">
+        <br>
+        <label for="similarity">
+            How do you think our hobbies are alike?
+            <br>
+            (higher rate means more similar)
+        </label>
+        <input type="range" id="similarity" name="similarity" min="0" max="10" step="1">
+        <br>
+        <label for="">
+            Which factors do you measure in a relationship: <br>
+            <input type="checkbox" name="relation_fact" value="hobbies">similar hobbies <br>
+            <input type="checkbox" name="relation_fact" value="value">similar value <br>
+            <input type="checkbox" name="relation_fact" value="goal">similar goals <br>
+            <input type="checkbox" name="relation_fact" value="trust">trust each other <br>
+            <input type="checkbox" name="relation_fact" value="characteristic">fitness of characteristic <br>
+            <input type="checkbox" name="relation_fact" value="economics">economics basis
+        </label>
+        
+        <br>
+        <input type="reset" name="reset" value="clear">
+        <input type="submit" name="submit" value="send">
+        <br>
+    </form>
+    <p>Thanks for your patience, click send to complete!</p>
+    <p>And you can go back to  <a href="home.html"><b>home page</b> here</a></p>
+</body>
+</html>
