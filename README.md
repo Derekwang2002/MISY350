@@ -32,4 +32,4 @@ Only includes very basic knowledge for full-stack work.
   - animation(ketwords)
 
 ## Entrance of my html
-[Click here](MISY350/Homework/HW1/home.html)
+[Click here](Homework/HW1/home.html)
