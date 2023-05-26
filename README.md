@@ -32,4 +32,4 @@ Only includes very basic knowledge for full-stack work.
   - animation(ketwords)
 
 ## Entrance of my html
-[Click here](station/home.html)
+[Click here](https://derekwang2002.github.io/MISY350/station/home.html)
