@@ -1,0 +1,82 @@
+img {
+    position: relative;
+    display: block;
+    margin-left: auto;   
+    margin-right: auto;
+    z-index: 0;
+}
+p.front {
+    position: absolute;
+    top: 80px;
+    left: 45%;
+    font-weight: bold;
+    font-size: large;
+    background-color: antiquewhite;
+    color: crimson;
+    z-index: 1;
+}
+h1 {
+    text-align: center;
+}
+body {
+    background-image: url(background.png);
+    background-position: bottom left;
+    background-repeat: repeat;
+}
+div.front, div.middle {
+    background-color: antiquewhite;
+    border-width: 5px;
+    border-color: brown;
+    border-style: solid;
+    margin: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+div.middle {
+    padding: 3%;
+}
+label p {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+input[type=text], input[type=password],input[type=tel], input[type=email], input[type=number],input[type=date], select {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=number] {
+    width: 50%;
+}
+select {
+    width: 15%;
+}
+input[type=submit], input[type=reset] {
+    width: 30%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: large;
+    font-weight: bold;
+}
+input[type=submit]:hover, input[type=reset]:hover {
+    background-color: #45a049;
+}
+label {
+    font-weight: bold;
+}
+#end {
+    text-align: center;
+}
+table {
+    text-align: left;
+}
+#factors label {
+    font-weight: lighter;
+}
