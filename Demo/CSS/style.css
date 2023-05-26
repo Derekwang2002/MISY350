@@ -1,0 +1,16 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+li em {font-weight:bold; font-size: larger;}
+h1 {font-style: italic; text-align: center; color: indigo;}
+a.nodec {text-decoration: none;}
+a.nodec:hover {text-decoration: underline;}
+p.desc {
+   text-indent: 20ex; 
+   background-color: antiquewhite; 
+   border-color: brown;
+   border-width: 4px;
+   border-style: solid;
+   margin-top: 60px;
+   margin-right: 30px;
+   padding-bottom: 10px;
+   padding-left: 20px;
+}

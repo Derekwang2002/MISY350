@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset = "utf-8">
+      <title>Absolute and Relative Positioning</title>
+      <style>
+         img.background_image {
+            position: absolute; 
+            top: 0px; left: 0px; 
+            z-index: -1;
+         }
+         img.foreground_image {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            z-index: 2;
+         }
+         p.text {
+            position: relative;
+            top: 250px;
+         }
+         .super {
+            position: relative; 
+            top: -1ex;
+
+         }
+         .sub {
+            position: relative;
+            top: 1ex;
+         }
+         body {
+            background-image: url(foreground_image.png);
+            background-position: bottom right;
+            background-repeat: repeat-y;
+            background-attachment: fixed;
+            background-color: darkgray;
+         }
+         h1 {
+            position: relative;
+            text-shadow: -4px -4px 10px dimgray;
+         }
+         h1 div {
+            width: 350px;
+            height: 50px;
+            box-shadow: -25px 25px 50px dimgray;
+         }
+         img.foreground_image {
+            position: relative;
+            animation: movingimage linear 5s 1s infinite alternate;
+         }
+         @keyframes movingimage {
+            0% {opacity: 0.5; left: 50px; top: 0px;}
+            25% {opacity: 1; left: 0px; top: 50px;}
+            50% {opacity: 0.5; left: 50px; top: 100px;}
+            75% {opacity: 1; left: 100px; top: 50px;}
+            100% {opacity: 0.5; left: 50px; top: 0px;}
+         }
+      </style>
+   </head>
+   <body>
+      <p><img src = "background_image.png" class = "background_image"
+         alt = "First positioned image" /></p>
+
+      <p><img src = "foreground_image.png" class = "foreground_image"
+         alt = "Second positioned image" /></p>
+
+      <p class = "text">Positioned Text</p>
+
+      <p class="text">The text at the end of this sentence
+         <span class = "super">is in superscript</span>.</p>
+
+      <p class="text">The text at the end of this sentence
+         <span class = "sub">is in subscript</span>.</p>
+
+      <p class="text">The text at the end of this sentence
+         <span class = "shiftleft">is shifted left</span>.</p>
+
+      <p class="text">The text at the end of this sentence
+         <span class = "shiftright">is shifted right</span>.</p>
+      <h1>
+         <div>
+            Text and Box Shadow
+         </div>
+      </h1>
+   </body>
+</html>
