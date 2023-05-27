@@ -19,7 +19,7 @@ Only includes very basic knowledge for full-stack work.
   - elements
   - void elements
   - tags 
-  - attrbutes
+  - attributes
   - forms
   - page structure
 - CSS
@@ -29,7 +29,7 @@ Only includes very basic knowledge for full-stack work.
   - properties
   - inline/box-level elements
   - box model (MBP)
-  - animation(ketwords)
+  - animation(keywords)
 
 ## Entrance of my html
 [Click here](https://derekwang2002.github.io/MISY350/station/home.html)
