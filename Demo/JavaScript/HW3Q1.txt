@@ -1,6 +1,0 @@
-1. 
-function hello() {
-    return 'Hello world!'
-}
-
-2.
