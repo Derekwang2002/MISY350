@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI</title>
+</head>
+
+<body>
+    <script>
+        function calculateBMI(weight, height) {
+            var BMI = (weight*703) / (Math.pow(height,2));
+            return Math.round(BMI) / 10;
+        }
+
+        var userWeight = window.prompt('Enter your weight');
+        var userHeight = window.prompt('Enter your height');
+
+        alert('Your BMI index is: ' + calculateBMI(userWeight, userHeight))
+    </script>
+    
+    
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Client-side input validation example</title>
+		<script>
+			function checkInputs(){
+
+			}
+
+			function init(){
+				//set event handler for submit
+				var formIn = document.form; //
+				formIn.addEventListener('submit', checkInputs);
+			}
+			
+			document.addEventListener('DOMContentLoaded', init);
+		</script>
+	</head>
+
+	<body>
+		<h2>Please fill out the following form; all fields are required</h2>
+		<form name="myForm" method="post" action="http://www.vt.edu">
+			<strong>Full Name:</strong><br />
+			<input type="text" name="fullName" size="20" /><br />
+			<strong>Address:</strong><br/>
+			<textarea name="address" rows="3" cols="25"></textarea><br /><br />
+
+			<div>Are you a co-op?</div>
+			<input type="radio" name="coop" value="yes" />Yes
+			<input type="radio" name="coop" value="no" />No<br /><br />
+
+			<div>Are you going to grad school?</div>
+			<input type="radio" name="gradSchool" value="yes" />Yes
+			<input type="radio" name="gradSchool" value="no" />No<br /><br />
+
+			<div id="test">
+				Which of the following graduate entrance exam have you taken?<br />
+				(You must select at least one) <br />
+				<input type="checkbox" name="gradexam" value="donor" />GMAT&nbsp;	<br />
+				<input type="checkbox" name="gradexam" value="sports" />GRE&nbsp;<br />
+			</div>
+			<input type="submit" name="button1" value="Submit" />
+		</form>
+	</body>
+</html>

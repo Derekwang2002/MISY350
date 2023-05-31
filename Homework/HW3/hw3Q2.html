@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Count down clock</title>
+    <script>
+        targetTime = new Date('June 16, 2023');
+
+        function getTimeDiff(earlyTime, laterTime){
+            var diffTime = (laterTime - earlyTime) / 1000;
+            return diffTime;
+        }
+
+        function countDownClock(){
+            var placeHolder = document.getElementById('clock');
+            setInterval(updateTime, 1000);
+
+            function updateTime(){
+                currentTime = new Date();
+                var diff = getTimeDiff(currentTime, targetTime);
+                var days = Math.floor(diff / (24*3600));
+                var hours = Math.floor((diff % (24*3600)) / 3600);
+                var minutes = Math.floor((diff % 3600) / 60);
+                var seconds = Math.floor(diff % 60);
+
+                placeHolder.innerHTML = days + ' DAYS  ' + hours + ' HOURS  ' + minutes + ' MINUTES  ' + seconds + ' SECONDS';
+            }
+        }
+
+        window.addEventListener('load', countDownClock);
+
+        
+    </script>
 </head>
 <body>
-    
+    <h1 id="clock"></h1>
 </body>
 </html>

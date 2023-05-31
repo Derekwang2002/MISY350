@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascipt</title>
+    <title>GPA calculator</title>
 </head>
+
 <body>
     <script>
         // get curernt time
@@ -24,6 +25,30 @@
         else {
             document.writeln('Good afternoon')
         }
+    </script>
+
+    <script>
+        // caculate and disiplay stident GPA
+        // looping structure
+        var stdGrade = 0;
+        var stdCount = 0;
+        var stdSum = 0;
+
+        while(stdGrade >= 0) {
+            stdGrade = Number(window.prompt('Students Grade (Enter -1 to end):'));
+
+            if(stdGrade >= 0) {
+                stdSum += stdGrade;
+                stdCount ++;
+                console.log('check')
+            }
+        } 
+
+        // GPA = sum(grade) / count(students)
+        document.writeln('<br>' + stdSum/stdCount + ' on ' + stdCount + 'student')
+        window.alert('Done')
+        
+        
     </script>
 </body>
 </html>
