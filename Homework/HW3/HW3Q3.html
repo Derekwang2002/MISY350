@@ -6,7 +6,6 @@
     <style>
         /*the CSS style applies to all html elements with class='error'*/
         .error {
-            font-weight: bold;
             color: red;
         }
         .errorln {
@@ -14,31 +13,41 @@
             font-size: smaller;
             font-style: italic;
         }
+        .normal {
+            color: black;
+        }
     </style>
-
-    <script type="text/javascript">
+    <script>
         function errorHandle(id, name, num) {
             var divLabel = document.getElementById(id);
-            var existingErrorDiv = divLabel.querySelector('#temp' + id);
-            if (existingErrorDiv) {
-                // do nothing
+            document.getElementsByTagName('strong')[num].setAttribute('class', 'error');
+
+            //add a new div element as a child node of the div element with corresponding id
+            var subDivLabel = document.createElement('div');
+            subDivLabel.className = 'errorln';
+            subDivLabel.innerHTML = 'Please enter your ' + name + '!';
+            divLabel.appendChild(subDivLabel);
             }
-            else {
-                //change the label element to red color
-                document.getElementsByTagName('strong')[num].setAttribute('class', 'error');
-
-                //add a new div element as a child node of the div element with corresponding id 
-
-                var subDivLabel = document.createElement('div');
-                subDivLabel.className = 'errorln';
-                subDivLabel.id = 'temp' + id;
-                subDivLabel.innerHTML = 'Please enter your ' + name + '!';
-                divLabel.appendChild(subDivLabel);
-            }
-
-        }
 
         function checkInputs(event) {
+            //first remove error messages
+            var errorDiv = document.querySelectorAll('div div');
+            var errorHeader = document.querySelectorAll('.error');
+            //remove the classes from each label
+            if (errorHeader){
+                errorHeader.forEach(function(element) {
+                    element.classList.remove('error');
+                });
+            }
+            //remove error message line
+            if (errorDiv){
+                errorDiv.forEach(function(element) {
+                    element.parentNode.removeChild(element);
+                });
+            }
+            //remove bottom error output 
+            document.getElementById('output').innerHTML = '';
+
             //console.log("in the function");
             var frmObject = document.forms[0];
             var output = "Please correct the errors on the page.";
@@ -89,7 +98,6 @@
                 event.preventDefault();
                 document.getElementById("output").innerHTML = output;
             }
-
         }
 
         function init() {
@@ -107,7 +115,7 @@
 
 <body>
     <h2>Let me know you, my friend!</h2>
-    <form name="myForm" method="post" action="success.html">  <!-- target="iframe" use to test-->
+    <form name="myForm" method="post" action="success.html" target="iframe">  <!-- target="iframe" use to test-->
         <br>
         <div id="theName">
             <strong>Full Name:</strong><br />
@@ -149,8 +157,6 @@
         <input type="submit" name="submit" value="Submit"/>
         <div id="output"></div>
     </form>
-
     <!-- <iframe id="iframe" name="iframe" style="display:none;"></iframe> -->
 </body>
-
 </html>
