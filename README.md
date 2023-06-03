@@ -1,5 +1,5 @@
 # MISY350
-> In-class code
+> For reference only, directly copy code in this repository as assignment submission is not allowed!
 
 Only includes very basic knowledge for web development.
 
