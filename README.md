@@ -1,7 +1,7 @@
 # MISY350
 > In-class code
 
-Only includes very basic knowledge for full-stack work.
+Only includes very basic knowledge for web development.
 
 ## Items
 - On-class demo
@@ -16,11 +16,10 @@ Only includes very basic knowledge for full-stack work.
   - three-tier architecture 
   - MVC 
 - HTML5
-  - elements
+  - elements/tags
   - void elements
-  - tags 
   - attributes
-  - forms
+  - forms/input type
   - page structure
 - CSS
   - selector
@@ -29,7 +28,26 @@ Only includes very basic knowledge for full-stack work.
   - properties
   - inline/box-level elements
   - box model (MBP)
-  - animation(keywords)
+  - animation (keywords)
+- DOM
+  - definition
+  - node relationship(parent, child, sibling, ancestor)
+- Javascript
+  - java?
+  - can do? use when?
+  - put js code at?
+  - syntax (variables,condition control, loop, events, I/O)
+  - window/document
+  - DOM in js
+- jQuery
+  - library of javascript
+  - advantages over js
+  - usage
+    - object, selector, filter, action/events
+    - manipulating HTML and CSS
 
-## Entrance of my html
-[Click here](https://derekwang2002.github.io/MISY350/station/home.html)
+## Entrance of demo page
+- [HW1&2/Home Page](https://derekwang2002.github.io/MISY350/station/home.html)
+- [HW3/Form Validation](https://derekwang2002.github.io/MISY350/Homework/HW3/HW3Q3.html)
+- [HW4/Dynamic countDownClock&image](https://derekwang2002.github.io/MISY350/Homework/HW4/HW4Q1-2.html)
+
