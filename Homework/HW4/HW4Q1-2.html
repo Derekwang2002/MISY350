@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Count Down Clock</title>
+    <style>
+        .orange {color: orange;}
+        .maroon{color: maroon;}
+        .blue {color: blue;}
+        div {
+            text-align: center;
+        }
+        h2 {
+            margin-left: 10%;
+            margin-right: 10%;
+            border-style: solid;
+            border-width: 5px;
+            border-color:paleturquoise;
+        }
+        #getBack {
+            font-style: italic;
+        }
+
+    </style>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script >
+        targetTime = new Date('June 16, 2023');
+
+        $(function(){
+            $('#getBack').fadeOut(1);
+            setInterval(countDownClock, 1000);
+
+            $('#countDownClock').click(function(){
+                if($(this).hasClass('orange')){
+                    $(this).attr('class', 'maroon');
+                } 
+                else if($(this).hasClass('maroon')){
+                    $(this).attr('class', 'blue');
+                } 
+                else {
+                    $(this).attr('class', 'orange');
+                }
+            })
+
+            $('#countDownClock').dblclick(function(){
+                $(this).fadeOut(1000);
+                $('#getBack').fadeIn(1000);
+            })
+
+            $('#getBack').dblclick(function(){
+                $(this).fadeOut(1000);
+                $('#countDownClock').fadeIn(1000);
+            })
+
+            $('#uniLogo').hover(
+                function(){
+                    $('#uniLogo').attr('src', 'SWUFE.jpeg');
+                },
+                function(){
+                    $('#uniLogo').attr('src', 'University_of_Delaware_Seal.svg');
+                }
+            )
+        })
+
+        function getTimeDiff(earlyTime, laterTime){
+            var diffTime = (laterTime - earlyTime) / 1000;
+            return diffTime;
+        }
+
+        function countDownClock(){
+            setInterval(updateTime, 1000);
+
+            function updateTime(){
+                currentTime = new Date();
+                var diff = getTimeDiff(currentTime, targetTime);
+                var days = Math.floor(diff / (24*3600));
+                var hours = Math.floor((diff % (24*3600)) / 3600);
+                var minutes = Math.floor((diff % 3600) / 60);
+                var seconds = Math.floor(diff % 60);
+                $('#countDownClock').html(
+                    days + ' DAYS  ' + hours + ' HOURS  ' 
+                    + minutes + ' MINUTES  ' + seconds + ' SECONDS'
+                )
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <h1>Till the presentation day:</h1>
+        <p>(double click the clock to fade out)</output></p>
+        <h2 id="countDownClock" class=""></h2>
+        <img id="uniLogo" src="University_of_Delaware_Seal.svg" alt="School Logo" width="500" height="500">
+    </div>
+    <div id="getBack">
+        <br><br>
+        -> double click here to fade in the count down clock &lt-
+    </div>
+</body>
+</html>

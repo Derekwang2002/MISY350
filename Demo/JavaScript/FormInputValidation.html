@@ -2,14 +2,47 @@
 <html>
 	<head>
 		<title>Client-side input validation example</title>
+		<style>
+			.error {color: red;}
+		</style>
 		<script>
-			function checkInputs(){
 
+			function checkInputs(event){
+				var myForm = document.forms[0];
+				var hasError = false;
+				if (myForm.fullName.value == ''){
+					hasError = true;
+					var parentNode = document.getElementById('nameInput');
+					var childNode = document.createElement('div');
+					var textNode = document.createTextNode('Please enter a name');
+					// childNode.className = 'error';
+					childNode.setAttribute('class', 'error');
+					childNode.appendChild(textNode);
+					parentNode.appendChild(childNode);
+				}
+				if(myForm.gradexam.value == []){
+					hasError = true;
+					var parentNode = document.getElementById('test');
+					var childNode = document.createElement('div');
+					var textNode = document.createTextNode('Please select at least one');
+					// childNode.className = 'error';
+					childNode.setAttribute('class', 'error');
+					childNode.appendChild(textNode);
+					parentNode.appendChild(childNode);
+				}
+				console.log('in here')
+				console.log(myForm.gradexam.value);
+
+				// for(var i=0; i<myForm.gradexam; i++){
+
+				// }
+
+				event.preventDefault();
 			}
 
 			function init(){
 				//set event handler for submit
-				var formIn = document.form; //
+				var formIn = document.forms[0]; //
 				formIn.addEventListener('submit', checkInputs);
 			}
 			
@@ -20,11 +53,14 @@
 	<body>
 		<h2>Please fill out the following form; all fields are required</h2>
 		<form name="myForm" method="post" action="http://www.vt.edu">
-			<strong>Full Name:</strong><br />
-			<input type="text" name="fullName" size="20" /><br />
+			<div id="nameInput">
+				<strong>Full Name:</strong><br />
+				<input type="text" name="fullName" size="20" /><br />
+			</div>
+
 			<strong>Address:</strong><br/>
 			<textarea name="address" rows="3" cols="25"></textarea><br /><br />
-
+			
 			<div>Are you a co-op?</div>
 			<input type="radio" name="coop" value="yes" />Yes
 			<input type="radio" name="coop" value="no" />No<br /><br />

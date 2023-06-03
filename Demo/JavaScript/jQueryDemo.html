@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQClock</title>
+    <style>
+        .red {color: red;}
+        .blue {color: blue;}
+        .green {color: green;}
+    </style>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script>
+        function updateTime(){
+                //update time
+                //get current time
+                var currentTime = new Date();
+
+                //get h, m, s
+                var hour = currentTime.getHours();
+                var minutes = currentTime.getMinutes();
+                var second = currentTime.getSeconds();
+
+                //update h1
+                $('#clock').html(hour + ':' + minutes + ':' + second)
+        }
+
+        //document raeady function
+        $(function(){
+            setInterval(updateTime, 1000);
+
+            $('#clock').click(function(){
+                if($(this).hasClass('red')){
+                    $(this).removeClass('red').addClass('blue');
+                } 
+                else if($(this).hasClass('blue')){
+                    $(this).removeClass('blue').addClass('green');
+                } 
+                else {
+                    $(this).removeClass('green').addClass('red');
+                }
+            })
+
+            $('a').click(function(e){
+                if(!confirm('Do you?')){
+                    e.preventDefault();
+                }
+            })
+
+            $('#fstimg').hover(
+                function(){
+                    $('#fstimg').attr('src', 'foreground_image.png');
+                },
+                function(){
+                    $('#fstimg').attr('src', 'background_image.png');
+                }
+            )
+            
+            $('form').submit(
+                function(){
+                    var x = $('#fullName').val();
+                    alert(x);
+                }
+            )
+        })
+    </script>
+</head>
+<body>
+    <h1 id="clock">00:00:00</h1>
+
+    <h1><a href="https://www.swufe.edu.cn">SWUFE</a></h1>
+    <br>
+    <img id='fstimg' src="background_image.png" alt="">
+
+    <form action="#" method="post">
+        <label for="">Full Name:
+            <input id="fullName" type="text" name="fullName" id="">
+        </label>
+        <input type="submit" name="submit", value="Submit">
+    </form>
+</body>
+</html>

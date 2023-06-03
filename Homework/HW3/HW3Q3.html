@@ -40,7 +40,7 @@
             //remove error message line
             if (errorDiv){
                 errorDiv.forEach(function(element) {
-                    element.parentNode.removeChild(element);
+                    element.remove(); // parentNode.removeChild(element)
                 });
             }
             //remove bottom error output 
@@ -74,6 +74,7 @@
                 //update the checkError value to true
                 checkError = true;
             }
+            
             //check the major dropdown selection
             //If there is an error, set checkError to true and add a new text node for the error message
             if (frmObject.major.value == '') {
@@ -89,7 +90,6 @@
                 //update the checkError value to true
                 checkError = true;
             }
-
 
             //stop the event from continuing if errors exist
             if (checkError) {
