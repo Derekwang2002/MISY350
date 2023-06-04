@@ -40,13 +40,13 @@
             //remove error message line
             if (errorDiv){
                 errorDiv.forEach(function(element) {
-                    element.remove(); // parentNode.removeChild(element)
+                    element.remove();
                 });
             }
             //remove bottom error output 
             document.getElementById('output').innerHTML = '';
 
-            //console.log("in the function");
+            //initialize varibles
             var frmObject = document.forms[0];
             var output = "Please correct the errors on the page.";
             var checkError = false;

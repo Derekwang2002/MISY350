@@ -20,7 +20,17 @@
 					childNode.appendChild(textNode);
 					parentNode.appendChild(childNode);
 				}
-				if(myForm.gradexam.value == []){
+
+				//check the chekc box input
+				checkBox = myForm.gradexam;
+				ifCheck = false;
+				for(var i=0; i<checkBox.length; i++){
+					if(checkBox[i].checked){
+						ifCheck = true;
+						break;
+					}
+				}
+				if(!ifCheck){
 					hasError = true;
 					var parentNode = document.getElementById('test');
 					var childNode = document.createElement('div');
@@ -31,11 +41,7 @@
 					parentNode.appendChild(childNode);
 				}
 				console.log('in here')
-				console.log(myForm.gradexam.value);
-
-				// for(var i=0; i<myForm.gradexam; i++){
-
-				// }
+				console.log(myForm.gradexam);
 
 				event.preventDefault();
 			}
