@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="HW4homeStyle.css">
+    <link rel="stylesheet" href="uniform.css">
     <title>Home Page</title>
     <!-- references -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -18,9 +19,9 @@
 
 <body>
 
-    <div class="content container-fluid">
+    <div id="navDiv" class="content container-fluid">
         <!-- <img class="icon" src="background.png" alt="dog icon" width="100" height="100"> -->
-        <ul class="nav nav-pills nav-justified">
+        <ul id="nav" class="nav nav-pills nav-justified">
             <li class="nav-item">
               <a class="nav-link active" aria-current="home.html" href="">Home</a>
             </li>
@@ -28,19 +29,20 @@
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Service</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="information.html">Facts</a></li>
-                  <li><a class="dropdown-item" href="HW3Q3.html">Friend Registration</a></li>
+                  <li><a class="dropdown-item" href="friend.html">Friend Registration</a></li>
                 </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about_me.html">About</a>
             </li>
-          </ul>
-          <!-- <hr class="border border-primary border-3 opacity-35"> -->
-          <br>
-          <p id="title">Home Page</p>
-          <p id="notation">for badminton lover</p>
-          <br>
+        </ul>
+        <!-- <hr class="border border-primary border-3 opacity-35"> -->
     </div>
+
+    <br>
+    <p class="title">Athletes Gallery</p>
+    <p id="notation">Home for badminton lover</p>
+    <br>
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <!-- bottom buttons -->
@@ -53,28 +55,28 @@
         <!-- pictures -->
         <div class="carousel-inner"> 
             <div class="carousel-item active">
-                <img src="LIN.webp" class="d-block w-100" alt="Lin">
+                <a href="https://en.wikipedia.org/wiki/Lin_Dan"><img src="pictures/LIN.webp" class="d-block w-100" alt="Lin"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>LIN Dan</h5>
                     <p><i>"The greatest badminton player of all time."</i>  <br> Gold medal in 2008 Beijing and 2012 London Oltmpiad</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="LEE.webp" class="d-block w-100" alt="Lee">
+                <a href="https://en.wikipedia.org/wiki/Lee_Chong_Wei"><img src="pictures/LEE.webp" class="d-block w-100" alt="Lee"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>LEE Chongwei</h5>
-                    <p><i>"Rise of the Legend"</i><br>Silver medal in 2008 Beijing, 2012 London, and 2016 Rio Olympiad.</p>
+                    <p><i>"It is not titles that honor men;it is men that honor titles"</i><br>Silver medal in 2008 Beijing, 2012 London, and 2016 Rio Olympiad.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="Kento.webp" class="d-block w-100" alt="Kento">
+                <a href="https://en.wikipedia.org/wiki/Kento_Momota"><img src="pictures/Kento.webp" class="d-block w-100" alt="Kento"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Kento Momota</h5>
                     <p><i>"Hitting absolute rock bottom"</i><br> Gold medal in 2018 Nanjing and 2019 Basel BWF World Championship</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="Axelsen.webp" class="d-block w-100" alt="Kento">
+                <a href="https://en.wikipedia.org/wiki/Viktor_Axelsen"><img src="pictures/Axelsen.webp" class="d-block w-100" alt="Kento"></a>
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Victor Axelsen</h5>
                     <p><i>"New ruler in men's single"</i><br> Gold medal in 2020 Tokyo Olympiad.</p>
@@ -94,13 +96,27 @@
 
     <!-- <h2 id="badminton">Badminton</h2> -->
     <p class="middle">
-        <b>Lin Dan</b>  and <b>Lee Chongwei</b> is two of the most greatest players in the badminton history. But they are retired now.
-        <br><br>
-        <b>Kento Momota</b> and <b>Viktor Axelsen</b> are two of best athletes after Lin and Lee.
-        <br><br>
-        I frequently check the 
+        <b>Lin Dan</b>  and <b>Lee Chongwei</b> are two of the most greatest players in the badminton history. 
+        Lin Dan won two gold medal in olympiad, and Lee Chong Wei also ruled men's single match for a very long time. 
+        But sadly, they are retired now.
+        <br>
+        <b>Kento Momota</b> and <b>Viktor Axelsen</b> are two of best athletes nowadays after Lin and Lee. 
+        However, Kento Momota suffered a car accident, and his score is on the decline rightnow.
+        <br>
+        I usually check the 
         <a href="https://bwfworldtour.bwfbadminton.com/calendar/">BWF world tour calender</a>, 
-        to see if there is any contest.
+        to see if there is any contest. 
+        <br>
+        Besides, here are some wonderful match I recommend you to have a look: 
+        <a href="https://www.bilibili.com/video/BV11N411o7xz/?spm_id_from=333.788.recommend_more_video.0&vd_source=18434ce110108b26baf1ab0b0a67cb4c">
+            [LEE and Lin 2008 Beijing]; 
+        </a>
+        <a href="https://www.bilibili.com/video/BV1xL411z7eX/?spm_id_from=333.788&vd_source=18434ce110108b26baf1ab0b0a67cb4c">
+            [LEE and Lin 2012 London]; 
+        </a>
+        <a href="https://www.bilibili.com/video/BV17s4y1N7f6/?spm_id_from=333.337.search-card.all.click&vd_source=18434ce110108b26baf1ab0b0a67cb4c">
+            [Momota and Axelsen 2019 around England].
+        </a>
     </p>
 
     <!-- <h2 id="web_dev">Web development</h2>
@@ -119,9 +135,10 @@
         </ol>
     </div> -->
 
+    <br><br>
     <hr>
     <p id="foot">
-        Athletes pictures from: <a href="https://olympics.com/">olympics official site</a>
+        Athletes pictures from: <a href="https://olympics.com/">Olympics official site</a>
         <br>
         <i>Wang Derek &#169;</i>
     </p>

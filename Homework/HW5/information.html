@@ -4,21 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="uniform.css">
     <title>Information</title>
-    <style>
-        div.row div {
-            margin: auto;
-        }
-    </style>
     <!-- references -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <style>
+        div.row div {
+            margin: auto;
+        }
+        .here {
+            background-color:blanchedalmond;
+        }
+        div.card-body p {
+            font-style: italic;
+        }
+        #button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1%;
+        }
+    </style>
+    <script>
+        $(function(){
+            var classCircle = 'rounded-circle image-fluid'; //need these classes to make it a circle
+            $('#convert').click(function(){
+                if($('img').hasClass(classCircle)){
+                    $('img.card-img-top').removeClass(classCircle);
+                    $('img.pin').addClass('rounded-start').removeClass('rounded-circle pin');
+                }
+                else{
+                    $('img.card-img-top').addClass(classCircle);
+                    $('img.rounded-start').removeClass('rounded-start').addClass('rounded-circle pin'); 
+                    //use pin class to spefify later
+                    //$('img.rounded-start') img has a little conflict: they already have class image-fluid, so we donnot need consider it.
+                    //$('img.rounded-start') also has class rounded-start, which can not exist simultaniously with class rounded-circle, so we have to remove it at first.
+                }
+            })
+        })
+    </script>
 </head>
+
 <body>
-    <div class="content container-fluid">
-        <ul class="nav nav-pills nav-justified">
+    <div id="navDiv" class="content container-fluid">
+        <ul id="nav" class="nav nav-pills nav-justified">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="home.html">Home</a>
             </li>
@@ -26,7 +58,7 @@
                 <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Service</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item active" href="information.html">Facts</a></li>
-                  <li><a class="dropdown-item" href="HW3Q3.html">Friend Registration</a></li>
+                  <li><a class="dropdown-item" href="friend.html">Friend Registration</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -34,94 +66,116 @@
             </li>
         </ul>
         <br>
-        <!-- cards -->
+    </div>
+
+    <div id="button">
+        <button id="convert" type="button" class="btn btn-outline-success">Concert image shape</button>
+    </div>
+
+    <p class="title">Audio</p>
+
+    <!-- cards -->
+    <div class="content container-fluid">
         <div class="row">
-            <div class="card col-xs-12 col-sm-6 col-md-3" style="width: 16rem;">
+            <div class="card col-xs-12 col-sm-6 col-md-3" >
                 <img src="pictures/creep.png" class="card-img-top" alt="creep">
                 <div class="card-body">
                     <h5>Creep</h5>
                     <p class="card-text">Debut single by Radiohead, 21 September 1992.</p>
                 </div>
             </div>
-            <div class="card col-xs-12 col-sm-6 col-md-3" style="width: 16rem;">
-                <img src="pictures/creep.png" class="card-img-top" alt="creep">
+            <div class="card col-xs-12 col-sm-6 col-md-3">
+                <img src="pictures/Dontlookbackinanger.jpg" class="card-img-top" alt="Don't Look Back In Anger">
                 <div class="card-body">
-                    <h5>Creep</h5>
-                    <p class="card-text">Debut single by Radiohead, 21 September 1992.</p>
+                    <h5>Don't Look Back In Anger</h5>
+                    <p class="card-text">By English rock band Oasis, 19 February 1996.</p>
                 </div>
             </div>
-            <div class="card col-xs-12 col-sm-6 col-md-3" style="width: 16rem;">
-                <img src="pictures/creep.png" class="card-img-top" alt="creep">
+            <div class="card col-xs-12 col-sm-6 col-md-3">
+                <img src="pictures/Green_Day_-_Wake_Me_Up_When_September_Ends_cover.jpg" class="card-img-top" alt="Wake Me Up When September Ends">
                 <div class="card-body">
-                    <h5>Creep</h5>
-                    <p class="card-text">Debut single by Radiohead, 21 September 1992.</p>
+                    <h5>Wake Me Up When September Ends</h5>
+                    <p class="card-text">Green Day,  13 June 2005</p>
                 </div>
             </div>
-            <div class="card col-xs-12 col-sm-6 col-md-3" style="width: 16rem;">
-                <img src="pictures/creep.png" class="card-img-top" alt="creep">
+            <div class="card col-xs-12 col-sm-6 col-md-3">
+                <img src="pictures/JayChou.jpg" class="card-img-top" alt="Secret Code">
                 <div class="card-body">
-                    <h5>Creep</h5>
-                    <p class="card-text">Debut single by Radiohead, 21 September 1992.</p>
+                    <h5>Secret Code</h5>
+                    <p class="card-text">Jay Chou, 18 July 2002, track 3 on The eight dimensions.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <h1>This is a page about my hobbies</h1>
-    <table border:1px solid #0094ff;>
-        <thead>
-            <tr>
-                <th>hobbies</th>
-                <th>details</th>
-                <th>picture</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>badminton</td>
-                <td>
-                    <p>like rackets:</p>
-                    <ul>
-                        <li>AX 100zz</li>
-                        <li>AX zf2</li>
-                        <li>ARC 11 pro</li>
-                    </ul>
-                </td>
-                <td>
-                    <img src="yonex.png" alt="yonex">
-                </td>
-            </tr>
-            <tr>
-                <td>singing</td>
-                <td>
-                    <p>like songs:</p>
-                    <ul>
-                        <li>Creep - by radiohead</li>
-                        <li>Don't look back in anger - by oasis</li>
-                        <li>Wake me up when september ends - by Green Day</li>
-                    </ul>
-                </td>
-                <td>
-                    <img src="creep.jpeg" alt="creep">
-                </td>
-            </tr>
-            <tr>
-                <td>TV series</td>
-                <td>
-                    <p>Ranking</p>
-                    <ol>
-                        <li>Better Call Saul</li>
-                        <li>Breaking Bad</li>
-                        <li>Inside No.9</li>
-                    </ol>
-                </td>
-                <td>
-                    <img src="saul.jpeg" alt="saul">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <a href="home.html">Back to home page</a>
+    <p class="title">Video</p>
+
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="card col-xs-12 col-sm-6 col-md-3">
+                <img src="pictures/Breaking_Bad_logo.svg.png" class="card-img-top" alt="breaking bad">
+                <div class="card-body">
+                    <h5>Breaking Bad</h5>
+                    <p class="card-text"> Set and filmed in Albuquerque, New Mexico, the series follows Walter White (Bryan Cranston), an underpaid, overqualified, and dispirited high-school chemistry teacher who is struggling with a recent diagnosis of stage-three lung cancer.</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3">
+                <img src="pictures/Better_Call_Saul_logo.svg.png" class="card-img-top" alt="better call saul">
+                <div class="card-body">
+                    <h5>Better Call Saul</h5>
+                    <p class="card-text">Several years before Breaking Bad, Better Call Saul examines the moral declines of Jimmy McGill (Bob Odenkirk), an earnest lawyer and former con artist who becomes the egocentric criminal-defense attorney Saul Goodman, and Mike Ehrmantraut (Jonathan Banks), a former corrupt police officer who becomes a fixer and enforcer for drug traffickers. </p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3">
+                <img src="pictures/inside-no-9.jpg" class="card-img-top" alt="inside no.9">
+                <div class="card-body">
+                    <h5>Inside No.9</h5>
+                    <p class="card-text"> British black comedy anthology television programme that first aired in 2014. It is written by Reece Shearsmith and Steve Pemberton and produced by the BBC. Each 30-minute episode is a self-contained story with new characters and a new setting, almost all starring Pemberton or Shearsmith (usually both).</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3">
+                <img src="pictures/reply-1988.jpg" class="card-img-top" alt="reply1988">
+                <div class="card-body">
+                    <h5>Reply 1988</h5>
+                    <p class="card-text">South Korean television series starring Lee Hye-ri, Ryu Jun-yeol, Go Kyung-pyo, Park Bo-gum, and Lee Dong-hwi. Beginning in the year 1988, it revolves around five friends and their families living in the same neighborhood of Ssangmun-dong, Dobong District, Northern Seoul.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="title">Books</p>
+
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="card mb-3 card col-xs-12 col-sm-6 col-md-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="pictures/One_Sentense_Worth_Ten_Thausand.jpg" class="img-fluid rounded-start" alt="one sentence worth ten thousand">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">One Sentence Worth Ten Thousand</h5>
+                      <p class="card-text"> "It is not easy for a person to find another person to say a word". </p>
+                      <p class="card-text"><small class="text-muted">Written by Liu Zhenyun between 2006 and 2008</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mb-3 card col-xs-12 col-sm-6 col-md-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="pictures/Steve_Jobs_by_Walter_Isaacson.jpg" class="img-fluid rounded-start" alt="one sentence worth ten thousand">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Steve Jobs</h5>
+                      <p class="card-text">Steve Jobs Authorizes Biography by CNN and Former Time Magazine Executive Walter Isaacson</p>
+                      <p class="card-text"><small class="text-muted">A comprehensive view of Jobs' life.</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
 </body>
 </html>

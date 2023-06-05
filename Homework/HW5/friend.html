@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="uniform.css">
     <script src="jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -18,6 +19,25 @@
             color: red;
             font-size: smaller;
             font-style: italic;
+        }
+        input[type=submit] {
+            width: 30%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: large;
+            font-weight: bold;
+        }
+        #formDiv {
+            margin-left: 20%;
+            margin-right: 20%;
+            border: 3px solid;
+            padding: 2%;
+            
         }
     </style>
     <script>
@@ -117,8 +137,8 @@
 </head>
 
 <body>
-    <div class="content container-fluid">
-        <ul class="nav nav-pills nav-justified">
+    <div id="navDiv" class="content container-fluid">
+        <ul id="nav" class="nav nav-pills nav-justified">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="home.html">Home</a>
             </li>
@@ -126,7 +146,7 @@
                 <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Service</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="information.html">Facts</a></li>
-                  <li><a class="dropdown-item active" href="HW3Q3.html">Friend Registration</a></li>
+                  <li><a class="dropdown-item active" href="friend.html">Friend Registration</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -134,17 +154,19 @@
             </li>
           </ul>
     </div>
-    <h2>Let me know you, my friend!</h2>
+
+    <p class="title">Let me know you, my friend!</p>
+
+    <div id="formDiv">
     <form name="myForm" method="post" action="success.html">  <!-- target="iframe" use to test-->
-        <br>
-        <div id="theName">
-            <strong>Full Name:</strong><br />
-            <input type="text" name="fullName" size="20"/><br />
+        <div id="theName" class="mb-3">
+            <strong>Full Name:</strong><br/>
+            <input type="text" name="fullName" size="20"/><br/>
         </div>
 
         <div id="theAddress">
             <strong>Address:</strong><br />
-            <textarea name="address" rows="3" cols="25"></textarea><br />
+            <textarea name="address" rows="3" cols="25"></textarea><br/>
         </div>
 
         <div id="gender"><strong>Gender:</strong></div>
@@ -152,9 +174,9 @@
             <input type="radio" name="gender" value="male" />Male
             <input type="radio" name="gender" value="female" />Female
             <input type="radio" name="gender" value="other" />Other
-            <input type="radio" name="gender" value="notdisclosed" />Prefer not to say<br />
+            <input type="radio" name="gender" value="notdisclosed" />Prefer not to say<br/>
         </div>
-        <br />
+        <br/>
         <div id="themajor"><strong>What is your major of study or area of expertise?</strong>
             <select name="major">
                 <option value="" selected>Undecided</option>
@@ -166,17 +188,18 @@
                 <option value="OTH">Others</option>
             </select>
         </div>
-        <br />
+        <br/>
         <div id="year">
             <strong>What is your date of birth?</strong>
         </div>
         <div id="theyear">
-            <input type="number" name="year" size="20" /><br />
+            <input type="number" name="year" size="20" /><br/>
         </div>
         <br>
         <input type="submit" name="submit" value="Submit"/>
         <div id="output"></div>
     </form>
+    </div>
     <!-- <iframe id="iframe" name="iframe" style="display:none;"></iframe> -->
 </body>
 </html>

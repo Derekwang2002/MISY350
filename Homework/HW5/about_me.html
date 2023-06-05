@@ -5,15 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About me</title>
-        <!-- references -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <script src="jquery-3.1.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- references -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="uniform.css">
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            padding: 1%;
+        }
+    </style>
 </head>
 <body>
-    <div class="content container-fluid">
-        <ul class="nav nav-pills nav-justified">
+    <div id="navDiv" class="content container-fluid">
+        <ul id="nav" class="nav nav-pills nav-justified">
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="home.html">Home</a>
             </li>
@@ -21,7 +27,7 @@
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Service</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="information.html">Facts</a></li>
-                  <li><a class="dropdown-item" href="HW3Q3.html">Friend Registration</a></li>
+                  <li><a class="dropdown-item" href="friend.html">Friend Registration</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -29,7 +35,7 @@
             </li>
           </ul>
     </div>
-    <h1>About me</h1>
+    <p class="title">About me</p>
     <nav>
         <a href="home.html">Home</a> |
         <a href="https://derekwang2002.github.io/my-1st-pages/">Github page</a> |
@@ -44,6 +50,8 @@
                 I came from <b>Shandong Province</b>, 
                 and recently taking undergraduate degree at 
                 <b>Southwest University of Finance and Economics</b>  in Chengdu.
+                <br>I major in MIS (Management Information System) at SWUFE-UD college, 
+                which is a coorporation project delivered by University of Delaware and Southwest University of Finance and Economics.
             </p>
         </section>
     
@@ -52,18 +60,18 @@
             <h2>A travel to Kunming</h2>
             <p>During the labor<wbr>-day holiday, we went to Kunming.</p>
             <p>On the train to Kunming, 
-                I got a message of Sinoy from wechat saying they're going to 
+                I got a message of Sinloy from wechat saying they're going to 
                 open a new cafe in Kunming. So we decide to go there as the first 
                 destination of our vacation.
             </p>
             <figure>
-                <img src="infrontSinoy.jpeg" alt="infrontSinoy" width="300" height="400">
-                <figcaption>Fig.1 - I'm standing in front of Sinoy cafe</figcaption>
+                <img src="pictures/infrontSinloy.jpeg" alt="infrontSinoy" width="300" height="400">
+                <figcaption>Fig.1 - I'm standing in front of Sinloy cafe</figcaption>
             </figure>
         </section>
 
         <aside>
-            By the way, I highly recommend you to try sinoy coffee(on taobao.cpm)
+            By the way, I highly recommend you to try sinloy coffee(on taobao.com)
         </aside>
 
         <details>
@@ -72,7 +80,7 @@
                 taobao shop of sinoy
             </a>
             <br>
-            <label for="rate">rating 4 out of 5:</label>
+            <label for="rate">rating 4.8 out of 5:</label>
             <meter id="rate" value="4.8" min="0" max="5">rating 4.8 out of 5</meter><br>
         </details>
 
