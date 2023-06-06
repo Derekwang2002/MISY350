@@ -49,7 +49,7 @@ p.title {
 }
 @media (min-width: 1200px) {
     p.title {
-        font-size: 120px;
+        font-size: 100px;
     }
     p.long {
         font-size: 80px;
