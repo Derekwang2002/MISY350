@@ -7,6 +7,7 @@
     <script src="jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="frndFormValid.js"></script>
     <title>Client-side input validation</title>
     <style>
         /*the CSS style applies to all html elements with class='error'*/
@@ -18,121 +19,40 @@
             color: red;
             font-size: smaller;
             font-style: italic;
+            opacity: .8;
         }
         input[type=submit] {
             width: 30%;
-            background-color: #4CAF50;
+            background-color:darkgreen;
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
             border: none;
             border-radius: 4px;
-            /* cursor: pointer; */
             font-size: large;
             font-weight: bold;
         }
         #formDiv {
             margin-left: 20%;
             margin-right: 20%;
-            border: 3px solid;
+            border: 3px solid darkolivegreen;
             padding: 2%;
-            
+            background-color: rgba(212, 225, 220, 0.593);
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
+            border-radius: 12px;
+        }
+        strong {
+            font-size: larger;
         }
     </style>
     <script>
-        function errorHandle(id, name, num) {
-            var divLabel = document.getElementById(id);
-            document.getElementsByTagName('strong')[num].setAttribute('class', 'error');
-
-            //add a new div element as a child node of the div element with corresponding id
-            var subDivLabel = document.createElement('div');
-            subDivLabel.className = 'errorln';
-            subDivLabel.innerHTML = 'Please enter your ' + name + '!';
-            divLabel.appendChild(subDivLabel);
-            }
-
-        function checkInputs(event) {
-            //first remove error messages
-            var errorDiv = document.querySelectorAll('div div');
-            var errorHeader = document.querySelectorAll('.error');
-            //remove the classes from each label
-            if (errorHeader){
-                errorHeader.forEach(function(element) {
-                    element.classList.remove('error');
-                });
-            }
-            //remove error message line
-            if (errorDiv){
-                errorDiv.forEach(function(element) {
-                    element.remove();
-                });
-            }
-            //remove bottom error output 
-            document.getElementById('output').innerHTML = ' ';
-
-            //initialize varibles
-            var frmObject = document.forms[0];
-            var output = "Please correct the errors on the page.";
-            var checkError = false;
-
-            //check the full name text box.
-            //If there is an error, set checkError to true and add a new text node for the error message
-            if (frmObject.fullName.value.trim() == '') {
-                errorHandle('theName', 'fullname', 0);
-                //update the checkError value to true
-                checkError = true;  
-            }
-
-            //check the address text area
-            //If there is an error, set checkError to true and add a new text node for the error message
-            if (frmObject.address.value.trim() == '') {
-                errorHandle('theAddress', 'address', 1);
-                //update the checkError value to true
-                checkError = true;
-            }
-
-            //check the gender radio button
-            //If there is an error, set checkError to true and add a new text node for the error message
-            if (frmObject.gender.value == '') {
-                errorHandle('thegender', 'gender', 2);
-                //update the checkError value to true
-                checkError = true;
-            }
-            
-            //check the major dropdown selection
-            //If there is an error, set checkError to true and add a new text node for the error message
-            if (frmObject.major.value == '') {
-                errorHandle('themajor', 'major', 3);
-                //update the checkError value to true
-                checkError = true;
-            }
-
-            //check the date of birth input value
-            //If there is an error, set checkError to true and add a new text node for the error message
-            if (frmObject.year.value < 1900 || frmObject.year.value > 2022) {
-                errorHandle('theyear', 'year', 4);
-                //update the checkError value to true
-                checkError = true;
-            }
-
-            
-            //stop the event from continuing if errors exist
-            if (checkError) {
-                event.preventDefault();
-                document.getElementById("output").innerHTML = output;
-            }
-        }
-
-        function init() {
-            //specify the function checkInputs as the event listner for the submit event of the form element
-            //first get the reference to the form element
-            var form1 = document.getElementsByTagName("form")[0];
-            //then define an event handler for the submit event of the form object
-            form1.addEventListener("submit", checkInputs);
-        }
-
-        //Define the DOMContentLoaded event handler, which will be triggered after the document finishes loading
-        document.addEventListener("DOMContentLoaded", init);
+        $(function(){
+            $('form div').addClass('mb-3');
+            $('input, textarea, select').addClass('form-control');
+            // $('#gender').addClass('form-check');
+            $('input[type=radio]').addClass('form-check-input').removeClass('form-control');
+        })
     </script>
 </head>
 
@@ -155,28 +75,37 @@
           </ul>
     </div>
 
-    <p class="title">Let me know you, my friend!</p>
+    <p class="title long">Let me know you, my friend!</p>
 
     <form id="formDiv" name="myForm" method="post" action="success.html">  <!-- target="iframe" use to test-->
         <div id="theName">
-            <strong>Full Name:</strong><br/>
-            <input type="text" name="fullName" size="20"/><br/>
+            <label for="fullName"><strong>Full Name:</strong></label>
+            <input id="fullName" class="form-control" type="text" name="fullName" size="20"/>
         </div>
 
         <div id="theAddress">
             <strong>Address:</strong><br />
-            <textarea name="address" rows="3" cols="25"></textarea><br/>
+            <textarea name="address" rows="3"></textarea>
+            <!-- ,cols="25" -->
         </div>
 
         <div id="gender"><strong>Gender:</strong></div>
         <div id="thegender">
-            <input type="radio" name="gender" value="male" />Male
-            <input type="radio" name="gender" value="female" />Female
-            <input type="radio" name="gender" value="other" />Other
-            <input type="radio" name="gender" value="notdisclosed" />Prefer not to say<br/>
+            <label for="">
+                <span><input type="radio" name="gender" value="male" />Male</span>
+            </label>
+            <label for="">
+                <span><input type="radio" name="gender" value="female" />Female</span>
+            </label>
+            <label for="">
+                <span><input type="radio" name="gender" value="other" />Other</span>
+            </label>
+            <label>
+                <span><input type="radio" name="gender" value="notdisclosed" />Prefer not to say<br/></span>
+            </label>
         </div>
         <br/>
-        <div id="themajor"><strong>What is your major of study or area of expertise?</strong>
+        <div id="themajor"><strong>Major of study / Area of expertise</strong>
             <select name="major">
                 <option value="" selected>Undecided</option>
                 <option value="ACC">Accounting</option>
@@ -188,16 +117,15 @@
             </select>
         </div>
         <br/>
-        <div id="year">
-            <strong>What is your date of birth?</strong>
-        </div>
         <div id="theyear">
-            <input type="number" name="year" size="20" /><br/>
+            <strong>Date of birth</strong>
+            <input type="number" name="year" size="20" />
         </div>
         <br>
         <input type="submit" name="submit" value="Submit"/>
+        <div id="output"></div>
     </form>
-    <div id="output"></div>
+    
     <!-- <iframe id="iframe" name="iframe" style="display:none;"></iframe> -->
 </body>
 </html>

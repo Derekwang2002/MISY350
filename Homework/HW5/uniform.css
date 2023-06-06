@@ -1,6 +1,5 @@
 p.title {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 80px;
     font-weight: bolder;
     text-align: center;
 }
@@ -19,6 +18,43 @@ p.title {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-left: 5%;
-    margin-right: 5%; */
 }
+@media (min-width: 0px) {
+    p.title {
+        font-size: 50px;
+    }
+    p.long {
+        font-size: 30px;
+    }
+    p.middle, #notation {
+        font-size: medium;
+    }
+    #foot {
+        font-size: small;
+    }
+} 
+@media (min-width: 640px) {
+    p.title {
+        font-size: 80px;
+    }
+    p.long {
+        font-size: 50px;
+    }
+    p.middle, #notation {
+        font-size: large;
+    }
+    #foot {
+        font-size: medium;
+    }
+}
+@media (min-width: 1200px) {
+    p.title {
+        font-size: 120px;
+    }
+    p.long {
+        font-size: 80px;
+    }
+    #foot {
+        font-size: large;
+    }
+}   
