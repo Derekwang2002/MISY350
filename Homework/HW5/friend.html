@@ -7,7 +7,6 @@
     <script src="jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src=""></script>
     <title>Client-side input validation</title>
     <style>
         /*the CSS style applies to all html elements with class='error'*/
@@ -28,7 +27,7 @@
             margin: 8px 0;
             border: none;
             border-radius: 4px;
-            cursor: pointer;
+            /* cursor: pointer; */
             font-size: large;
             font-weight: bold;
         }
@@ -69,7 +68,7 @@
                 });
             }
             //remove bottom error output 
-            document.getElementById('output').innerHTML = '';
+            document.getElementById('output').innerHTML = ' ';
 
             //initialize varibles
             var frmObject = document.forms[0];
@@ -116,6 +115,7 @@
                 checkError = true;
             }
 
+            
             //stop the event from continuing if errors exist
             if (checkError) {
                 event.preventDefault();
@@ -157,9 +157,8 @@
 
     <p class="title">Let me know you, my friend!</p>
 
-    <div id="formDiv">
-    <form name="myForm" method="post" action="success.html">  <!-- target="iframe" use to test-->
-        <div id="theName" class="mb-3">
+    <form id="formDiv" name="myForm" method="post" action="success.html">  <!-- target="iframe" use to test-->
+        <div id="theName">
             <strong>Full Name:</strong><br/>
             <input type="text" name="fullName" size="20"/><br/>
         </div>
@@ -197,9 +196,8 @@
         </div>
         <br>
         <input type="submit" name="submit" value="Submit"/>
-        <div id="output"></div>
     </form>
-    </div>
+    <div id="output"></div>
     <!-- <iframe id="iframe" name="iframe" style="display:none;"></iframe> -->
 </body>
 </html>
