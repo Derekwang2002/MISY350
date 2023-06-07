@@ -196,3 +196,84 @@ fruits = ["apple", "banana", "cherry"]
 print(len(fruits))
 
 48.
+fruits = ("apple", "banana", "cherry")
+print(fruits[0])
+
+49.
+fruits = ("apple", "banana", "cherry")
+print(len(fruits))
+
+50.
+fruits = ("apple", "banana", "cherry")
+print(fruits[-1])
+
+51.
+fruits = ("apple", "banana", "cherry", "orange", "kiwi", "melon", "mango")
+print(fruits[2:5])
+
+52.
+fruits = {"apple", "banana", "cherry"}
+if "apple" in fruits:
+  print("Yes, apple is a fruit!")
+
+53.
+fruits = {"apple", "banana", "cherry"}
+fruits.add("orange")
+
+54.
+fruits = {"apple", "banana", "cherry"}
+more_fruits = ["orange", "mango", "grapes"]
+fruits.update(more_fruits)
+
+55.
+fruits = {"apple", "banana", "cherry"}
+fruits.remove("banana")
+
+56.
+fruits = {"apple", "banana", "cherry"}
+fruits.discard("banana")
+
+57.
+car =	{
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+print(car.get("model"))
+
+58.
+car =	{
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+car['year'] = 2020
+
+59.
+car =	{
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+car["color"] = "red"
+
+60.
+car =	{
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+car.pop("model")
+
+61.
+car =	{
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+car.clear()
+
+62.
+
+
+
