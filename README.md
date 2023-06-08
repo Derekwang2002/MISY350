@@ -45,9 +45,13 @@ Only includes very basic knowledge for web development.
   - usage
     - object, selector, filter, action/events
     - manipulating HTML and CSS
+  - RWD/Boosttrap
+  - Python
+  - SQL
 
 ## Entrance of demo page
 - [HW1&2/Home Page](https://derekwang2002.github.io/MISY350/station/home.html)
 - [HW3/Form Validation](https://derekwang2002.github.io/MISY350/Homework/HW3/HW3Q3.html)
 - [HW4/Dynamic countDownClock&image](https://derekwang2002.github.io/MISY350/Homework/HW4/HW4Q1-2.html)
+- [HW5/Bootstrap beautify](https://derekwang2002.github.io/MISY350/Homework/HW5/about_me.html)
 
