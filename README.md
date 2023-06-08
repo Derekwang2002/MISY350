@@ -45,9 +45,9 @@ Only includes very basic knowledge for web development.
   - usage
     - object, selector, filter, action/events
     - manipulating HTML and CSS
-  - RWD/Boosttrap
-  - Python
-  - SQL
+- RWD/Boosttrap
+- Python
+- SQL
 
 ## Entrance of demo page
 - [HW1&2/Home Page](https://derekwang2002.github.io/MISY350/station/home.html)
