@@ -1,145 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About me</title>
-    <!-- references -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="uniform.css">
-    <script src="jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <!-- icon -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About me</title>
+  <!-- references -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="uniform.css">
+  <script src="jquery-3.1.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <!-- icon -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    p {
+      max-width: 60%; 
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
-<body>
-    <div id="navDiv" class="content container-fluid">
-        <ul id="nav" class="nav nav-pills nav-justified">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="home.html">Home</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Service</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="information.html">Facts</a></li>
-                  <li><a class="dropdown-item" href="friend.html">Friend Registration</a></li>
-                </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="about_me.html">About</a>
-            </li>
-          </ul>
-    </div>
-    <p class="title">About me</p>
-    <nav>
-        <a href="home.html">Home</a> |
-        <a href="https://derekwang2002.github.io/my-1st-pages/">Github page</a> |
-        <a href="mailto:derekwang0282@Gmail.com">Email</a> |
-        <a href="tel:189-0646-1972">Phone</a>
-    </nav>
 
-    <div class="flex flex-wrap text-center">
-        <div class="w-full pt-4">
-          <div>
-    
-            <a href="https://twitter.com/harryjwang" target="_blank">
+<body>
+  <div id="navDiv" class="content container-fluid">
+    <ul id="nav" class="nav nav-pills nav-justified">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="home.html">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+          aria-expanded="false">Service</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="information.html">Facts</a></li>
+          <li><a class="dropdown-item" href="friend.html">Friend Registration</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="about_me.html">About</a>
+      </li>
+    </ul>
+  </div>
+  <p class="title">About me</p>
+
+  <div class="flex flex-wrap text-center">
+    <div class="w-full pt-4">
+      <div>
+
+        <!-- <a href="#" target="_blank">
               <button
                 class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button">
                 <i class="fab fa-twitter"></i>
               </button>
-            </a>
-            
-            <a href="https://github.com/Derekwang2002" target="_blank">
-              <button
-                class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                type="button">
-                <i class="fab fa-github"></i>
-              </button>
-            </a>
-            
-            <a href="https://www.linkedin.com/in/harryjwang/" target="_blank">
+            </a> -->
+
+        <a href="https://github.com/Derekwang2002" target="_blank">
+          <button
+            class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+            type="button">
+            <i class="fab fa-github"></i>
+          </button>
+        </a>
+
+        <!-- <a href="https://www.linkedin.com/in/harryjwang/" target="_blank">
               <button
                 class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                 type="button">
                 <i class="fab fa-linkedin"></i>
               </button>
-            </a>
-            
-            <a href="https://opensea.io/harryjwang.eth" target="_blank">
-              <button
-                class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                type="button">
-                <i class="fab fa-ethereum"></i>
-              </button>
-            </a>
-            
-            <a href="/feed.xml" target="_blank">
-              <button
-                class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                type="button">
-                <i class="fas fa-rss"></i>
-              </button>
-            </a>
+            </a> -->
 
-          </div>
-        </div>
+        <a href="mailto:derekwang0282@Gmail.com" target="_blank">
+          <button
+            class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+            type="button">
+            <i class="fa fa-envelope"></i>
+          </button>
+        </a>
+
+        <a href="wechat_QRcode.html" target="_blank">
+          <button
+            class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+            type="button">
+            <i class="fab fa-weixin"></i>
+          </button>
+        </a>
+
+      </div>
     </div>
+  </div>
 
-    <article>
-        <section>
-            <p>Hey, this is Derek.</p>
-            <p>
-                I came from <b>Shandong Province</b>, 
-                and recently taking undergraduate degree at 
-                <b>Southwest University of Finance and Economics</b>  in Chengdu.
-                <br>I major in MIS (Management Information System) at SWUFE-UD college, 
-                which is a coorporation project delivered by University of Delaware and Southwest University of Finance and Economics.
-            </p>
-        </section>
-    
-        <!-- wbr at here -->
-        <section>
-            <h2>A travel to Kunming</h2>
-            <p>During the labor<wbr>-day holiday, we went to Kunming.</p>
-            <p>On the train to Kunming, 
-                I got a message of Sinloy from wechat saying they're going to 
-                open a new cafe in Kunming. So we decide to go there as the first 
-                destination of our vacation.
-            </p>
-            <figure>
-                <img src="pictures/infrontSinloy.jpeg" alt="infrontSinoy" width="300" height="400">
-                <figcaption>Fig.1 - I'm standing in front of Sinloy cafe</figcaption>
-            </figure>
-        </section>
+  <!-- dividor -->
+  <div class="relative my-8">
+    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+      <div class="mx-auto w-3/5 border-t border-gray-200"></div>
+    </div>
+    <div class="relative flex justify-center ">
+      <span class="bg-white px-2 text-gray-200">
+        <i class="text-xs far fa-square"></i>
+      </span>
+    </div>
+  </div>
 
-        <aside>
-            By the way, I highly recommend you to try sinloy coffee(on taobao.com)
-        </aside>
+  <!-- content -->
+  <div class="px-4 pt-4 prose prose-indigo">
+    <p>
+      I came from <b>Shandong Province</b>,
+      and recently taking undergraduate degree at
+      <b>Southwest University of Finance and Economics</b> in Chengdu.
+      <br>I major in MIS (Management Information System) at SWUFE-UD college,
+      which is a coorporation project delivered by University of Delaware and Southwest University of Finance and
+      Economics.
+    </p>
+  </div>
 
-        <details>
-            <summary>click to see its taobao shop</summary>
-            <a href="https://sinloy.tmall.com/shop/view_shop.htm?spm=pc_detail.27183998.202202.1.2bda7dd6BFFTN9">
-                taobao shop of sinoy
-            </a>
-            <br>
-            <label for="rate">rating 4.8 out of 5:</label>
-            <meter id="rate" value="4.8" min="0" max="5">rating 4.8 out of 5</meter><br>
-        </details>
+  <div id="markdown-container">
+    <script>
+      // Fetch the Markdown content from the file
+      fetch('about_me.md')
+        .then(response => response.text())
+        .then(markdownContent => {
+          // Convert Markdown to HTML using marked.js
+          var htmlContent = marked(markdownContent);
+  
+          // Insert the HTML content into the container
+          var container = document.getElementById('markdown-container');
+          container.innerHTML = htmlContent;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    </script>
+  </div>
 
 
 
-        <footer>
-            <p>Author: Derek Wang</p>
-        </footer>
-    </article>
-    
+    <!-- <details>
+      <summary>click to see its taobao shop</summary>
+      <a href="https://sinloy.tmall.com/shop/view_shop.htm?spm=pc_detail.27183998.202202.1.2bda7dd6BFFTN9">
+        taobao shop of sinoy
+      </a>
+      <br>
+      <label for="rate">rating 4.8 out of 5:</label>
+      <meter id="rate" value="4.8" min="0" max="5">rating 4.8 out of 5</meter><br>
+    </details> -->
+
+
+
+
+
 </body>
+
 </html>

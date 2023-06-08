@@ -1,4 +1,6 @@
 $(function(){
+    $('.card').addClass('shadow-lg');
+
     var classCircle = 'rounded-circle image-fluid'; //need these classes to make it a circle
     $('#convert').click(function(){
         if($('img').hasClass(classCircle)){
