@@ -31,6 +31,22 @@ h6 {
 div.card-body {
     text-align: center;
 }
+
 .g-0 .card-body {
     padding: 0;
 }
+
+/* #box{
+    perspective: 3px;
+}
+.row {
+    transform-style: preserve-3d;
+}
+
+.col-md-3 {
+    transform: translateZ(-1px);
+}
+
+.col-md-2 {
+    transform: translateZ(0px);
+} */

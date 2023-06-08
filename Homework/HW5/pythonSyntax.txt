@@ -274,6 +274,127 @@ car =	{
 car.clear()
 
 62.
+a = 50
+b = 10
+if a > b:
+  print("Hello World")
 
+63.
+a = 50
+b = 10
+if a != b:
+  print("Hello World")
 
+64.
+a = 50
+b = 10
+if a == b:
+  print("Yes")
+else:
+  print("No")
 
+65.
+a = 50
+b = 10
+if a == b:
+  print("1")
+elif a > b:
+  print("2")
+else:
+  print("3")
+
+66.
+
+if a == b and c == d:
+  print("Hello")
+
+67.
+if a == b or c == d:
+  print("Hello")
+
+68.
+if 5 > 2:
+    print("Five is greater than two!")
+
+69.
+if 5 > 2: print("Five is greater than two!")
+
+70.
+print("Yes") if 5 > 2 else print("No")
+
+71.
+i = 1
+while i < 6:
+  print(i)
+  i += 1
+
+72.
+i = 1
+while i < 6:
+  if i == 3:
+    break
+  i += 1
+
+73.
+i = 0
+while i < 6:
+  i += 1
+  if i == 3:
+    continue
+  print(i)
+
+74.
+i = 1
+while i < 6:
+  print(i)
+  i += 1
+else:
+  print("i is no longer less than 6")
+
+75.
+fruits = ["apple", "banana", "cherry"]
+for x in fruits:
+  print(x)
+
+76.
+fruits = ["apple", "banana", "cherry"]
+for x in fruits:
+  if x == "banana":    
+    continue
+  print(x)
+
+77.
+for x in range(6):
+  print(x)
+
+78.
+fruits = ["apple", "banana", "cherry"]
+for x in fruits:
+  if x == "banana":
+    break
+  print(x)
+
+79.
+def my_function():
+  print("Hello from a function")
+
+80.
+def my_function():
+  print("Hello from a function")
+my_function()
+
+81.
+def my_function(fname, lname):
+  print(fname)
+
+82.
+def my_function(x):
+  return x + 5
+ 
+83.
+def my_function(*kids):
+  print("The youngest child is " + kids[2])
+
+84.
+def my_function(**kid):
+  print("His last name is " + kid["lname"])
