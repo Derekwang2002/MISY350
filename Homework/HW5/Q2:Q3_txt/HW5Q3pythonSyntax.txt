@@ -398,3 +398,6 @@ def my_function(*kids):
 84.
 def my_function(**kid):
   print("His last name is " + kid["lname"])
+
+85.
+x = lambda a : a
