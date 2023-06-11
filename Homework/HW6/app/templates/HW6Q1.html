@@ -1,0 +1,87 @@
+{% extends "layouts/inner_base.html" %}
+
+{% block title %} New Product {% endblock title %}
+
+{% block content %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <ol>
+                <li><a href="/">Home</a></li> <!-- index.html -->
+                <li>New Product</li>
+            </ol>
+            <h2>Register New Product</h2>
+
+        </div>
+
+        <!-- a productID (integer), a product name(string), a supplierID (integer, note that this is a foreign key attribute referencing the supplierID primary key attribute in the suppliers table), and a categoryID (an integer between [1-8]), units in stock (integer), and a unit price (decimal). -->
+
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+        <div class="container">
+            <div>
+                {%with messages = get_flashed_messages(with_categories=true)%}
+                {%if messages%}
+                    {%for message in messages%}
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        {{message}}
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                    </div>
+                    {%endfor%}
+                {%endif%}
+                {%endwith%}
+            </div>
+             <form method="post" class="row g-2"> 
+                <!--action="/submitted" -->
+                <div class="col-md-4 form-floating">
+                    <input type="text" name="productID" class="form-control" id="productID" placeholder="unknown">
+                    <label for="productID" class="form-label">Product ID</label>
+                </div>
+                <div class="col-md-4 form-floating">
+                    <select id="supplierID" class="form-control" name="supplierID">
+                        {% for supplier in suppliers %}
+                        <option value="{{ supplier.SupplierID }}">{{ supplier.CompanyName }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="supplierID" class="form-label">Supplier ID</label>
+                </div>
+                <div class="col-md-4 form-floating">
+                    <select id="categoryID" class="form-select" name="categoryID">
+                        <option value="-1">Choose</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                    <label for="categoryID" class="form-label">Category ID</label>
+                </div>
+                <div class="form-floating mb-3 col-md-8">
+                    <input type="text" class="form-control" id="productName" name="productName" placeholder="unknown">
+                    <label for="productName" class="form-label">Product Name</label>
+                </div>
+                <div class="form-floating mb-3 col-md-2">
+                    <input type="text" class="form-control" id="unitStock" name="unitStock" placeholder="unknown">
+                    <label for="unitStock" class="form-label">Unit in Stock</label>
+                </div>
+                <div class="form-floating mb-3 col-md-2">
+                    <input type="text" class="form-control" id="unitPrice" name="unitPrice" placeholder="unknown">
+                    <label for="unitPrice" class="form-label">Unit Price</label>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Registe</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+{% endblock content %}
