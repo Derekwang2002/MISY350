@@ -1,7 +1,7 @@
 # MISY350
 > For reference only, directly copy code in this repository as assignment submission is not allowed!
 
-Only includes very basic knowledge for web development.
+Basic knowledge for web development.
 
 ## Items
 - On-class demo
@@ -48,6 +48,7 @@ Only includes very basic knowledge for web development.
 - RWD/Boosttrap
 - Python
 - SQL
+- Flask app
 
 ## Entrance of demo page
 - [HW1&2/Home Page](https://derekwang2002.github.io/MISY350/station/home.html)
