@@ -23,26 +23,22 @@
 
     <section class="inner-page">
         <div class="container">
-            <div>
-                {%with messages = get_flashed_messages(with_categories=true)%}
-                {%if messages%}
-                    {%for message in messages%}
-                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
-                        {{message}}
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                    </div>
-                    {%endfor%}
-                {%endif%}
-                {%endwith%}
-            </div>
-             <form method="post" class="row g-2"> 
-                <!--action="/submitted" -->
+
+             <form method="post" class="row g-2" action="{{ url_for('submitted') }}"> 
+                <!-- action="{{ url_for('submitted') }}" -->
                 <div class="col-md-4 form-floating">
-                    <input type="text" name="productID" class="form-control" id="productID" placeholder="unknown">
+                    <!-- <input type="text" name="productID" class="form-control" id="productID" placeholder="unknown"> -->
+                    <select name="productID" id="productID" class="form-control">
+                        <option value="">Adding new product</option>
+                        {% for productID in productsIDs %}
+                        <option value="{{ productID.ProductID }}">{{ productID.ProductID }}</option>
+                        {% endfor %}
+                    </select>
                     <label for="productID" class="form-label">Product ID</label>
                 </div>
                 <div class="col-md-4 form-floating">
                     <select id="supplierID" class="form-control" name="supplierID">
+                        <option value="">Choose</option>
                         {% for supplier in suppliers %}
                         <option value="{{ supplier.SupplierID }}">{{ supplier.CompanyName }}</option>
                         {% endfor %}
@@ -51,7 +47,7 @@
                 </div>
                 <div class="col-md-4 form-floating">
                     <select id="categoryID" class="form-select" name="categoryID">
-                        <option value="-1">Choose</option>
+                        <option value="">Choose</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -79,6 +75,20 @@
                     <button type="submit" class="btn btn-primary">Registe</button>
                 </div>
             </form>
+
+            <div>
+                <br>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {%for message in messages%}
+                        <div class="alert alert-danger alert-dismissable" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
         </div>
     </section>
 
