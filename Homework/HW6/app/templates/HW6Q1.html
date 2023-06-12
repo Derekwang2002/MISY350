@@ -1,6 +1,6 @@
 {% extends "layouts/inner_base.html" %}
 
-{% block title %} New Product {% endblock title %}
+{% block title %} Products {% endblock title %}
 
 {% block content %}
 <main id="main">
@@ -11,7 +11,7 @@
 
             <ol>
                 <li><a href="/">Home</a></li> <!-- index.html -->
-                <li>New Product</li>
+                <li>Products</li>
             </ol>
             <h2>Register New Product</h2>
 
@@ -24,68 +24,125 @@
     <section class="inner-page">
         <div class="container">
 
-             <form method="post" class="row g-2" action="{{ url_for('submitted') }}"> 
-                <!-- action="{{ url_for('submitted') }}" -->
+            <!-- <div>
+                {{pcategories}}
+            </div> -->
+
+            <form method="post" class="row g-2" action="{{ url_for('submitted') }}">
                 <div class="col-md-4 form-floating">
                     <!-- <input type="text" name="productID" class="form-control" id="productID" placeholder="unknown"> -->
                     <select name="productID" id="productID" class="form-control">
                         <option value="">Adding new product</option>
-                        {% for productID in productsIDs %}
-                        <option value="{{ productID.ProductID }}">{{ productID.ProductID }}</option>
+                        {% for product in products %}
+                        <option value="{{product.ProductID}}" {% if pid %}{% if pid|int==product.ProductID %}selected{%
+                            endif %}{% endif %}>{{ product.ProductName }} ({{ product.ProductID }})</option>
                         {% endfor %}
                     </select>
-                    <label for="productID" class="form-label">Product ID</label>
+                    <label for="productID" class="form-label" id="productIDLabel">Product Name(ID)</label>
                 </div>
                 <div class="col-md-4 form-floating">
                     <select id="supplierID" class="form-control" name="supplierID">
                         <option value="">Choose</option>
                         {% for supplier in suppliers %}
-                        <option value="{{ supplier.SupplierID }}">{{ supplier.CompanyName }}</option>
+                        <option value="{{supplier.SupplierID}}" {% if sid %}{% if sid|int==supplier.SupplierID
+                            %}selected{% endif %}{% endif %}>{{ supplier.CompanyName }} ({{ supplier.SupplierID }})
+                        </option>
                         {% endfor %}
                     </select>
-                    <label for="supplierID" class="form-label">Supplier ID</label>
+                    <label for="supplierID" class="form-label" id="supplierIDLabel">Supplier Name(ID)</label>
                 </div>
                 <div class="col-md-4 form-floating">
                     <select id="categoryID" class="form-select" name="categoryID">
                         <option value="">Choose</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
+                        {% for pcategory in pcategories %}
+                        <option value="{{pcategory.CategoryID}}" {% if cid %}{% if cid|int==pcategory.CategoryID %}selected{% endif %}{% endif
+                            %}>{{ pcategory.CategoryID }}
+                        </option>
+                        {% endfor %}
                     </select>
-                    <label for="categoryID" class="form-label">Category ID</label>
+                    <label for="categoryID" class="form-label" id="categoryIDLabel">Category ID</label>
                 </div>
                 <div class="form-floating mb-3 col-md-8">
-                    <input type="text" class="form-control" id="productName" name="productName" placeholder="unknown">
-                    <label for="productName" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="productName" name="productName" placeholder="unknown"
+                        value="{{pname}}">
+                    <label for="productName" class="form-label" id="productNameLabel">New Product Name</label>
                 </div>
                 <div class="form-floating mb-3 col-md-2">
-                    <input type="text" class="form-control" id="unitStock" name="unitStock" placeholder="unknown">
-                    <label for="unitStock" class="form-label">Unit in Stock</label>
+                    <input type="text" class="form-control" id="unitStock" name="unitStock" placeholder="unknown"
+                        value="{{ustock}}">
+                    <label for="unitStock" class="form-label" id="unitStockLabel">Unit in Stock</label>
                 </div>
                 <div class="form-floating mb-3 col-md-2">
-                    <input type="text" class="form-control" id="unitPrice" name="unitPrice" placeholder="unknown">
-                    <label for="unitPrice" class="form-label">Unit Price</label>
+                    <input type="text" class="form-control" id="unitPrice" name="unitPrice" placeholder="unknown"
+                        value="{{uprice}}">
+                    <label for="unitPrice" class="form-label" id="unitPriceLabel">Unit Price</label>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Registe</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                 </div>
             </form>
+
+            <br><br><br>
+
+            <nav class="navbar bg-body-tertiary">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h1">Input Information</span>
+                </div>
+            </nav>
+
+            <br>
+
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Supplier ID</th>
+                            <th>Category ID</th>
+                            <th>New Product Name</th>
+                            <th>Unit in Stock</th>
+                            <th>Unit Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{% if pid %} {{ pid }} {% else %} no input (new product){% endif %}</td>
+                            <td>{% if sid %} {{ sid }} {% else %} no input {% endif %}</td>
+                            <td>{% if cid %} {{ cid }} {% else %} no input {% endif %}</td>
+                            <td>{% if pname %} {{ pname }} {% else %} invalid input {% endif %}</td>
+                            <td>{% if ustock %} {{ ustock }} {% else %} invalid input {% endif %}</td>
+                            <td>{% if uprice %} {{ uprice }} {% else %} invalid input {% endif %}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div>
                 <br>
                 {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        {%for message in messages%}
-                        <div class="alert alert-danger alert-dismissable" role="alert">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
-                    {% endif %}
+                {% if messages %}
+                {%for message in messages%}
+                {% if message[1] == 'error' %}
+                <!-- <div class="alert alert-danger alert-dismissable" role="alert">
+                                {{ message[0] }}
+                            </div> 
+                            <p>There is error for {{message}}</p> -->
+                <script>
+                    // sub div
+                    var errorDiv = document.getElementById('{{message[2]}}').parentNode;
+                    var subDiv = document.createElement('div');
+                    subDiv.setAttribute('id', '{{message[2]}}ErrorLn'); // subDiv id
+                    subDiv.className = 'invalid-feedback';
+                    subDiv.innerHTML = '{{message[0]}}';
+                    errorDiv.appendChild(subDiv);
+                    // input
+                    var errorInput = document.getElementById('{{message[2]}}');
+                    errorInput.classList.add('is-invalid');
+                    errorInput.setAttribute('aria-describedby', '{{message[2]}}Label {{message[2]}}ErrorLn');
+                </script>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
                 {% endwith %}
             </div>
 

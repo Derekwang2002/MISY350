@@ -2,7 +2,7 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+import re
 # Flask modules
 from flask   import render_template, request, redirect, url_for, flash, session, flash
 from jinja2  import TemplateNotFound
@@ -21,7 +21,9 @@ def index():
 def submitted(): # root function
     if request.method == 'POST':
         suppliers = Suppliers.query.all()
-        productsIDs = Products.query.all()
+        products = Products.query.all() 
+        pcategories = db.session.query(Products.CategoryID).distinct().all() 
+        # .order_by(Products.CategoryID.asc()) # distinc() will automatically order
 
         form_is_valid = True
         pid = request.form.get('productID')
@@ -31,69 +33,72 @@ def submitted(): # root function
         ustock = request.form.get('unitStock')
         uprice = request.form.get('unitPrice')
 
+        # form validation
         if pname == '':
-            flash('Please enter Product Name!')
+            flash(['Please enter Product Name!', 'error', 'productName'])
             form_is_valid = False
         if sid == '':
-            flash('Please enter Supplier ID!')
+            flash(['Please enter Supplier ID!', 'error', 'supplierID'])
             form_is_valid = False
         if cid == '':
-            flash('Please enter Category ID!')
+            flash(['Please enter Category ID!', 'error', 'categoryID'])
             form_is_valid = False
         if uprice == '':
-            flash('Please enter unit price!')
+            flash(['Please enter unit price!', 'error', 'unitPrice'])
             form_is_valid = False          
-        elif float(uprice) < 0:
-            flash('Please enter positive decimal unit price!')
+        elif not re.search(r'(^[0-9]\d*\.?\d*$)', uprice): 
+            flash(['Positive decimal only!', 'error', 'unitPrice'])
             form_is_valid = False
         if ustock == '':
-            flash('Please enter unit in stock!')
+            flash(['Please enter unit in stock!', 'error', 'unitStock'])
             form_is_valid = False
-        elif int(ustock) < 0:
-            flash('Please enter positive integer unit in stock!')
+        elif not re.search(r'^\d*$', ustock): 
+            flash(['Positive integer only!', 'error', 'unitStock'])
             form_is_valid = False
 
         if not form_is_valid:
-            return render_template('HW6Q1.html', suppliers=suppliers, productsIDs=productsIDs)
+            return render_template(
+                'HW6Q1.html', 
+                suppliers=suppliers, products=products, pcategories=pcategories, 
+                pid=pid, sid=sid, cid=cid, pname=pname , ustock=ustock, uprice=uprice
+            )
         else:
-            return render_template('HW6Q1.2.html')
-            #return redirect(url_for(new_product))
+            ## database manipulate
+            if not pid:
+                add_product = Products(ProductName=pname, SupplierID=sid, CategoryID=cid, UnitPrice=uprice, UnitsInStock=ustock)
+                db.session.add(add_product)
+                db.session.commit()
+                db.session.refresh(add_product)
+                flash(f'A new product: {pname}(ID:{add_product.ProductID}) is added to the database')
+                return render_template(
+                    'HW6Q1.2.html',
+                    suppliers=suppliers, products=products, pcategories=pcategories, 
+                    pid=pid, sid=sid, cid=cid, pname=pname , ustock=ustock, uprice=uprice
+                )
+            else:
+                pid = int(pid)
+                existing_product = Products.query.get(pid)
+                existing_product.ProductName = pname
+                existing_product.SupplierID = sid
+                existing_product.CategoryID = cid
+                existing_product.UnitPrice = uprice
+                existing_product.UnitsInStock = ustock
+                db.session.commit()
+                flash(f'The product {pname}(ID:{pid}) has been updated')
+                return render_template(
+                    'HW6Q1.2.html',
+                    suppliers=suppliers, products=products, pcategories=pcategories, 
+                    pid=pid, sid=sid, cid=cid, pname=pname , ustock=ustock, uprice=uprice
+                )
 
-    ## database manipulate
-        # if not pid:
-        if False:
-            add_product = Products(ProductID=pid)
-            db.session.add(add_product)
-            db.session.commit()
-            db.session.refresh(add_product)
-            flash(f'A new product: {add_product.ProductID} {pname}')
-            return render_template('HW6Q1.2.html')
-        elif False:
-            pid = int(pid)
-            existing_product = Products.query.get(pid)
-            existing_product.ProductName = pname
-            existing_product.SupplierID = sid
-            existing_product.CategoryID = cid
-            existing_product.UnitPrice = uprice
-            existing_product.UnitInStock = ustock
-            db.session.commit()
-            flash(f'The product {pname}(ID:{pid}) has been updated')
-            return render_template('HW6Q1.2.html')
-
-        
-        
+    flash('nothing happened')        
     return render_template('HW6Q1.2.html')
 
-# This page is for HW6Q1
+# Page for HW6Q1
 @app.route('/new_product', methods = ['GET', 'POST'])
 def new_product():
     suppliers = Suppliers.query.all()
-    productsIDs = Products.query.all()
-    return render_template('HW6Q1.html', suppliers=suppliers, productsIDs=productsIDs)
-
-
-# def test():
-#     fstsid = Suppliers.query.get(1).SupplierID
-#     print('Successful retireved' + str(fstsid))
-#     return render_template('HW6Q1.html', fstsid=fstsid)
-
+    products = Products.query.all()
+    pcategories = db.session.query(Products.CategoryID).distinct().all()
+    # pcategories = Products.query.with_entities(Products.CategoryID).distinct(Products.CategoryID).all() # has same output
+    return render_template('HW6Q1.html', suppliers=suppliers, products=products, pcategories=pcategories)

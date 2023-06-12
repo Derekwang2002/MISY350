@@ -1,22 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        {%with messages = get_flashed_messages()%}
+{% extends "layouts/inner_base.html" %}
+
+{% block title %} Products {% endblock title %}
+
+{% block content %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <ol>
+                <li><a href="/">Home</a></li> <!-- index.html -->
+                <li>Products</li>
+            </ol>
+            <h2>Successfully submitted!</h2>
+
+        </div>
+
+        <!-- a productID (integer), a product name(string), a supplierID (integer, note that this is a foreign key attribute referencing the supplierID primary key attribute in the suppliers table), and a categoryID (an integer between [1-8]), units in stock (integer), and a unit price (decimal). -->
+
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+        <div class="container">
+            {%with messages = get_flashed_messages()%}
+            <!-- with_categories=true -->
             {%if messages%}
-                {%for message in messages%}
-                <div>
-                    {{message}}
-                </div>
-                {%endfor%}
+            {%for message in messages%}
+            {{message}}
+            {%endfor%}
             {%endif%}
-        {%endwith%}
-    </div>
-</body>
-</html>
+            {%endwith%}
+            <br>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Supplier ID</th>
+                        <th>Category ID</th>
+                        <th>New Product Name</th>
+                        <th>Unit in Stock</th>
+                        <th>Unit Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{% if pid %} {{ pid }} {% else %} no input (new product){% endif %}</td>
+                        <td>{% if sid %} {{ sid }} {% else %} no input {% endif %}</td>
+                        <td>{% if cid %} {{ cid }} {% else %} no input {% endif %}</td>
+                        <td>{% if pname %} {{ pname }} {% else %} invalid input {% endif %}</td>
+                        <td>{% if ustock %} {{ ustock }} {% else %} invalid input {% endif %}</td>
+                        <td>{% if uprice %} {{ uprice }} {% else %} invalid input {% endif %}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+{% endblock content %}
