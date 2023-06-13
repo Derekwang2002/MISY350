@@ -17,6 +17,20 @@ from app.models import Suppliers, Products
 def index():
     return render_template('index.html')
 
+# Page for HW6Q1
+@app.route('/new_product')
+def new_product():
+    suppliers = Suppliers.query.all()
+    products = Products.query.all()
+    pcategories = db.session.query(Products.CategoryID).distinct().all()
+    # pcategories = Products.query.with_entities(Products.CategoryID).distinct(Products.CategoryID).all() # has same output
+    return render_template('HW6Q1.html', suppliers=suppliers, products=products, pcategories=pcategories)
+
+# page for HW6Q2
+@app.route('/log_in')
+def log_in():
+    return render_template('HW6Q2.html')
+
 @app.route('/submitted', methods = ['GET', 'POST'])
 def submitted(): # root function
     if request.method == 'POST':
@@ -94,11 +108,49 @@ def submitted(): # root function
     flash('nothing happened')        
     return render_template('HW6Q1.2.html')
 
-# Page for HW6Q1
-@app.route('/new_product', methods = ['GET', 'POST'])
-def new_product():
-    suppliers = Suppliers.query.all()
-    products = Products.query.all()
-    pcategories = db.session.query(Products.CategoryID).distinct().all()
-    # pcategories = Products.query.with_entities(Products.CategoryID).distinct(Products.CategoryID).all() # has same output
-    return render_template('HW6Q1.html', suppliers=suppliers, products=products, pcategories=pcategories)
+@app.route('/logged', methods = ['GET', 'POST'])
+def logged():
+    if request.method == 'POST':
+        sids = []
+        cnames = []
+        supplierIDs = db.session.query(Suppliers.SupplierID).all()
+        companyNames = db.session.query(Suppliers.CompanyName).all()
+        session['loginSupplierID'] = request.form.get('loginSupplierID')
+        session['loginCompanyName'] = request.form.get('loginCompanyName')
+        form_is_valid = True
+
+        for supplierID in supplierIDs:
+            sids.append(supplierID.SupplierID)
+        for companyName in companyNames:
+            cnames.append(companyName.CompanyName)
+
+        # form validation
+        if session.get('loginSupplierID') == '':
+            flash(['Please enter ID!', 'error', 'loginSupplierID'])
+            form_is_valid = False
+        elif int(session.get('loginSupplierID')) not in sids:
+            flash(['ID not registered!', 'error', 'loginSupplierID'])
+            form_is_valid = False
+        if session.get('loginCompanyName') == '':
+            flash(['Please enter Name', 'error', 'loginCompanyName'])
+            form_is_valid = False  
+        elif session.get('loginCompanyName') not in cnames:
+            flash(['Name not registered!', 'error', 'loginCompanyName'])
+            form_is_valid = False
+
+        if not form_is_valid:
+            return render_template(
+                'HW6Q2.html',
+                sidLogged=session.get('loginSupplierID'), 
+                cnameLogged=session.get('loginCompanyName')
+            )
+        else:
+            return render_template(
+                'logged.html', 
+                sidLogged=session.get('loginSupplierID'), 
+                cnameLogged=session.get('loginCompanyName')
+            )
+
+    else:
+        sidLogged = cnameLogged = '(Get-no-value)'
+        return render_template('logged.html', sidLogged=sidLogged, cnameLogged=cnameLogged)

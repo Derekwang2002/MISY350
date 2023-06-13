@@ -1,0 +1,47 @@
+{% extends "layouts/inner_base.html" %}
+
+{% block title %} Suplier Login {% endblock title %}
+
+{% block content %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <ol>
+                <li><a href="/">Home</a></li> <!-- index.html -->
+                <li>Supplier Login</li>
+            </ol>
+            <h2>Successfully Login!</h2>
+
+        </div>
+
+        <!-- a productID (integer), a product name(string), a supplierID (integer, note that this is a foreign key attribute referencing the supplierID primary key attribute in the suppliers table), and a categoryID (an integer between [1-8]), units in stock (integer), and a unit price (decimal). -->
+
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+        <div class="container">
+
+            Good <span id="morningOrAfternoon"> </span>! {{ cnameLogged }}. Please keep in mind that your supplier ID is {{ sidLogged }}. 
+            <script>
+                var time = document.getElementById('morningOrAfternoon');
+                var currentHours = new Date().getHours();
+                console.log('Current hour is ' + currentHours);
+                console.log('Current hour is ' + time);
+
+
+                if (currentHours < 12) {
+                    time.innerHTML = 'morning';
+                }
+                else {
+                    time.innerHTML = 'afternoon';
+                }
+            </script>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+{% endblock content %}
