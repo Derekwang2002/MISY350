@@ -1,0 +1,108 @@
+{% extends "layouts/inner_base.html" %}
+
+{% block title %} Chart {% endblock title %}
+
+{% block content %}
+<script src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.candy.js"></script>
+
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <ol>
+            <li><a href="/">Home</a></li> <!-- index.html -->
+            <li>Chart</li>
+        </ol>
+        <h2>Chart</h2>
+
+    </div>
+
+    <!-- a productID (integer), a product name(string), a supplierID (integer, note that this is a foreign key attribute referencing the supplierID primary key attribute in the suppliers table), and a categoryID (an integer between [1-8]), units in stock (integer), and a unit price (decimal). -->
+
+</section><!-- End Breadcrumbs -->
+
+<main id="main">
+    <section class="inner-page">
+        <div class="container">
+            <div>this is {{ sidChart }}</div>
+            <div>{{ test }}</div>
+
+            <form action="{{ url_for('product_view') }}" class="row row-cols-lg-auto g-2 align-items-center" method="post">
+                <div class="col-4 form-floating">
+                    <select id="supplierID" class="form-control" name="supplierID">
+                        <option value="">Choose</option>
+                        {% for supplier in suppliers %}
+                        <option value="{{supplier.SupplierID}}" {% if sidChart %}{% if sidChart|int==supplier.SupplierID
+                            %}selected{% endif %}{% endif %}>{{ supplier.CompanyName }} ({{ supplier.SupplierID }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <label for="supplierID" class="form-label" id="supplierIDLabel">Supplier Name(ID)</label>
+                </div>
+                <div class="col-12 form-floating">
+                    <button type="submit" class="btn btn-primary">GO!</button>
+                </div>
+            </form>
+            {% if sidChart %}
+            <script>
+                var data = JSON.parse({{ chartData | tojson | safe }});
+                const dataSource = {
+                    chart: {
+                    caption: "Stock value for supplier ID: {{sidChart}}",
+                    yaxisname: "Number of Leads",
+                    aligncaptionwithcanvas: "0",
+                    plottooltext: "<b>$dataValue</b> leads received",
+                    theme: "candy"
+                    },
+                    data: data
+                };
+                
+                FusionCharts.ready(function() {
+                    var myChart = new FusionCharts({
+                    type: "bar2d",
+                    renderAt: "chart-container",
+                    width: "100%",
+                    height: "100%",
+                    dataFormat: "json",
+                    dataSource
+                    }).render();
+                });
+            </script>
+            <br>
+            <div id="chart-container"></div>
+            {% endif %}
+
+        </div>
+
+    </section>
+</main>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+{% if message[1] == 'error' %}
+<!-- <div class="alert alert-danger alert-dismissable" role="alert">
+                {{ message[0] }}
+            </div> 
+            <p>There is error for {{message}}</p> -->
+<script>
+    // sub div
+    var errorDiv = document.getElementById('{{message[2]}}').parentNode;
+    var subDiv = document.createElement('div');
+    subDiv.setAttribute('id', '{{message[2]}}ErrorLn'); // subDiv id
+    subDiv.className = 'invalid-feedback';
+    subDiv.innerHTML = '{{message[0]}}';
+    errorDiv.appendChild(subDiv);
+    // input
+    var errorInput = document.getElementById('{{message[2]}}');
+    errorInput.classList.add('is-invalid');
+    errorInput.setAttribute('aria-describedby', '{{message[2]}}Label {{message[2]}}ErrorLn'); // manually add label id
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+{% endblock content %}

@@ -2,7 +2,7 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-import re
+import re, json
 # Flask modules
 from flask   import render_template, request, redirect, url_for, flash, session, flash
 from jinja2  import TemplateNotFound
@@ -31,6 +31,31 @@ def new_product():
 def log_in():
     return render_template('HW6Q2.html')
 
+# page for HW6Q1
+@app.route('/product_view', methods=['GET', 'POST'])
+def product_view():
+    suppliers = Suppliers.query.all()
+    
+    # chartData = db.session.query(Products.ProductName.label('label'), (Products.UnitsInStock*Products.UnitPrice).label('value'))
+    # chartData = [row._asdict() for row in chartData]
+    
+    if request.method == 'POST':
+        sidChart = request.form.get('supplierID')
+        
+        if sidChart != '':
+            chartDataRaw = db.session.query(Products.ProductName.label('label'), (Products.UnitsInStock*Products.UnitPrice).label('value')).filter(Products.SupplierID==int(sidChart))
+            chartDataArray = [row._asdict() for row in chartDataRaw]
+            for item in chartDataArray:
+                item['value'] = float(item['value'])
+            chartData = json.dumps(chartDataArray)
+            return render_template('HW7Q1.html', suppliers=suppliers, sidChart=sidChart, chartData=chartData)
+        else:
+            flash(['Please one supplier!', 'error', 'supplierID'])
+            return render_template('HW7Q1.html', suppliers=suppliers)
+        
+    return render_template('HW7Q1.html', suppliers=suppliers) # , test=chartData
+
+## ========= control ============
 @app.route('/submitted', methods = ['GET', 'POST'])
 def submitted(): # root function
     if request.method == 'POST':
@@ -154,3 +179,4 @@ def logged():
     else:
         sidLogged = cnameLogged = '(Get-no-value)'
         return render_template('logged.html', sidLogged=sidLogged, cnameLogged=cnameLogged)
+
