@@ -77,7 +77,7 @@ def submitted(): # root function
                 pid=pid, sid=sid, cid=cid, pname=pname , ustock=ustock, uprice=uprice
             )
         else:
-            ## database manipulate
+            ## database operation
             if not pid:
                 add_product = Products(ProductName=pname, SupplierID=sid, CategoryID=cid, UnitPrice=uprice, UnitsInStock=ustock)
                 db.session.add(add_product)

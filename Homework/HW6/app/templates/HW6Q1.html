@@ -117,38 +117,38 @@
                 </table>
             </div>
 
-            <div>
-                <br>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {%for message in messages%}
-                {% if message[1] == 'error' %}
-                <!-- <div class="alert alert-danger alert-dismissable" role="alert">
-                                {{ message[0] }}
-                            </div> 
-                            <p>There is error for {{message}}</p> -->
-                <script>
-                    // sub div
-                    var errorDiv = document.getElementById('{{message[2]}}').parentNode;
-                    var subDiv = document.createElement('div');
-                    subDiv.setAttribute('id', '{{message[2]}}ErrorLn'); // subDiv id
-                    subDiv.className = 'invalid-feedback';
-                    subDiv.innerHTML = '{{message[0]}}';
-                    errorDiv.appendChild(subDiv);
-                    // input
-                    var errorInput = document.getElementById('{{message[2]}}');
-                    errorInput.classList.add('is-invalid');
-                    errorInput.setAttribute('aria-describedby', '{{message[2]}}Label {{message[2]}}ErrorLn'); // manually add label id
-                </script>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-            </div>
-
         </div>
     </section>
 
 </main><!-- End #main -->
+
+<div>
+    <br>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    {% if message[1] == 'error' %}
+    <!-- <div class="alert alert-danger alert-dismissable" role="alert">
+                    {{ message[0] }}
+                </div> 
+                <p>There is error for {{message}}</p> -->
+    <script>
+        // sub div
+        var errorDiv = document.getElementById('{{message[2]}}').parentNode;
+        var subDiv = document.createElement('div');
+        subDiv.setAttribute('id', '{{message[2]}}ErrorLn'); // subDiv id
+        subDiv.className = 'invalid-feedback';
+        subDiv.innerHTML = '{{message[0]}}';
+        errorDiv.appendChild(subDiv);
+        // input
+        var errorInput = document.getElementById('{{message[2]}}');
+        errorInput.classList.add('is-invalid');
+        errorInput.setAttribute('aria-describedby', '{{message[2]}}Label {{message[2]}}ErrorLn'); // manually add label id
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
 
 {% endblock content %}
