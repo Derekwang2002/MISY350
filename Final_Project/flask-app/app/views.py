@@ -23,3 +23,6 @@ def challenges_init():
 @app.route('/challenges_sent')
 def challenges_sent():
     return render_template('challenges_sent.html')
+@app.route('/challenges_inbox')
+def challenges_inbox():
+    return render_template('challenges_inbox.html')

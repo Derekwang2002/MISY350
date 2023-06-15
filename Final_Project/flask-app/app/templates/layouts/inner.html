@@ -45,13 +45,20 @@
     <header id="header" class="fixed-top header-inner-pages">
         <div class="container d-flex align-items-center">
 
-            <h1 class="logo me-auto"><a href="index.html">Derek</a></h1>
+            <h1 class="logo me-auto"><a href="index.html">Tennis Club</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo me-auto"><img src="/static/assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="nav-link scrollto " href="/">Home</a></li>
+                    <li class="dropdown"><a href="#"><span>Challenges</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/challenges_init">Initiate</a></li>
+                            <li><a href="/challenges_sent">Sent</a></li>
+                            <li><a href="/challenges_inbox">Inbox</a></li>
+                        </ul>
+                    </li>
                     <li><a class="nav-link scrollto" href="/product_view">Chart</a></li>
                     <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li>
                     <li><a class="nav-link   scrollto" href="#portfolio">Portfolio</a></li>
@@ -82,6 +89,22 @@
 
         </div>
     </header><!-- End Header -->
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <ol>
+                <li><a href="/">Home</a></li> <!-- index.html -->
+                <li>Challenge</li>
+            </ol>
+            <h2 id="pageHead"></h2>
+
+        </div>
+
+        <!-- a productID (integer), a product name(string), a supplierID (integer, note that this is a foreign key attribute referencing the supplierID primary key attribute in the suppliers table), and a categoryID (an integer between [1-8]), units in stock (integer), and a unit price (decimal). -->
+
+    </section><!-- End Breadcrumbs -->
 
     {% block content %}{% endblock content %}
 
