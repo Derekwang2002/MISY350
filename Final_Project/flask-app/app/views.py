@@ -16,6 +16,10 @@ from app import app, db
 def index():
     return render_template('index.html')
 
-@app.route('/supplier')
-def supplier():
-    return render_template('about.html')
+@app.route('/challenges_init')
+def challenges_init():
+    return render_template('challenges_init.html')
+
+@app.route('/challenges_sent')
+def challenges_sent():
+    return render_template('challenges_sent.html')
