@@ -31,7 +31,7 @@ def new_product():
 def log_in():
     return render_template('HW6Q2.html')
 
-# page for HW6Q1
+# page for HW7Q1
 @app.route('/product_view', methods=['GET', 'POST'])
 def product_view():
     suppliers = Suppliers.query.all()
