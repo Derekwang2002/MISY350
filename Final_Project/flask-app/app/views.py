@@ -9,7 +9,7 @@ from jinja2  import TemplateNotFound
 
 # App modules
 from app import app, db
-# from app.models import Profiles
+from app.models import Member
 
 # App main route + generic routing
 @app.route('/')
@@ -18,8 +18,8 @@ def index():
 
 @app.route('/challenges_init')
 def challenges_init():
-    # member = Member
-    return render_template('challenges_init.html')
+    members = Member.query.all()
+    return render_template('challenges_init.html', members=members)
 
 @app.route('/challenges_sent')
 def challenges_sent():
@@ -29,6 +29,6 @@ def challenges_sent():
 def challenges_inbox():
     return render_template('challenges_inbox.html')
 
-@app.route('/t')
-def test():
-    return render_template('test.html')
+@app.route('/challenges_form')
+def challenges_form():
+    return render_template('challenges_form.html')
