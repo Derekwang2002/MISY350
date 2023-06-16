@@ -18,11 +18,17 @@ def index():
 
 @app.route('/challenges_init')
 def challenges_init():
+    # member = Member
     return render_template('challenges_init.html')
 
 @app.route('/challenges_sent')
 def challenges_sent():
     return render_template('challenges_sent.html')
+
 @app.route('/challenges_inbox')
 def challenges_inbox():
     return render_template('challenges_inbox.html')
+
+@app.route('/t')
+def test():
+    return render_template('test.html')

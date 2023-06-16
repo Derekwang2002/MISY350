@@ -5,10 +5,22 @@ Copyright (c) 2019 - present AppSeed.us
 
 from app import db
 
-class Profiles(db.Model): # per table
-    uid = db.Column(db.Integer, primary_key=True)
-    uname = db.Column(db.String(50), nullable=False)
-    upass = db.Column(db.String(50), nullable=False)
+class Member(db.Model):
+    MEID = db.Column(db.Integer, primary_key=True)
+
+class Match(db.Model):
+    MAID = db.Column(db.Integer, primary_key=True)
+
+class Challenge(db.Model):
+    CID = db.Column(db.Integer, primary_key=True)
+    ChallengerMEID = db.Column(db.Integer, nullable=False)
+    ChallengedMEID = db.Column(db.Integer, nullable=False)
+    DateOfChallenge = db.Column(db.Date, nullable=False)
+    Status = db.Column(db.Integer, nullable=False)
+    Notes = db.Column(db.String(100), nullable=True)
+
+class Membership(db.Model):
+    MSID = db.Column(db.Integer, primary_key=True)
 
 # class Stats(db.Model):
 
