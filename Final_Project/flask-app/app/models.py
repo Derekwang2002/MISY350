@@ -7,6 +7,15 @@ from app import db
 
 class Member(db.Model):
     MEID = db.Column(db.Integer, primary_key=True)
+    FirstName = db.Column(db.String, nullable=False)
+    LastName = db.Column(db.String)
+    Email = db.Column(db.String, nullable=False)
+    MPassword = db.Column(db.String, nullable=False)
+    Phone = db.Column(db.String, nullable=False)
+    Age = db.Column(db.Integer, nullable=False)
+    Gender = db.Column(db.String, nullable=False)
+    UTR = db.Column(db.Float, nullable=False)
+    DateOfCreation = db.Column(db.Date, nullable=False)
 
 class Match(db.Model):
     MAID = db.Column(db.Integer, primary_key=True)
@@ -17,7 +26,7 @@ class Challenge(db.Model):
     ChallengedMEID = db.Column(db.Integer, nullable=False)
     DateOfChallenge = db.Column(db.Date, nullable=False)
     Status = db.Column(db.Integer, nullable=False)
-    Notes = db.Column(db.String(100), nullable=True)
+    Notes = db.Column(db.String(100))
 
 class Membership(db.Model):
     MSID = db.Column(db.Integer, primary_key=True)
