@@ -29,6 +29,8 @@ def new_product():
 # page for HW6Q2
 @app.route('/log_in')
 def log_in():
+    session['loginSupplierID'] = ''
+    session['loginCompanyName'] = ''
     return render_template('HW6Q2.html')
 
 # page for HW7Q1
@@ -137,30 +139,31 @@ def submitted(): # root function
 def logged():
     if request.method == 'POST':
         sids = []
-        cnames = []
         supplierIDs = db.session.query(Suppliers.SupplierID).all()
-        companyNames = db.session.query(Suppliers.CompanyName).all()
-        session['loginSupplierID'] = request.form.get('loginSupplierID')
-        session['loginCompanyName'] = request.form.get('loginCompanyName')
+        # companyNames = db.session.query(Suppliers.CompanyName).all()
+        sid = request.form.get('loginSupplierID')
+        cname = request.form.get('loginCompanyName')
+        session['loginSupplierID'] = sid
+        session['loginCompanyName'] = cname
         form_is_valid = True
 
         for supplierID in supplierIDs:
             sids.append(supplierID.SupplierID)
-        for companyName in companyNames:
-            cnames.append(companyName.CompanyName)
+        # for companyName in companyNames:
+        #     cnames.append(companyName.CompanyName)
 
         # form validation
-        if session.get('loginSupplierID') == '':
+        if sid == '':
             flash(['Please enter ID!', 'error', 'loginSupplierID'])
             form_is_valid = False
-        elif int(session.get('loginSupplierID')) not in sids:
+        elif int(sid) not in sids:
             flash(['ID not registered!', 'error', 'loginSupplierID'])
             form_is_valid = False
-        if session.get('loginCompanyName') == '':
+        if cname == '':
             flash(['Please enter Name', 'error', 'loginCompanyName'])
             form_is_valid = False  
-        elif session.get('loginCompanyName') not in cnames:
-            flash(['Name not registered!', 'error', 'loginCompanyName'])
+        elif cname != Suppliers.query.get(int(sid)):
+            flash(['Name not match!', 'error', 'loginCompanyName'])
             form_is_valid = False
 
         if not form_is_valid:

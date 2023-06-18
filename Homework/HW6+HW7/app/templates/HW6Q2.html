@@ -27,13 +27,13 @@
                 <div class="row mb-3">
                     <label for="loginSupplierID" class="col-sm-1 col-form-label" id="loginSupplierIDLabel">ID</label>
                     <div class="col-sm-2">
-                        <input type="number" id="loginSupplierID" name="loginSupplierID" class="form-control" placeholder="Supplier ID" value="{{ sidLogged }}">
+                        <input type="number" id="loginSupplierID" name="loginSupplierID" class="form-control" placeholder="Supplier ID" value="{{ session['loginSupplierID'] }}">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="loginCompanyName" class="col-sm-1 col-form-label" id="loginCompanyNameLabel">Name</label>
                     <div class="col-sm-5">
-                        <input type="text" id="loginCompanyName" name="loginCompanyName" class="form-control" placeholder="Company Name" value="{{ cnameLogged }}">
+                        <input type="text" id="loginCompanyName" name="loginCompanyName" class="form-control" placeholder="Company Name" value="{{ session['loginCompanyName'] }}">
                     </div>
                 </div>
                 <div class="row mb-3">
