@@ -25,26 +25,9 @@
                 <div class="card-body">
                     <!-- <p class="card-text"></p> -->
                     <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
+
                     <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        data-bs-target="#memberInfo" aria-expanded="false" aria-controls="memberInfo">
                         Details
                     </button>
                     <div class="btn-group">
@@ -71,746 +54,49 @@
                             <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
                         </div>
                     </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="memberName1">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
+                    <div class="collapse multi-collapse" id="memberInfo">
                         <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#memberName1" aria-expanded="false" aria-controls="memberName1">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
+                        <div class="row">
+                            <br>
+                            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                <div class="card d-grid d-sm-flex py-3 px-4 border">
+                                    <span>
+                                        <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
+                                        <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
+                                        Phone:  123-1234-1234 <br> 
+                                        Email:  email@host.com <br>
+                                    </span>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
+                                <!-- <br> -->
+                                <div class="card border mt-3">
+                                    <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
+                                        <div class="mb-3">
+                                            <h6>Send Challenge Message</h6>
+                                        </div>
+                                        <!-- <div class="mb-3">
+                                            <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
+                                            <input name="challengeNote" type="text" class="form-control form-control-lg" id="exampleDropdownFormNotes"
+                                                placeholder="Say something">
+                                        </div> -->
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Say something" aria-describedby="floatingInputHelp" />
+                                            <label for="floatingInput">Notes</label>
+                                            <div id="floatingInputHelp" class="form-text">We'll take action if there is any inappropriate message</div>
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary">Send</button>
+                                        <input type="hidden" value="challengedID" name="challengedID">
+                                    </form>
                                 </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
+                            </div>
+                            <div class="col-12 col-md-6 mb-2 mb-md-0">
+                                <div class="card p-3 border">
+                                    <div id="chart-container" style="width: 100%; height: 320px;"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- </p> -->
 
-                </div>
-            </div>
-        </div>
 
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
-                    <!-- </p> -->
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12">
-            <div class="card mb-4">
-                <h4 class="card-header">Member Name (MEID)</h4>
-                <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-                    <div class="collapse" id="collapseExample">
-                        <div class="card d-grid d-sm-flex p-3 border">
-                            <!-- <img
-                                src="../assets/img/elements/1.jpg"
-                                alt="collapse-image"
-                                height="125"
-                                class="me-4 mb-sm-0 mb-2"
-                                /> -->
-                            <span>
-                                <!-- Age, Gender
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>UTR:</td>
-                                            <td>xx.xx (Last Update:yyyy-mm-dd)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone:</td>
-                                            <td>123-1234-1234</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email:</td>
-                                            <td>email@host.com</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <small>Age, Gender, <i>Joined in (Date of creation)</i></small> <br>
-                                <b>UTR:  xx</b> (Last Update:yyyy-mm-dd) <br>
-                                Phone:  123-1234-1234 <br> 
-                                Email:  email@host.com <br>
-                                
-                            </span>
-                        </div>
-                        <br>
-                    </div>
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Details
-                    </button>
-                    <div class="btn-group">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="0,10">
-                            Challenge
-                        </button>
-                        <div class="dropdown-menu">
-                            <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Title">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormNotes"
-                                        placeholder="Say something">
-                                </div>
-                                <button type="submit" class="btn btn-secondary">Send</button>
-                            </form>
-                            <hr class="dropdown-divider">
-                            <a class="dropdown-item" href="javascript:void(0)">Generate random notes</a>
-                        </div>
-                    </div>
                     <!-- </p> -->
 
                 </div>
@@ -825,6 +111,91 @@
     var activeSuper = document.querySelector('#ChallengesItem')
     activeItem.classList.add('active')
     activeSuper.classList.add('active', 'open')
+
+    const dataSource = {
+        chart: {
+          caption: "Win & Lose in Last 5 months",
+          placevaluesinside: "1",
+          showvalues: "0",
+          plottooltext: "<b>$dataValue</b>  $seriesName challenges",
+          theme: "fusion"
+        },
+        categories: [
+          {
+            category: [
+              {
+                label: "lastYear s4"
+              },
+              {
+                label: "thisYear s1"
+              },
+              {
+                label: "thisYear s2"
+              },
+              {
+                label: "thisYear s3"
+              },
+              {
+                label: "thisYear s4"
+              }
+            ]
+          }
+        ],
+        dataset: [
+          {
+            seriesname: "Win",
+            data: [
+              {
+                value: "10"
+              },
+              {
+                value: "20"
+              },
+              {
+                value: "18"
+              },
+              {
+                value: "15"
+              },
+              {
+                value: "19"
+              }
+            ]
+          },
+          {
+            seriesname: "Lose",
+            data: [
+              {
+                value: "10"
+              },
+              {
+                value: "8"
+              },
+              {
+                value: "9"
+              },
+              {
+                value: "11"
+              },
+              {
+                value: "7"
+              }
+            ]
+          }
+        ]
+      };
+      
+      FusionCharts.ready(function() {
+        var myChart = new FusionCharts({
+          type: "stackedbar2d",
+          renderAt: "chart-container",
+          width: "100%",
+          height: "100%",
+          dataFormat: "json",
+          dataSource
+        }).render();
+      });
+      
 </script>
 
 {% endblock content %}
