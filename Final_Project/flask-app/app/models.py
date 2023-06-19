@@ -17,8 +17,11 @@ class Member(db.Model):
     UTR = db.Column(db.Float, nullable=False)
     DateOfCreation = db.Column(db.Date, nullable=False)
 
-class Match(db.Model):
+class Tmatch(db.Model):
     MAID = db.Column(db.Integer, primary_key=True)
+    DateOfMatch = db.Column(db.Date, nullable=False)
+    WinnerMEID = db.Column(db.Integer)
+    LoserMEID = db.Column(db.Integer)
 
 class Challenge(db.Model):
     CID = db.Column(db.Integer, primary_key=True)

@@ -21,14 +21,29 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
+
+                    {% for sentChallenge in sentChallenges %}
                     <tr>
                         <td><i class="fa-solid fa-fish me-1 text-light"></i> <strong>Henry</strong></td>
                         <td><strong>2.5</strong></td>
                         <td>
-                            a veeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee<br>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeery long text
+                            {{ sentChallenge.Notes }}
                         </td>
                         <td>yyyy-mm-dd</td>
-                        <td><span class="badge bg-label-info me-1">matched</span></td>
+                        <td>
+                            {% if sentChallenge.Status|int == 0 %}
+                            <span class="badge bg-label-secondary me-1">TBD</span>
+                            {% endif %}
+                            {% if sentChallenge.Status|int == 1 %}
+                            <span class="badge bg-label-success me-1">accepted</span>
+                            {% endif %}
+                            {% if sentChallenge.Status|int == -1 %}
+                            <span class="badge bg-label-danger me-1">rejected</span>
+                            {% endif %}
+                            {% if sentChallenge.Status|int == 2 %}
+                            <span class="badge bg-label-info me-1">matched</span>
+                            {% endif %}
+                        </td>
                         <td>
                             <div class="dropdown">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -36,14 +51,16 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="javascript:void(0);"><i
-                                            class="bx bx-edit-alt me-1"></i> Edit</a>
-                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i>
+                                    <a class="dropdown-item" onclick="edit('{{sentChallenge}}')"><i
+                                        class="bx bx-edit-alt me-1"></i> Edit</a >
+                                    <a class="dropdown-item" onclick="del('{{sentChallenge.CID}}')"><i class="bx bx-trash me-1"></i>
                                         Delete</a>
                                 </div>
                             </div>
                         </td>
                     </tr>
+                    {% endfor %}
+
                     <tr>
                         <td><i class="fa-solid fa-award me-2 text-light"></i> <strong>Alan</strong></td>
                         <td>7.5</td>
@@ -126,6 +143,14 @@
     var activeSuper = document.querySelector('#ChallengesItem')
     activeItem.classList.add('active')
     activeSuper.classList.add('active', 'open')
+
+    function edit(cid){
+        location.href='/edit?cid=' + cid
+    }
+
+    function del(cid){
+        location.href='/del?cid=' + cid
+    }
 </script>
 
 {% endblock content %}
