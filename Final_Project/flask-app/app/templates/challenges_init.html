@@ -3,7 +3,6 @@
 {% block title %} Initiate Challenge {% endblock title %}
 
 {% block content %}
-
 <!-- <script>
     dataSource = {
         chart: {
@@ -81,38 +80,46 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold pt-3 "><span class="text-muted fw-light">Challenge /</span> Initiate</h4>
-    <p class="mb-4 px-1"><small>You can initiate challenge only if your former challenge request is rejected or matched. <br>At most 2 challenge requests can be sent per day</small></p>
+    <p class="mb-2 px-1"><small>You can initiate challenge only if your former challenge request is rejected or matched.</small></p>
     <!-- Collapse -->
     <div class="row">
-
+        
         <!-- each card -->
 
         <!-- {% for member in members %}
         {{member.FirstName}} {{member.LastName}} {{member.MEID}}
         {{member.Email}} {{member.MPassword}} {{member.Phone}} {{member.Age}} {{member.Gender}}
         {{member.UTR}} {{member.DateOfCreation}}
-        {% endfor %} -->
+        {% endfor %} 
+        style="margin: auto;"
+        -->
 
         {% for member in members %}
+        
         <div class="col-12">
+            <br>
+            <div id="test">
+            </div>
             <div class="card mb-4">
-                <h4 class="card-header">{{member.FirstName}} {{member.LastName}} (MEID:{{member.MEID}})</h4>
+              <a href="javascript:void(0);"
+              class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex justify-content-between w-100">
+                  <h4 class="card-header">{{member.FirstName}} {{member.LastName}} (MEID:{{member.MEID}})</h4>
+                  <div class="m-4 mb-0 mt-3 px-2" style="text-align: center;"><small>{{member.Age}}, {{member.Gender}}, <br><i>Joined {{member.DateOfCreation}}</i></small></div>
+                </div>
+              </a>
                 <div class="card-body">
-                    <!-- <p class="card-text"></p> -->
-                    <!-- <p class="demo-inline-spacing"> -->
-
                     <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#memberInfo" aria-expanded="false" aria-controls="memberInfo">
+                        data-bs-target="#collapse-{{ member.MEID }}" aria-expanded="false" aria-controls="collapse-{{ member.MEID }}">
                         Initiate
                     </button>
-                    <div class="collapse multi-collapse" id="memberInfo">
+                    <div class="collapse multi-collapse" id="collapse-{{ member.MEID }}">
                         <br>
                         <div class="row">
                             <br>
                             <div class="col-12 col-md-6 mb-3 mb-md-0">
                                 <div class="card d-grid d-sm-flex py-3 px-4 border">
                                     <span>
-                                        <small>{{member.Age}}, {{member.Gender}}, <i>Joined in {{member.DateOfCreation}}</i></small> <br>
                                         <b>UTR:  {{member.UTR|int}}</b><br>
                                         Phone:  {{member.Phone}} <br> 
                                         Email:  {{member.Email}} <br>
@@ -120,134 +127,87 @@
                                 </div>
                                 <!-- <br> -->
                                 <div class="card border mt-3">
-                                    <form class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
+                                    <form id="form-{{member.MEID}}" class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
                                         <div class="mb-3">
                                             <h6><mark>Send Challenge Request</mark></h6>
                                         </div>
-                                        <!-- <div class="mb-3">
-                                            <label for="exampleDropdownFormNotes" class="form-label">Notes</label>
-                                            <input name="challengeNote" type="text" class="form-control form-control-lg" id="exampleDropdownFormNotes"
-                                                placeholder="Say something">
-                                        </div> -->
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingInput" placeholder="Say something" aria-describedby="floatingInputHelp" />
+                                            <input type="text" name="challengeNote" class="form-control" id="floatingInput" placeholder="Say something" aria-describedby="floatingInputHelp" />
                                             <label for="floatingInput">Notes</label>
                                             <div id="floatingInputHelp" class="form-text">We'll take action if there is any inappropriate message</div>
                                         </div>
+                                        <input type="hidden" value="{{ member.MEID }}" name="challengedID">
                                         <button type="submit" class="btn btn-secondary">Send</button>
-                                        <input type="hidden" value="challengedID" name="challengedID">
                                     </form>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 mb-2 mb-md-0">
                                 <div class="card p-3 border">
-                                    <div id="chart-{{ member.MEID }}" style="width: 100%; height: 320px;"></div>
+                                    <div id="chart-{{ member.MEID }}" style="width: 100%; height: 290px;"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- </p> -->
 
                 </div>
             </div>
         </div>
 
         <script>
-            var activeItem = document.querySelector('#InitiateItem')
-            var activeSuper = document.querySelector('#ChallengesItem')
-            activeItem.classList.add('active')
-            activeSuper.classList.add('active', 'open')
 
-                dataSource = {
-                    chart: {
-                      caption: "Win & Lose in Last 5 months",
-                      placevaluesinside: "1",
-                      showvalues: "0",
-                      plottooltext: "<b>$dataValue</b>  $seriesName challenges",
-                      theme: "fusion"
-                    },
-                    categories: [
-                      {
-                        category: [
-                          {
-                            label: "lastYear s4"
-                          },
-                          {
-                            label: "thisYear s1"
-                          },
-                          {
-                            label: "thisYear s2"
-                          },
-                          {
-                            label: "thisYear s3"
-                          },
-                          {
-                            label: "thisYear s4"
-                          }
-                        ]
-                      }
-                    ],
-                    dataset: [
-                      {
-                        seriesname: "Win",
-                        data: [
-                          {
-                            value: "10"
-                          },
-                          {
-                            value: "20"
-                          },
-                          {
-                            value: "18"
-                          },
-                          {
-                            value: "15"
-                          },
-                          {
-                            value: "19"
-                          }
-                        ]
-                      },
-                      {
-                        seriesname: "Lose",
-                        data: [
-                          {
-                            value: "10"
-                          },
-                          {
-                            value: "8"
-                          },
-                          {
-                            value: "9"
-                          },
-                          {
-                            value: "11"
-                          },
-                          {
-                            value: "7"
-                          }
-                        ]
-                      }
-                    ]
-                  };
-              
-              FusionCharts.ready(function() {
-                var myChart = new FusionCharts({
-                  type: "stackedbar2d",
-                  renderAt: "chart-{{ member.MEID }}",
-                  width: "100%",
-                  height: "100%",
-                  dataFormat: "json",
-                  dataSource
-                }).render();
-              });
+            var t = chartLabel
+            var chartLabel = JSON.parse({{ chartLabel | tojson | safe }});
+            var chartValueWin = JSON.parse({{ memberMatches[member.MEID|string][0] | tojson | safe }});
+            var chartValueLose = JSON.parse({{ memberMatches[member.MEID|string][1] | tojson | safe }});
+            
+            console.log(chartValueWin);
+            console.log(chartValueLose);
+
+            
+            
+            dataSource = {
+              chart: {
+                caption: "Win & Lose in Last 5 months",
+                placevaluesinside: "1",
+                showvalues: "0",
+                plottooltext: "<b>$dataValue</b>  $seriesName challenges",
+                theme: "fusion"
+              },
+              categories: [
+                {
+                  category: chartLabel
+                }
+              ],
+              dataset: [
+                {
+                  seriesname: "Win",
+                  data: chartValueWin
+                },
+                {
+                  seriesname: "Lose",
+                  data: chartValueLose
+                }
+              ]
+            };
+            
+            FusionCharts.ready(function() {
+              var myChart = new FusionCharts({
+                type: "stackedbar2d",
+                renderAt: "chart-{{ member.MEID }}",
+                width: "100%",
+                height: "100%",
+                dataFormat: "json",
+                dataSource
+              }).render();
+            });
+            
         </script>
 
         {% endfor %}
 
     </div>
 </div>
+
 <nav aria-label="Page navigation" style="margin: auto;">
     <ul class="pagination">
       <li class="page-item first">
@@ -278,7 +238,14 @@
         <a class="page-link" href="#"><i class="bx bx-chevrons-right"></i></a>
       </li>
     </ul>
-  </nav>
+</nav>
+
+<script>
+  var activeItem = document.querySelector('#InitiateItem')
+  var activeSuper = document.querySelector('#ChallengesItem')
+  activeItem.classList.add('active')
+  activeSuper.classList.add('active', 'open')
+</script>
 
 {% endblock content %}
 

@@ -9,7 +9,8 @@
 <!-- ======= Breadcrumbs ======= -->
 <section id="breadcrumbs" class="breadcrumbs">
     <div class="container">
-
+        {{chartData}}
+        <div id="test"></div>
         <ol>
             <li><a href="/">Home</a></li> <!-- index.html -->
             <li>Chart</li>
@@ -48,6 +49,7 @@
             {% if sidChart %}
             <script>
                 var data = JSON.parse({{ chartData | tojson | safe }});
+                document.querySelector('#test').innerHTML=data
                 const dataSource = {
                     chart: {
                         caption: "Stock value ($) for supplier ID: {{sidChart}}",
