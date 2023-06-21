@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 # Flask modules
-from flask   import render_template, request, redirect, url_for, flash, session
+from flask   import render_template, request, redirect, url_for, flash, session, jsonify
 from jinja2  import TemplateNotFound
 
 # App modules
@@ -85,11 +85,19 @@ def challenges_init():
                 loseData[f'{currentYear - 1} S{season}'] += 1
         
         Match.append(json.dumps(
-            [{'value':v} for v in winData.values()]
+            [{'value':str(v)} for v in winData.values()]
         ))
         Match.append(json.dumps(
-            [{'value':v} for v in loseData.values()]
+            [{'value':str(v)} for v in loseData.values()]
         ))
+        
+        session[f'match-win-{meid}'] = json.dumps(
+            [{'value':str(v)} for v in winData.values()]
+        )
+        session[f'match-lose-{meid}'] = json.dumps(
+            [{'value':str(v)} for v in loseData.values()]
+        )
+        
         memberMatches[f'{meid}'] = Match
         
 
@@ -123,13 +131,13 @@ def challenges_init():
 # join table are required to present chellenged name and his/her UTR
 @app.route('/challenges_sent')
 def challenges_sent():
-    currentMEID = 1 # session['meid']
+    currentMEID = 2 # session['meid']
     sentChallenges = db.session.query(Challenge).filter(Challenge.ChallengerMEID == currentMEID)
     return render_template('challenges_sent.html', sentChallenges=sentChallenges)
 
 @app.route('/challenges_inbox')
 def challenges_inbox():
-    currentMEID = 1 # session['meid']
+    currentMEID = 2 # session['meid']
     inChallenges = db.session.query(Challenge).filter(Challenge.ChallengedMEID == currentMEID)
     return render_template('challenges_inbox.html', inChallenges=inChallenges)
 
@@ -141,6 +149,14 @@ def delete():
     db.session.commit()
     sentChallenges = db.session.query(Challenge).filter(Challenge.ChallengerMEID == session.get('meid'))
     return render_template('challenges_sent.html', sentChallenges=sentChallenges)
+
+@app.route('/change_status', methods=['POST'])
+def change_status():
+    # I should change the status attribute in database of certain challenge
+    status = request.json
+    
+    result = {'message':'Success', 'status':status}
+    return result
 
 @app.route('/t')
 def test():

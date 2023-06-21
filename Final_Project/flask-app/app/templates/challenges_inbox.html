@@ -17,7 +17,7 @@
 
                             {% for inChallenge in inChallenges %}
                             <a href="javascript:void(0);"
-                                class="list-group-item list-group-item-action flex-column align-items-start active">
+                                class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex justify-content-between w-100">
                                     <h6>FROM: {{ inChallenge.ChallengerMEID }}</h6>
                                     <small>3 days ago</small>
@@ -33,11 +33,13 @@
                                     <small>Donec id elit non mi porta.</small>
                                     <div class="d-flex justify-content-between">
                                         <form id="accept-{{ inChallenge.CID }}">
+                                            <input type="hidden" name="input-accept-{{ inChallenge.CID }}" value="accept">
                                             <button type="submit" class="btn btn-icon me-2 btn-success">
                                                 <span class="tf-icons bx bx-check"></span>
                                             </button>
                                         </form>
                                         <form id="reject-{{ inChallenge.CID }}">
+                                            <input type="hidden" name="reject-accept-{{ inChallenge.CID }}" value="reject">
                                             <button type="submit" class="btn btn-icon me-2 btn-danger">
                                                 <span class="tf-icons bx bx-x"></span>
                                             </button>  
@@ -46,6 +48,7 @@
                                 </div>
                             </a>
                             {% endfor %}
+
                             <a href="javascript:void(0);"
                                 class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex justify-content-between w-10">
@@ -85,7 +88,46 @@
     var activeSuper = document.querySelector('#ChallengesItem')
     activeItem.classList.add('active')
     activeSuper.classList.add('active', 'open')
+</script>
 
+<script>
+    {% for inChallenge in inChallenges %}
+
+    $(document).ready(function() {
+
+        function ajaxGo(formID){
+            $(formID).submit(function(e) {
+                e.preventDefault();  // Prevent form submission
+    
+                // Get the form data
+                var formData = {
+                    'status': $(formID+' input').val(),
+                };
+    
+                // Send an AJAX POST request to the Flask route
+                $.ajax({
+                    type: 'POST',
+                    url: '/change_status',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        console.log(response);
+                        // Handle the response from the server
+                        alert(response.status.status+'{{inChallenge.CID}}');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        // Handle errors, if any
+                        alert('Error occurred!');
+                    }
+                });
+            });
+        }
+        ajaxGo('#accept-{{ inChallenge.CID }}')
+        ajaxGo('#reject-{{ inChallenge.CID }}')
+    });
+
+    {% endfor %}
 </script>
 
 {% endblock content %}
