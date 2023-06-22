@@ -1,0 +1,20 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Inbox Challenge {% endblock title %}
+
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    this is bulletin board
+
+</div>
+
+<script>
+    var activeItem = document.querySelector('#boardItem')
+    var activeSuper = document.querySelector('#ChallengesItem')
+    activeItem.classList.add('active')
+    activeSuper.classList.add('active', 'open')
+</script>
+
+{% endblock content %}

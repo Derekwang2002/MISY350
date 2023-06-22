@@ -21,6 +21,10 @@ import json
 def index():
     return render_template('index.html')
 
+@app.route('/challenges_board')
+def challenges_board():
+    return render_template('challenges_board.html')
+
 @app.route('/challenges_init', methods=['GET', 'POST'])
 def challenges_init():
     currentMEID = '1' # session['loggedUser'] # get currently loggin user MEID
@@ -126,8 +130,7 @@ def challenges_init():
         members=members, chartLabel=chartLabel, memberMatches=memberMatches
         # totalWin=totalWin, totalLose=totalLose
     )
-            
-            
+                        
 # join table are required to present chellenged name and his/her UTR
 @app.route('/challenges_sent')
 def challenges_sent():
@@ -141,6 +144,11 @@ def challenges_inbox():
     inChallenges = db.session.query(Challenge).filter(Challenge.ChallengedMEID == currentMEID)
     return render_template('challenges_inbox.html', inChallenges=inChallenges)
 
+@app.route('/challenges_settled')
+def challenges_settled():
+    return render_template('challenges_settled.html')
+
+# ajax route
 @app.route('/del')
 def delete():
     cid = request.args.get('cid')
