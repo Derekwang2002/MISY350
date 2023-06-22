@@ -7,7 +7,7 @@
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Challenge /</span> Sent</h4>
 
     <div class="card">
-        <h5 class="card-header">Sent Challenges</h5>
+        <h5 class="card-header">All</h5>
         <div class="table-responsive text-nowrap border-bottom">
             <table class="table table-hover">
                 <thead>
@@ -17,19 +17,22 @@
                         <th>Notes</th>
                         <th>Date</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
 
                     {% for sentChallenge in sentChallenges %}
                     <tr>
-                        <td><i class="fa-solid fa-fish me-1 text-light"></i> <strong>{{ sentChallenge.ChallengedMEID }}</strong></td>
+                        <td>
+                            <i class="fa-solid fa-fish me-1 text-light"></i>
+                            <strong>{{ sentChallenge.ChallengedMEID }}</strong>
+                        </td>
                         <td><strong>UTR</strong></td>
                         <td>
                             {{ sentChallenge.Notes }}
                         </td>
-                        <td>yyyy-mm-dd</td>
+                        <td>{{ sentChallenge.DateOfChallenge }}</td>
                         <td>
                             {% if sentChallenge.Status|int == 0 %}
                             <span class="badge bg-label-secondary me-1">TBD</span>
@@ -51,10 +54,14 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" onclick="edit('{{sentChallenge}}')"><i
-                                        class="bx bx-edit-alt me-1"></i>Detail</a >
-                                    <a class="dropdown-item" onclick="del('{{sentChallenge.CID}}')"><i class="bx bx-undo me-1"></i>
-                                        Cancel</a>
+                                    <a class="dropdown-item">
+                                        <i class="bx bx-info-circle me-2"></i>CID:{{ sentChallenge.CID }}
+                                    </a>
+                                    <a href="#" class="dropdown-item"
+                                        onclick="ajaxGo(event, '{{ sentChallenge.CID }}')">
+                                        <i class="bx bx-undo me-1"></i>
+                                        Cancel
+                                    </a>
                                 </div>
                             </div>
                         </td>
@@ -144,12 +151,36 @@
     activeItem.classList.add('active')
     activeSuper.classList.add('active', 'open')
 
-    function edit(cid){
-        location.href='/edit?cid=' + cid
+    function edit(cid) {
+        location.href = '/edit?cid=' + cid
     }
 
-    function del(cid){
-        location.href='/del?cid=' + cid
+    function del(cid) {
+        location.href = '/del?cid=' + cid
+    }
+
+    function ajaxGo(event, cid) {
+        $.ajax({
+            url: '/del',
+            method: 'POST',
+            data: { 'cid': cid },
+            success: function (response) {
+                // Handle the server response
+                console.log(response);
+                alert(response)
+            },
+            error: function (error) {
+                // Handle any errors
+                alert(error);
+            }
+        });
+
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+        window.location.reload();
+
+        // Restore scroll position after the page reloads
+        window.scroll(0, scrollPosition);
     }
 </script>
 

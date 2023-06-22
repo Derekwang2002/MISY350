@@ -130,7 +130,7 @@ def challenges_init():
         members=members, chartLabel=chartLabel, memberMatches=memberMatches
         # totalWin=totalWin, totalLose=totalLose
     )
-                        
+
 # join table are required to present chellenged name and his/her UTR
 @app.route('/challenges_sent')
 def challenges_sent():
@@ -148,34 +148,37 @@ def challenges_inbox():
 def challenges_settled():
     return render_template('challenges_settled.html')
 
-# ajax route
-@app.route('/del')
+
+# ================== ajax route ===================== #
+@app.route('/del', methods=['POST'])
 def delete():
-    cid = request.args.get('cid')
+    cid = request.form.get('cid')
     deleted_challenge = Challenge.query.get(int(cid))
     db.session.delete(deleted_challenge)
     db.session.commit()
-    sentChallenges = db.session.query(Challenge).filter(Challenge.ChallengerMEID == session.get('meid'))
-    return render_template('challenges_sent.html', sentChallenges=sentChallenges)
+    return f'successfully delete CID:{cid}'
 
 @app.route('/change_status', methods=['POST'])
 def change_status():
-
     status = request.json
     cid = int(status['cid'])
+    status_change_challenge = Challenge.query.get(cid)
 
     if status['status'] == 'accept':
-        status_change_challenge = Challenge.query.get(cid)
         status_change_challenge.Status = 1
-        result = {'message':'Success', 'status':status}
     elif status['status'] == 'reject':
-        status_change_challenge = Challenge.query.get(cid)
         status_change_challenge.Status = -1
-        result = {'message':'Success', 'status':status}
-
+    
+    result = {'message':'Success', 'status':status}
     db.session.commit()
     return result
 
+@app.route('/init')
+def init():
+    return
+
+
+# ====== test ====== #
 @app.route('/t')
 def test():
     current_time = datetime.now()

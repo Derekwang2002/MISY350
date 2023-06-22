@@ -4,14 +4,15 @@
 
 {% block content %}
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Challenge /</span> Inbox</h4>
+    <h4 class="fw-bold pt-3"><span class="text-muted fw-light">Challenge /</span> Inbox</h4>
+    <p class="mb-4 px-1"><small>You can't change status after accepted/rejected</small></p>
 
     <div class="card mb-4">
-        <h5 class="card-header">Member Name</h5>
+        <h5 class="card-header">All</h5>
         <div class="card-body">
             <div class="row">
                 <div class="col-12">
-                    <small class="text-light fw-semibold">You can't change status after accepted/rejected</small>
+                    <!-- <small class="text-light fw-semibold"></small> -->
                     <div class="demo-inline-spacing mt-3">
                         <div class="list-group">
 
@@ -19,7 +20,7 @@
                             <a href="javascript:void(0);"
                                 class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex justify-content-between w-100">
-                                    <h6>FROM: {{ inChallenge.ChallengerMEID }}</h6>
+                                    <h6>FROM: {{ inChallenge.ChallengerMEID }} <i class="fa-solid fa-fish me-1 text-light"></i></h6>
                                     <small>{{ inChallenge.DateOfChallenge }}</small>
                                 </div>
 
@@ -128,8 +129,6 @@
         {% endfor %}
 
     });
-
-    
 </script>
 
 {% endblock content %}
