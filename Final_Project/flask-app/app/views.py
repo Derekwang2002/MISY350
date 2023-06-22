@@ -152,10 +152,20 @@ def delete():
 
 @app.route('/change_status', methods=['POST'])
 def change_status():
-    # I should change the status attribute in database of certain challenge
+
     status = request.json
-    
-    result = {'message':'Success', 'status':status}
+    cid = int(status['cid'])
+
+    if status['status'] == 'accept':
+        status_change_challenge = Challenge.query.get(cid)
+        status_change_challenge.Status = 1
+        result = {'message':'Success', 'status':status}
+    elif status['status'] == 'reject':
+        status_change_challenge = Challenge.query.get(cid)
+        status_change_challenge.Status = -1
+        result = {'message':'Success', 'status':status}
+
+    db.session.commit()
     return result
 
 @app.route('/t')

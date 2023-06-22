@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12">
-                    <small class="text-light fw-semibold">Custom content</small>
+                    <small class="text-light fw-semibold">You can't change status after accepted/rejected</small>
                     <div class="demo-inline-spacing mt-3">
                         <div class="list-group">
 
@@ -20,18 +20,17 @@
                                 class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex justify-content-between w-100">
                                     <h6>FROM: {{ inChallenge.ChallengerMEID }}</h6>
-                                    <small>3 days ago</small>
+                                    <small>{{ inChallenge.DateOfChallenge }}</small>
                                 </div>
 
                                 <p class="mb-1">
-                                    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus
-                                    varius
-                                    blandit.
+                                    {{ inChallenge.Notes }}
                                 </p>
 
                                 <div class="d-flex justify-content-between w-100">
                                     <small>Donec id elit non mi porta.</small>
                                     <div class="d-flex justify-content-between">
+                                        <input type="hidden" id="cid-{{ inChallenge.CID }}" value="{{ inChallenge.CID }}">
                                         <form id="accept-{{ inChallenge.CID }}">
                                             <input type="hidden" name="input-accept-{{ inChallenge.CID }}" value="accept">
                                             <button type="submit" class="btn btn-icon me-2 btn-success">
@@ -91,17 +90,16 @@
 </script>
 
 <script>
-    {% for inChallenge in inChallenges %}
-
     $(document).ready(function() {
 
-        function ajaxGo(formID){
+        function ajaxGo(formID, cid){
             $(formID).submit(function(e) {
                 e.preventDefault();  // Prevent form submission
     
                 // Get the form data
                 var formData = {
                     'status': $(formID+' input').val(),
+                    'cid': $('#cid-' + cid).val(),
                 };
     
                 // Send an AJAX POST request to the Flask route
@@ -113,7 +111,7 @@
                     success: function(response) {
                         console.log(response);
                         // Handle the response from the server
-                        alert(response.status.status + '-{{inChallenge.CID}} ' + response.message );
+                        alert(response.status.status + response.status.cid + response.message );
                     },
                     error: function(error) {
                         console.log(error);
@@ -123,11 +121,15 @@
                 });
             });
         }
-        ajaxGo('#accept-{{ inChallenge.CID }}')
-        ajaxGo('#reject-{{ inChallenge.CID }}')
+
+        {% for inChallenge in inChallenges %}
+        ajaxGo('#accept-{{ inChallenge.CID }}', '{{ inChallenge.CID }}')
+        ajaxGo('#reject-{{ inChallenge.CID }}', '{{ inChallenge.CID }}')
+        {% endfor %}
+
     });
 
-    {% endfor %}
+    
 </script>
 
 {% endblock content %}
