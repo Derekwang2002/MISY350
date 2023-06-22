@@ -113,7 +113,7 @@
                     success: function(response) {
                         console.log(response);
                         // Handle the response from the server
-                        alert(response.status.status+'{{inChallenge.CID}}');
+                        alert(response.status.status + '-{{inChallenge.CID}} ' + response.message );
                     },
                     error: function(error) {
                         console.log(error);
