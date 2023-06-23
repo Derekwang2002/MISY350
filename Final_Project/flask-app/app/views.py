@@ -107,17 +107,17 @@ def challenges_init():
 
     # ============ DB: new a challenge record =============
     if request.method == 'POST':
-        cdate = datetime.now()
-        cnote = request.form.get('challengeNote')
-        cedid = request.form.get('challengedID')
-        cerid = 2 # currentMEID
+        # cdate = datetime.now()
+        # cnote = request.form.get('challengeNote')
+        # cedid = request.form.get('challengedID')
+        # cerid = 2 # currentMEID
         
-        # write challenge msg into database
-        add_challenge = Challenge(ChallengerMEID=cerid, ChallengedMEID=cedid, DateOfChallenge=cdate ,Notes=cnote, Status=0)
-        db.session.add(add_challenge)
-        db.session.commit()
-        db.session.refresh(add_challenge)
-        flash('Successfullyl sent request!')
+        # # write challenge msg into database
+        # add_challenge = Challenge(ChallengerMEID=cerid, ChallengedMEID=cedid, DateOfChallenge=cdate ,Notes=cnote, Status=0)
+        # db.session.add(add_challenge)
+        # db.session.commit()
+        # db.session.refresh(add_challenge)
+        # flash('Successfullyl sent request!')
         
         return render_template(
             'challenges_init.html', 
@@ -173,9 +173,20 @@ def change_status():
     db.session.commit()
     return result
 
-@app.route('/init')
+@app.route('/init', methods=['POST'])
 def init():
-    return
+    cdate = datetime.now()
+    cnote = request.form.get('challengeNote')
+    cedid = request.form.get('challengedID')
+    cerid = 2 # currentMEID
+    
+    # write challenge msg into database
+    add_challenge = Challenge(ChallengerMEID=cerid, ChallengedMEID=cedid, DateOfChallenge=cdate ,Notes=cnote, Status=0)
+    db.session.add(add_challenge)
+    db.session.commit()
+    db.session.refresh(add_challenge)
+    flash('Successfullyl sent request!')
+    return f'Successfullyl sent request! {cedid} '
 
 
 # ====== test ====== #

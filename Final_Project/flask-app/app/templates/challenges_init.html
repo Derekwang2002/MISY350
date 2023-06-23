@@ -5,14 +5,15 @@
 {% block content %}
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold pt-3 "><span class="text-muted fw-light">Challenge /</span> Initiate</h4>
-    <p class="mb-2 px-1"><small>You can initiate challenge only if your former challenge request is rejected or matched.</small></p>
-    <!-- Collapse -->
-    <div class="row">
-        
-        <!-- each card -->
+  <h4 class="fw-bold pt-3 "><span class="text-muted fw-light">Challenge /</span> Initiate</h4>
+  <p class="mb-2 px-1"><small>You can initiate challenge only if your former challenge request is rejected or
+      matched.</small></p>
+  <!-- Collapse -->
+  <div class="row">
 
-        <!-- {% for member in members %}
+    <!-- each card -->
+
+    <!-- {% for member in members %}
         {{member.FirstName}} {{member.LastName}} {{member.MEID}}
         {{member.Email}} {{member.MPassword}} {{member.Phone}} {{member.Age}} {{member.Gender}}
         {{member.UTR}} {{member.DateOfCreation}}
@@ -20,144 +21,150 @@
         style="margin: auto;"
         -->
 
-        {% for member in members %}
-        
-        <div class="col-12">
+    {% for member in members %}
+
+    <div class="col-12">
+      <br>
+      <div id="test">
+      </div>
+      <div class="card mb-4">
+        <a href="javascript:void(0);" class="border-bottom list-group-item-action flex-column align-items-start">
+          <div class="d-flex justify-content-between w-100">
+            <h4 class="card-header">{{member.FirstName}} {{member.LastName}} (MEID:{{member.MEID}}) <i
+                class="fa-solid fa-fish me-1 text-light"></i></h4>
+            <div class="m-4 mb-0 mt-3 px-2" style="text-align: center;"><small>{{member.Age}}, {{member.Gender}},
+                <br><i>Joined {{member.DateOfCreation}}</i></small></div>
+          </div>
+        </a>
+        <div class="card-body">
+          <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse-{{ member.MEID }}" aria-expanded="false"
+            aria-controls="collapse-{{ member.MEID }}">
+            Initiate
+          </button>
+          <div class="collapse multi-collapse" id="collapse-{{ member.MEID }}">
             <br>
-            <div id="test">
-            </div>
-            <div class="card mb-4">
-              <a href="javascript:void(0);"
-              class="border-bottom list-group-item-action flex-column align-items-start">
-                <div class="d-flex justify-content-between w-100">
-                  <h4 class="card-header">{{member.FirstName}} {{member.LastName}} (MEID:{{member.MEID}}) <i class="fa-solid fa-fish me-1 text-light"></i></h4>
-                  <div class="m-4 mb-0 mt-3 px-2" style="text-align: center;"><small>{{member.Age}}, {{member.Gender}}, <br><i>Joined {{member.DateOfCreation}}</i></small></div>
+            <div class="row">
+              <br>
+              <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <div class="card d-grid d-sm-flex py-3 px-4 border">
+                  <span>
+                    <b>UTR: {{member.UTR|int}}</b><br>
+                    Phone: {{member.Phone}} <br>
+                    Email: {{member.Email}} <br>
+                  </span>
                 </div>
-              </a>
-                <div class="card-body">
-                    <button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse-{{ member.MEID }}" aria-expanded="false" aria-controls="collapse-{{ member.MEID }}">
-                        Initiate
-                    </button>
-                    <div class="collapse multi-collapse" id="collapse-{{ member.MEID }}">
-                        <br>
-                        <div class="row">
-                            <br>
-                            <div class="col-12 col-md-6 mb-3 mb-md-0">
-                                <div class="card d-grid d-sm-flex py-3 px-4 border">
-                                    <span>
-                                        <b>UTR:  {{member.UTR|int}}</b><br>
-                                        Phone:  {{member.Phone}} <br> 
-                                        Email:  {{member.Email}} <br>
-                                    </span>
-                                </div>
-                                <!-- <br> -->
-                                <div class="card border mt-3">
-                                    <form id="form-{{member.MEID}}" class="px-4 py-3" action="{{ url_for('challenges_init') }}" method="post">
-                                        <div class="mb-3">
-                                            <h6><mark>Send Challenge Request</mark></h6>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" name="challengeNote" class="form-control" id="floatingInput" placeholder="Say something" aria-describedby="floatingInputHelp" />
-                                            <label for="floatingInput">Notes</label>
-                                            <div id="floatingInputHelp" class="form-text">We'll take action if there is any inappropriate message</div>
-                                        </div>
-                                        <input type="hidden" value="{{ member.MEID }}" name="challengedID">
-                                        <button type="submit" class="btn btn-secondary">Send</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 mb-2 mb-md-0">
-                                <div class="card p-3 border">
-                                    <div id="chart-{{ member.MEID }}" style="width: 100%; height: 290px;"></div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- <br> -->
+                <div class="card border mt-3">
+                  <form id="form-{{member.MEID}}" class="px-4 py-3" action="{{ url_for('challenges_init') }}"
+                    method="post">
+                    <div class="mb-3">
+                      <h6><mark>Send Challenge Request</mark></h6>
                     </div>
-
+                    <div class="form-floating mb-3">
+                      <input type="text" name="challengeNote" class="form-control" id="floatingInput"
+                        placeholder="Say something" aria-describedby="floatingInputHelp" />
+                      <label for="floatingInput">Notes</label>
+                      <div id="floatingInputHelp" class="form-text">We'll take action if there is any inappropriate
+                        message</div>
+                    </div>
+                    <input type="hidden" value="{{ member.MEID }}" name="challengedID">
+                    <button type="button" onclick="submitForm(event, '#form-{{member.MEID}}')"
+                      class="btn btn-secondary">Send</button>
+                  </form>
                 </div>
+              </div>
+              <div class="col-12 col-md-6 mb-2 mb-md-0">
+                <div class="card p-3 border">
+                  <div id="chart-{{ member.MEID }}" style="width: 100%; height: 290px;"></div>
+                </div>
+              </div>
             </div>
+          </div>
+
         </div>
-
-        {% endfor %}
-
+      </div>
     </div>
+
+    {% endfor %}
+
+  </div>
 </div>
 
 <nav aria-label="Page navigation" style="margin: auto;">
-    <ul class="pagination">
-      <li class="page-item first">
-        <a class="page-link" href="#"><i class="bx bx-chevrons-left"></i></a>
-      </li>
-      <li class="page-item prev">
-        <a class="page-link" href="#"><i class="bx bx-chevron-left"></i></a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">1</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">2</a>
-      </li>
-      <li class="page-item active">
-        <a class="page-link" href="#">3</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">4</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">5</a>
-      </li>
-      <li class="page-item next">
-        <a class="page-link" href="#"><i class="bx bx-chevron-right"></i></a>
-      </li>
-      <li class="page-item last">
-        <a class="page-link" href="#"><i class="bx bx-chevrons-right"></i></a>
-      </li>
-    </ul>
+  <ul class="pagination">
+    <li class="page-item first">
+      <a class="page-link" href="#"><i class="bx bx-chevrons-left"></i></a>
+    </li>
+    <li class="page-item prev">
+      <a class="page-link" href="#"><i class="bx bx-chevron-left"></i></a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">1</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="#">3</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">4</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">5</a>
+    </li>
+    <li class="page-item next">
+      <a class="page-link" href="#"><i class="bx bx-chevron-right"></i></a>
+    </li>
+    <li class="page-item last">
+      <a class="page-link" href="#"><i class="bx bx-chevrons-right"></i></a>
+    </li>
+  </ul>
 </nav>
 
 
-
+<!-- drawing chart -->
 <script>
   {% for member in members %}
-  
+
   var chartLabel = JSON.parse({{ chartLabel | tojson | safe }});
-  var chartValueWin = JSON.parse({{ session['match-win-' + member.MEID|string] | tojson | safe }});
-  var chartValueLose = JSON.parse({{ session['match-win-' + member.MEID|string] | tojson | safe }});
-  
-  var dataSource{{member.MEID}} = {
+  var chartValueWin = JSON.parse({{ session['match-win-' + member.MEID | string] | tojson | safe }});
+  var chartValueLose = JSON.parse({{ session['match-win-' + member.MEID | string] | tojson | safe }});
+
+  var dataSource{{ member.MEID }} = {
     chart: {
       caption: "Win & Lose in Last 5 months",
-      placevaluesinside: "1",
-      showvalues: "0",
-      plottooltext: "<b>$dataValue</b>  $seriesName challenges",
-      theme: "fusion"
+        placevaluesinside: "1",
+          showvalues: "0",
+            plottooltext: "<b>$dataValue</b>  $seriesName challenges",
+              theme: "fusion"
     },
     categories: [
       {
         category: chartLabel
       }
     ],
-    dataset: [
-      {
-        seriesname: "Win",
-        data: chartValueWin
-      },
-      {
-        seriesname: "Lose",
-        data: chartValueLose
-      }
-    ]
+      dataset: [
+        {
+          seriesname: "Win",
+          data: chartValueWin
+        },
+        {
+          seriesname: "Lose",
+          data: chartValueLose
+        }
+      ]
   };
-  
-  FusionCharts.ready(function() {
+
+  FusionCharts.ready(function () {
     var myChart = new FusionCharts({
       type: "stackedbar2d",
       renderAt: "chart-{{ member.MEID }}",
       width: "100%",
       height: "100%",
       dataFormat: "json",
-      dataSource: dataSource{{member.MEID}}
+      dataSource: dataSource{{ member.MEID }}
     }).render();
   });
 
@@ -170,7 +177,33 @@
   var activeSuper = document.querySelector('#ChallengesItem')
   activeItem.classList.add('active')
   activeSuper.classList.add('active', 'open')
+
+  function submitForm(event, formID) {
+    event.preventDefault()
+    var formData = $(formID).serialize();
+
+    $.ajax({
+      url: '/init',
+      type: 'POST',
+      data: formData,
+      success: function (response) {
+        // Handle the server response
+        console.log(response);
+        alert(response)
+      },
+      error: function (error) {
+        // Handle any errors
+        console.error(error);
+      }
+    });
+
+    var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+    window.location.reload();
+
+    // Restore scroll position after the page reloads
+    window.scroll(0, scrollPosition);
+  }
 </script>
 
 {% endblock content %}
-
