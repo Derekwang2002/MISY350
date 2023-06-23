@@ -6,8 +6,75 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold pt-3 "><span class="text-muted fw-light">Challenge /</span> Settled</h4>
-    <p class="mb-2 px-1"><small>All matched challenges you involved </small></p>
+  <p class="mb-2 px-1"><small>All matched challenges you involved </small></p>
   this is settle box
+
+  <div class="divider m-0">
+    <div class="divider-text"><i class="menu-icon tf-icons fa-regular fa-hand-back-fist"></i></div>
+  </div>
+
+  <div class="card mt-4">
+    <h5 class="card-header">All</h5>
+    <div class="table-responsive text-nowrap border-bottom">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Challenger</th>
+            <th>UTR</th>
+            <th>Chellenged</th>
+            <th>UTR</th>
+            <th>Notes</th>
+            <th>Date</th>
+            <th>Winner</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+
+          {% for sentChallenge in sentChallenges %}
+          <tr>
+            <td>
+              <i class="fa-solid fa-fish me-1 text-light"></i>
+              <strong>{{ sentChallenge.ChallengedMEID }}</strong>
+            </td>
+            <td><strong>UTR</strong></td>
+            <td>
+              {{ sentChallenge.Notes }}
+            </td>
+            <td>{{ sentChallenge.DateOfChallenge }}</td>
+            <td>
+              <span class="badge bg-label-info me-1">matched</span>
+            </td>
+            <td>
+              <div class="dropdown">
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item">
+                    <i class="bx bx-info-circle me-2"></i>CID:{{ sentChallenge.CID }}
+                  </a>
+                  <a href="#" class="dropdown-item" onclick="cancelForm(event, '{{ sentChallenge.CID }}')">
+                    <i class="bx bx-undo me-1"></i>
+                    Cancel
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+
+          {% if sentCount == 0 %}
+          <td>--</td>
+          <td>--</td>
+          <td>--</td>
+          <td>--</td>
+          <td>--</td>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <script>

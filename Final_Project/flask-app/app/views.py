@@ -19,15 +19,16 @@ import json
 # App main route + generic routing
 @app.route('/')
 def index():
-    return render_template('index.html')
+    session['mid'] = 4
+    return render_template('cindex.html')
 
 @app.route('/challenges_board')
 def challenges_board():
-    return render_template('challenges_board.html')
+    bulletinChanllenges = db.session.query(Challenge).filter(Challenge.IfBulletin == 1)
+    return render_template('challenges_board.html', bulletinChanllenges=bulletinChanllenges)
 
 @app.route('/challenges_init', methods=['GET', 'POST'])
 def challenges_init():
-    currentMEID = '1' # session['loggedUser'] # get currently loggin user MEID
     members = Member.query.all()
     meids = db.session.query(Member.MEID).all()
     
@@ -88,12 +89,13 @@ def challenges_init():
             elif year == currentYear - 1 and season >= currentSeason:
                 loseData[f'{currentYear - 1} S{season}'] += 1
         
-        Match.append(json.dumps(
-            [{'value':str(v)} for v in winData.values()]
-        ))
-        Match.append(json.dumps(
-            [{'value':str(v)} for v in loseData.values()]
-        ))
+        # Match.append(json.dumps(
+        #     [{'value':str(v)} for v in winData.values()]
+        # ))
+        # Match.append(json.dumps(
+        #     [{'value':str(v)} for v in loseData.values()]
+        # ))
+        # memberMatches[f'{meid}'] = Match
         
         session[f'match-win-{meid}'] = json.dumps(
             [{'value':str(v)} for v in winData.values()]
@@ -102,28 +104,25 @@ def challenges_init():
             [{'value':str(v)} for v in loseData.values()]
         )
         
-        memberMatches[f'{meid}'] = Match
+    # ============ DB: new a challenge record (removed to ajax route) =============
+    # if request.method == 'POST':
+    #     cdate = datetime.now()
+    #     cnote = request.form.get('challengeNote')
+    #     cedid = request.form.get('challengedID')
+    #     cerid = 2 # currentMEID
         
-
-    # ============ DB: new a challenge record =============
-    if request.method == 'POST':
-        # cdate = datetime.now()
-        # cnote = request.form.get('challengeNote')
-        # cedid = request.form.get('challengedID')
-        # cerid = 2 # currentMEID
+    #     # write challenge msg into database
+    #     add_challenge = Challenge(ChallengerMEID=cerid, ChallengedMEID=cedid, DateOfChallenge=cdate ,Notes=cnote, Status=0)
+    #     db.session.add(add_challenge)
+    #     db.session.commit()
+    #     db.session.refresh(add_challenge)
+    #     flash('Successfullyl sent request!')
         
-        # # write challenge msg into database
-        # add_challenge = Challenge(ChallengerMEID=cerid, ChallengedMEID=cedid, DateOfChallenge=cdate ,Notes=cnote, Status=0)
-        # db.session.add(add_challenge)
-        # db.session.commit()
-        # db.session.refresh(add_challenge)
-        # flash('Successfullyl sent request!')
-        
-        return render_template(
-            'challenges_init.html', 
-            members=members, chartLabel=chartLabel, memberMatches=memberMatches
-            # cnote=cnote, cedid=cedid, cerid=cerid, cdate=cdate
-        )
+    #     return render_template(
+    #         'challenges_init.html', 
+    #         members=members, chartLabel=chartLabel, memberMatches=memberMatches
+    #         # cnote=cnote, cedid=cedid, cerid=cerid, cdate=cdate
+    #     )
     
     return render_template(
         'challenges_init.html', 
@@ -134,19 +133,21 @@ def challenges_init():
 # join table are required to present chellenged name and his/her UTR
 @app.route('/challenges_sent')
 def challenges_sent():
-    currentMEID = 2 # session['meid']
+    currentMEID = session['mid']
     sentChallenges = db.session.query(Challenge).filter(Challenge.ChallengerMEID == currentMEID)
-    return render_template('challenges_sent.html', sentChallenges=sentChallenges)
+    sentCount = len(sentChallenges.all())
+    return render_template('challenges_sent.html', sentChallenges=sentChallenges, sentCount=sentCount)
 
 @app.route('/challenges_inbox')
 def challenges_inbox():
-    currentMEID = 2 # session['meid']
+    currentMEID = session['mid']
     inChallenges = db.session.query(Challenge).filter(Challenge.ChallengedMEID == currentMEID)
     return render_template('challenges_inbox.html', inChallenges=inChallenges)
 
 @app.route('/challenges_settled')
 def challenges_settled():
-    return render_template('challenges_settled.html')
+    settledChallenges = db.session.query(Challenge).filter(Challenge.Status == 2)
+    return render_template('challenges_settled.html', settledChallenges=settledChallenges)
 
 
 # ================== ajax route ===================== #
@@ -178,19 +179,27 @@ def init():
     cdate = datetime.now()
     cnote = request.form.get('challengeNote')
     cedid = request.form.get('challengedID')
-    cerid = 2 # currentMEID
+    ifBulletin = request.form.get('ifBulletin')
+    cerid = session['mid']
     
     # write challenge msg into database
-    add_challenge = Challenge(ChallengerMEID=cerid, ChallengedMEID=cedid, DateOfChallenge=cdate ,Notes=cnote, Status=0)
+    add_challenge = Challenge(ChallengerMEID=cerid, ChallengedMEID=cedid, DateOfChallenge=cdate ,Notes=cnote, Status=0, IfBulletin=ifBulletin)
     db.session.add(add_challenge)
     db.session.commit()
     db.session.refresh(add_challenge)
     flash('Successfullyl sent request!')
     return f'Successfullyl sent request! {cedid} '
 
+@app.route('/search', methods=['POST'])
+def search():
+    searchQuery = request.form.get('searchQuery')
+    page = request.form.get('page')
+    return f'{searchQuery} at {page}'
 
 # ====== test ====== #
 @app.route('/t')
 def test():
     current_time = datetime.now()
     return render_template('test.html', ct=current_time)
+
+# ========= member =========== #

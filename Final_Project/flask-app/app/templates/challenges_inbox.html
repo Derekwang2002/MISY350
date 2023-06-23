@@ -5,9 +5,13 @@
 {% block content %}
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold pt-3"><span class="text-muted fw-light">Challenge /</span> Inbox</h4>
-    <p class="mb-4 px-1"><small>You can't change status after accepted/rejected</small></p>
+    <p class="mb-2 px-1"><small>You can't change status after accepted/rejected</small></p>
 
-    <div class="card mb-4">
+    <div class="divider m-0">
+        <div class="divider-text"><i class="menu-icon tf-icons fa-regular fa-hand-back-fist"></i></div>
+    </div>
+
+    <div class="card mb-4 mt-4">
         <h5 class="card-header">All</h5>
         <div class="card-body">
             <div class="row">
@@ -20,8 +24,9 @@
                             <a href="javascript:void(0);"
                                 class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex justify-content-between w-100">
-                                    <h6>FROM: {{ inChallenge.ChallengerMEID }} <i class="fa-solid fa-fish me-1 text-light"></i></h6>
-                                    <small>{{ inChallenge.DateOfChallenge }}</small>
+                                    <h6>FROM: {{ inChallenge.ChallengerMEID }} <i
+                                            class="fa-solid fa-fish me-1 text-light"></i></h6>
+                                    <small class="text-muted">{{ inChallenge.DateOfChallenge }}</small>
                                 </div>
 
                                 <p class="mb-1">
@@ -31,18 +36,21 @@
                                 <div class="d-flex justify-content-between w-100">
                                     <small>UTR, win rate, total match</small>
                                     <div class="d-flex justify-content-between">
-                                        <input type="hidden" id="cid-{{ inChallenge.CID }}" value="{{ inChallenge.CID }}">
+                                        <input type="hidden" id="cid-{{ inChallenge.CID }}"
+                                            value="{{ inChallenge.CID }}">
                                         <form id="accept-{{ inChallenge.CID }}">
-                                            <input type="hidden" name="input-accept-{{ inChallenge.CID }}" value="accept">
+                                            <input type="hidden" name="input-accept-{{ inChallenge.CID }}"
+                                                value="accept">
                                             <button type="submit" class="btn btn-icon me-2 btn-success">
                                                 <span class="tf-icons bx bx-check"></span>
                                             </button>
                                         </form>
                                         <form id="reject-{{ inChallenge.CID }}">
-                                            <input type="hidden" name="reject-accept-{{ inChallenge.CID }}" value="reject">
+                                            <input type="hidden" name="reject-accept-{{ inChallenge.CID }}"
+                                                value="reject">
                                             <button type="submit" class="btn btn-icon me-2 btn-danger">
                                                 <span class="tf-icons bx bx-x"></span>
-                                            </button>  
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
@@ -88,33 +96,43 @@
     var activeSuper = document.querySelector('#ChallengesItem')
     activeItem.classList.add('active')
     activeSuper.classList.add('active', 'open')
+
+    $(function () {
+        $('#nav-search').keyup(function () {
+            var searchQuery = $(this).val().trim();
+            if (searchQuery != '') {
+                search(searchQuery, 'challenges_inbox')
+            }
+        });
+    })
 </script>
 
+<!-- decide challenges -->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-        function ajaxGo(formID, cid){
-            $(formID).submit(function(e) {
+        function decideForm(formID, cid) {
+            $(formID).submit(function (e) {
                 e.preventDefault();  // Prevent form submission
-    
+
                 // Get the form data
                 var formData = {
-                    'status': $(formID+' input').val(),
+                    'status': $(formID + ' input').val(),
                     'cid': $('#cid-' + cid).val(),
                 };
-    
+
                 // Send an AJAX POST request to the Flask route
                 $.ajax({
                     type: 'POST',
                     url: '/change_status',
                     data: JSON.stringify(formData),
                     contentType: 'application/json',
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
                         // Handle the response from the server
-                        alert(response.status.status + response.status.cid + response.message );
+                        alert(response.status.status + response.status.cid + response.message);
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error);
                         // Handle errors, if any
                         alert('Error occurred!');
@@ -124,8 +142,8 @@
         }
 
         {% for inChallenge in inChallenges %}
-        ajaxGo('#accept-{{ inChallenge.CID }}', '{{ inChallenge.CID }}')
-        ajaxGo('#reject-{{ inChallenge.CID }}', '{{ inChallenge.CID }}')
+        decideForm('#accept-{{ inChallenge.CID }}', '{{ inChallenge.CID }}')
+        decideForm('#reject-{{ inChallenge.CID }}', '{{ inChallenge.CID }}')
         {% endfor %}
 
     });

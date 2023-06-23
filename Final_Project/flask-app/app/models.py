@@ -29,6 +29,7 @@ class Challenge(db.Model):
     ChallengedMEID = db.Column(db.Integer, nullable=False)
     DateOfChallenge = db.Column(db.Date, nullable=False)
     Status = db.Column(db.Integer, nullable=False)
+    IfBulletin = db.Column(db.Integer, nullable=False)
     Notes = db.Column(db.String(100))
 
 class Membership(db.Model):

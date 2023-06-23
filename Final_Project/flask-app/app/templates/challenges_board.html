@@ -7,7 +7,54 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold pt-3 "><span class="text-muted fw-light">Challenge /</span> Bulletin Board</h4>
     <p class="mb-2 px-1"><small>Challenge requests available for all club members</small></p>
-    this is bulletin board
+
+    <div class="divider m-0">
+        <div class="divider-text"><i class="menu-icon tf-icons fa-regular fa-hand-back-fist"></i></div>
+    </div>
+
+    <div class="card mb-4 mt-4">
+        <h5 class="card-header">Fish<i class="fa-solid fa-fish mx-1 text-light"></i></h5>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <!-- <small class="text-light fw-semibold"></small> -->
+                    <div class="demo-inline-spacing mt-3">
+                        <div class="list-group">
+
+                            {% for bulletinChanllenge in bulletinChanllenges %}
+                            <a href="javascript:void(0);"
+                                class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex justify-content-between w-100">
+                                    <h6>FROM: {{ bulletinChanllenge.ChallengerMEID }}</h6>
+                                    <small class="text-muted">{{ bulletinChanllenge.DateOfChallenge }}</small>
+                                </div>
+
+                                <p class="mb-1">
+                                    {{ bulletinChanllenge.Notes }}
+                                </p>
+
+                                <div class="d-flex justify-content-between w-100">
+                                    <small>UTR, win rate, total match</small>
+                                    <div class="d-flex justify-content-between">
+                                        <input type="hidden" id="cid-{{ bulletinChanllenge.CID }}"
+                                            value="{{ bulletinChanllenge.CID }}">
+                                        <form id="accept-{{ bulletinChanllenge.CID }}">
+                                            <input type="hidden" name="input-accept-{{ bulletinChanllenge.CID }}"
+                                                value="accept">
+                                            <button type="submit" class="btn me-2 btn-success">
+                                                <b>Take it!</b>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 

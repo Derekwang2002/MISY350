@@ -5,33 +5,49 @@
 {% block content %}
 
 <div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold pt-3 "><span class="text-muted fw-light">Challenge /</span> Initiate</h4>
-  <p class="mb-2 px-1"><small>You can initiate challenge only if your former challenge request is rejected or
-      matched.</small></p>
-  <!-- Collapse -->
-  <div class="row">
+  <div class="d-flex justify-content-between w-100">
+    <div>
+      <h4 class="fw-bold pt-3 "><span class="text-muted fw-light">Challenge /</span> Initiate</h4>
+      <p class="mb-2 px-1"><small>Either for specific member or post on bulletin board</small></p>
+    </div>
+    <div class="card-header">
+      <ul class="nav nav-pills card-header-pills" role="tablist">
+        <li class="nav-item">
+          <button type="button" id="personal-pill" class="nav-link active btn-sm" data-bs-toggle="tab"
+            data-bs-target="#navs-pills-within-card-active" role="tab"
+            onclick="initMethod('#personal-pill-div')"><b>PERSONAL</b></button>
+        </li>
+        <li class="nav-item">
+          <button type="button" id="bulletin-pill" class="nav-link btn-sm" data-bs-toggle="tab"
+            data-bs-target="#navs-pills-within-card-link" role="tab"
+            onclick="initMethod('#bulletin-pill-div')"><b>BULLETIN</b></button>
+        </li>
+      </ul>
+    </div>
+  </div>
 
+  <div class="divider m-0">
+    <div class="divider-text"><i class="menu-icon tf-icons fa-regular fa-hand-back-fist"></i></div>
+  </div>
+  <!-- You can initiate challenge only if your former challenge request is rejected or
+      matched. -->
+
+  <div class="row pill-display" id="personal-pill-div" style="display: block;">
     <!-- each card -->
-
-    <!-- {% for member in members %}
-        {{member.FirstName}} {{member.LastName}} {{member.MEID}}
-        {{member.Email}} {{member.MPassword}} {{member.Phone}} {{member.Age}} {{member.Gender}}
-        {{member.UTR}} {{member.DateOfCreation}}
-        {% endfor %} 
-        style="margin: auto;"
-        -->
-
     {% for member in members %}
 
-    <div class="col-12">
+    <div class="col-12 memebr-card" style="display: block;">
       <br>
-      <div id="test">
-      </div>
       <div class="card mb-4">
         <a href="javascript:void(0);" class="border-bottom list-group-item-action flex-column align-items-start">
           <div class="d-flex justify-content-between w-100">
-            <h4 class="card-header">{{member.FirstName}} {{member.LastName}} (MEID:{{member.MEID}}) <i
-                class="fa-solid fa-fish me-1 text-light"></i></h4>
+            <h4 class="card-header">{{member.FirstName}} {{member.LastName}} (MEID:{{member.MEID}})
+              {% if member.UTR|int <= 5 %} <i class="fa-solid fa-fish me-1 text-light"></i>
+                {% elif member.UTR|int <= 10 %} <i class="fa-solid fa-shield-halved me-1 text-light"></i>
+                  {% elif member.UTR|int >= 10 %}
+                  <i class="fa-solid fa-award me-1 text-light"></i>
+                  {% endif %}
+            </h4>
             <div class="m-4 mb-0 mt-3 px-2" style="text-align: center;"><small>{{member.Age}}, {{member.Gender}},
                 <br><i>Joined {{member.DateOfCreation}}</i></small></div>
           </div>
@@ -69,6 +85,7 @@
                         message</div>
                     </div>
                     <input type="hidden" value="{{ member.MEID }}" name="challengedID">
+                    <input type="hidden" value="0" name="ifBulletin">
                     <button type="button" onclick="submitForm(event, '#form-{{member.MEID}}')"
                       class="btn btn-secondary">Send</button>
                   </form>
@@ -85,44 +102,48 @@
         </div>
       </div>
     </div>
-
     {% endfor %}
+  </div>
 
+  <div class="row pill-display" id="bulletin-pill-div" style="display: none;">
+    <div class="col-12">
+      <div class="card mt-3">
+        <form id="form-bulletin" class="px-4 py-3" action="#" method="post">
+          <div class="mb-3">
+            <h5 class="mt-3"><mark>Post Challenge Request to Bulletin Board</mark></h5>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" name="challengeNote" class="form-control" id="floatingInput" placeholder="Say something"
+              aria-describedby="floatingInputHelp" />
+            <label for="floatingInput">Notes</label>
+            <div id="floatingInputHelp" class="form-text">Your request will be available for members</div>
+          </div>
+          <input type="hidden" value="0" name="challengedID">
+          <input type="hidden" value="1" name="ifBulletin">
+          <button type="button" onclick="submitFormBulletin(event, '#form-bulletin')"
+            class="btn btn-secondary">Send</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
 <nav aria-label="Page navigation" style="margin: auto;">
   <ul class="pagination">
-    <li class="page-item first">
+    <!-- <li class="page-item first">
       <a class="page-link" href="#"><i class="bx bx-chevrons-left"></i></a>
+    </li> -->
+    {% set length = members|length %}
+    {% for i in range(1, (length // 10) + 2) %}
+    <li class="page-item" id="bottom-nav-page-{{i}}">
+      <a class="page-link" href="#" onclick="pageNav('{{i}}')">{{i}}</a>
     </li>
-    <li class="page-item prev">
-      <a class="page-link" href="#"><i class="bx bx-chevron-left"></i></a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">1</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">2</a>
-    </li>
-    <li class="page-item active">
-      <a class="page-link" href="#">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">4</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">5</a>
-    </li>
-    <li class="page-item next">
-      <a class="page-link" href="#"><i class="bx bx-chevron-right"></i></a>
-    </li>
-    <li class="page-item last">
+    {% endfor %}
+    <!-- <li class="page-item last">
       <a class="page-link" href="#"><i class="bx bx-chevrons-right"></i></a>
-    </li>
+    </li> -->
   </ul>
 </nav>
-
 
 <!-- drawing chart -->
 <script>
@@ -171,12 +192,20 @@
   {% endfor %}
 </script>
 
-
 <script>
+  // active sidebar
   var activeItem = document.querySelector('#InitiateItem')
   var activeSuper = document.querySelector('#ChallengesItem')
   activeItem.classList.add('active')
   activeSuper.classList.add('active', 'open')
+
+  function initMethod(pillID) {
+    var pillDisplayDiv = document.querySelectorAll('div.pill-display');
+    pillDisplayDiv.forEach(function (pdiv) {
+      pdiv.style.display = 'none';
+    });
+    $(pillID).attr('style', 'display: block');
+  }
 
   function submitForm(event, formID) {
     event.preventDefault()
@@ -193,17 +222,73 @@
       },
       error: function (error) {
         // Handle any errors
-        console.error(error);
+        alert(error);
       }
     });
 
-    var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-
-    window.location.reload();
-
     // Restore scroll position after the page reloads
+    var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    window.location.reload();
     window.scroll(0, scrollPosition);
+    // remain in current subpage
+    var activatingNum = document.querySelector('ul.pagination li.active').innerHTML;
+    pageNav(activatingNum);
   }
+
+  function submitFormBulletin(event, formID) {
+    event.preventDefault()
+    var formData = $(formID).serialize();
+
+    $.ajax({
+      url: '/init',
+      type: 'POST',
+      data: formData,
+      success: function (response) {
+        // Handle the server response
+        console.log(response);
+        alert(response);
+        window.location.href = '/challenges_board';
+      },
+      error: function (error) {
+        // Handle any errors
+        console.log(error)
+        alert('error');
+      }
+    });
+  }
+
+  function pageNav(pageNum) {
+    var activeID = '#bottom-nav-page-' + pageNum;
+    var pageNum = parseInt(pageNum);
+    var memberDiv = document.querySelectorAll('div.memebr-card');
+    var activating = document.querySelector('ul.pagination li.active');
+    if (activating) {
+      activating.classList.remove('active');
+    }
+    document.querySelector(activeID).classList.add('active')
+    // hide all cards first
+    memberDiv.forEach(function (mdiv) {
+      mdiv.style.display = 'none'
+    });
+    // show needed
+    for (var i = (pageNum - 1) * 10; i < (pageNum - 1) * 10 + 10; i++) {
+      memberDiv[i].style.display = 'block';
+    }
+  }
+
+  $(function () {
+    // page nav defualt
+    pageNav(1);
+    // search
+    $('#nav-search').keyup(function () {
+      var searchQuery = $(this).val().trim();
+      console.log('check!')
+      if (searchQuery != '') {
+        console.log('in if!')
+        search(searchQuery, 'challenges_init')
+      }
+    });
+  })
 </script>
 
 {% endblock content %}
