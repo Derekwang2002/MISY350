@@ -1,0 +1,142 @@
+{% extends "layouts/user_base.html" %}
+
+{% block title %} Membership Registration {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <hr>
+    <div class="">
+        <h3>Congraduations! You've successfully register your membership in our tennis club!</h3>
+        <p>The following table is your record, please remember to pay your membership fee before <u>DueDate</u></p>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Membership ID</th>
+                        <th>Member ID</th>
+                        <th>StartDate</th>
+                        <th>EndDate</th>
+                        <th><b>DueDate</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ membership.MSID }}</td>
+                        <td>{{ membership.MEID }}</td>
+                        <td>{{ membership.StartDate }}</td>
+                        <td>{{ membership.EndDate }}</td>
+                        <td>{{ membership.DueDate }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>
+<hr>
+<hr>
+  
+  <div class="container">
+    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0"
+      aria-valuemax="100">
+      <div class="progress-bar" style="width: 100%">100%</div>
+    </div>
+    <h6>Progress</h6>
+    <div class="row card">
+      <div class="col-md-6 vertical-line">
+        <table class="table">
+          <h2>Bill</h2>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Years</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tennis Club Membership (year)</td>
+              <td>{{ plan }}</td>
+              <td>$100</td>
+              <td>{{ plan * 100 }}</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="text-left no-border">Tax</td>
+              <td>{{ tax }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="text-left"><strong>Total:</strong></td>
+              <td><strong>{{ totalpay }}</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <br>
+      <br>
+      <div class="col-md-6">
+        <h2>Payment Information</h2>
+        <form action="{{url_for('payment_success')}}" method="post">
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="cardNumber" name="cardnumber" required
+                placeholder="Enter your card number">
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="fab fa-cc-visa"></i>
+                  <i class="fab fa-cc-mastercard"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="expirationDate">Expiration Date</label>
+            <input type="text" class="form-control" id="expirationDate" name="expirationDate" required>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" class="form-control" id="cvv" name="cvv" required>
+          </div>
+          <input type="hidden" id="hiddenField" name="msid" value="{{membership.MSID}}">
+          <br>
+          <button type="submit" class="btn btn-primary">Pay Now</button>
+        </form>
+        <br>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    .table {
+        margin-bottom: 0;
+      }
+    
+      .table thead th {
+        padding: 0.5rem;
+      }
+    
+      .table tbody td {
+        padding: 0.5rem;
+      }
+    
+      .no-border {
+        border: none;
+      }
+</style>
+{% endblock content %}

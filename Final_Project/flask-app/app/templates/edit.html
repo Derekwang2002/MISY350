@@ -1,0 +1,181 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block title %} My Store - Home {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container">
+    <form method="post" action="{{url_for('editSubmit')}}">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span>Edit Records</h4>
+
+        <!-- form -->
+        <div class="row">
+          <div class="col-xxl">
+            <div class="card mb-4">
+              <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Main Information</h5>
+                <small class="text-muted float-end"></small>
+              </div>
+              <div class="card-body">
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-company">Match ID</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="mid" name="mid" value="{{match.MAID}}"/>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-company">Challenge ID</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="cid" name="cid" value="{{match.CID}}"/>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-email">Date Of Match</label>
+                    <div class="col-sm-10">
+                      <div class="input-group input-group-merge">
+                        <input type="date" id="date" class="form-control" name="match_date" value="{{match.DateOfMatch}}"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-email">Match Status</label>
+                    <div class="col-sm-10">
+                      <div class="input-group input-group-merge">
+                        <select name="matchStatus" id="matchStatus" class="form-control" name="matchStatus">
+                            <option>Open this select menu</option>
+                            {% if match.MatchStatus == 'Scheduled' %}
+                                <option value="Scheduled" selected>Scheduled</option>
+                                <option value="Active">Active</option>
+                                <option value="Completed">Completed</option>
+                            {% elif match.MatchStatus == 'Active' %}
+                            <option value="Scheduled">Scheduled</option>
+                            <option value="Active" selected>Active</option>
+                            <option value="Completed">Completed</option>
+                            {% else %}
+                            <option value="Scheduled">Scheduled</option>
+                            <option value="Active">Active</option>
+                            <option value="Completed" selected>Completed</option>
+                            {% endif %}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-email">Winner Member ID</label>
+                    <div class="col-sm-10">
+                      <div class="input-group input-group-merge">
+                        <input type="number" id="wmid" class="form-control" name="winner_id" value="{{match.WinnerMEID}}"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="basic-default-email">Loser Member ID</label>
+                    <div class="col-sm-10">
+                      <div class="input-group input-group-merge">
+                        <input type="number" id="lmid" class="form-control" name="loser_id" value="{{match.LoserMEID}}"/>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xxl">
+            <div class="card mb-4">
+              <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Scores for every set</h5>
+                <small class="text-muted float-end"></small>
+              </div>
+              <div class="card-body">
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phone">MEID1 Set1Score</label>
+                        <div class="col-sm-10">
+                          <input type="number" id="meid1set1" class="form-control phone-mask" name="meid1set1" value="{{match.MEID1Set1Score}}"/>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phone">MEID2 Set1Score</label>
+                        <div class="col-sm-10">
+                          <input type="number" id="meid2set1" class="form-control phone-mask" name="meid2set1" value="{{match.MEID2Set1Score}}"/>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phone">MEID1 Set2Score</label>
+                        <div class="col-sm-10">
+                          <input
+                            type="number"
+                            id="meid1set2"
+                            class="form-control phone-mask"
+                            name="meid1set2"
+                            value="{{match.MEID1Set2Score}}"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phone">MEID2 Set2Score</label>
+                        <div class="col-sm-10">
+                          <input
+                            type="number"
+                            id="meid2set1"
+                            class="form-control phone-mask"
+                            name="meid2set2"
+                            value="{{match.MEID2Set2Score}}"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phone">MEID1 Set3Score</label>
+                        <div class="col-sm-10">
+                          <input
+                            type="number"
+                            id="meid1set3"
+                            class="form-control phone-mask"
+                            name="meid1set3"
+                            value="{{match.MEID1Set3Score}}"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phone">MEID2 Set3Score</label>
+                        <div class="col-sm-10">
+                          <input
+                            type="number"
+                            id="meid2set3"
+                            class="form-control phone-mask"
+                            name="meid2set3"
+                            value="{{match.MEID2Set3Score}}"
+                          />
+                        </div>
+                      </div>
+                  <div class="row justify-content-end">
+                    <div class="col-sm-10">
+                      <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                  </div>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    
+      <!-- / Content -->
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+{% endblock content %}

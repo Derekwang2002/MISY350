@@ -1,0 +1,100 @@
+{% extends "layouts/user_base.html" %}
+
+{% block title %} My Store - Home {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="container">
+    <p>See your previous invoice record by clicking <a href="/search_invoice">here</a ></p >
+    <form action="{{ url_for('extend') }}" method="post">
+        <div class="col-md-3">
+            <label for="validationCustom04" class="form-label">Membership Plan</label>
+            <select class="form-select" id="validationCustom04" name="plan" required>
+                <option selected disabled value="">Choose your Membership Plan</option>
+                {% if plan == '1' %}
+                <option value="1" selected>1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                {% elif plan == '2' %}
+                <option value="1">1 year</option>
+                <option value="2" selected>2 years</option>
+                <option value="3">3 years</option>
+                {% elif plan == '3' %}
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3" selected>3 years</option>
+                {% else %}
+                <option value="1">1 year</option>
+                <option value="2">2 years</option>
+                <option value="3">3 years</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="col-12">
+            <br>
+            <button class="btn btn-primary" type="submit">Next</button>
+        </div>
+        <hr>
+    </form>
+
+    <h1 class="c">Keep more competitive and have more fun by extending your membership</h1>
+    <!-- Carousel -->
+    <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/static/assets/img/membership/tennis_ball_2.jpg" class="d-block w-100" alt="..."
+                    style="height: 800px;">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Unleash Your Tennis Passion</h5>
+                    <p>Experience the thrill of tennis on our world-class courts. Join our club today and unlock a world
+                        of
+                        opportunities for growth, competition, and camaraderie.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/static/assets/img/membership/tennis_ball_3.jpg" class="d-block w-100" alt="..."
+                    style="height: 800px;">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Elevate Your Tennis Game</h5>
+                    <p>Take your skills to the next level with our professional coaching and state-of-the-art
+                        facilities.
+                        Become a
+                        member and discover the path to tennis excellence.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/static/assets/img/membership/tennis_ball_4.jpg" class="d-block w-100" alt="..."
+                    style="height: 800px;">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Join a Community of Tennis Enthusiasts</h5>
+                    <p>Connect with fellow tennis lovers, participate in exciting tournaments, and enjoy social events.
+                        Embrace
+                        the
+                        spirit of tennis and forge lifelong friendships at our club.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+{% endblock content %}

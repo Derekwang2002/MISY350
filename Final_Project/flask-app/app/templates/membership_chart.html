@@ -1,0 +1,84 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block title %} Membership Registration {% endblock title %}
+
+{% block content %}
+<script src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.umber.js"></script>
+<script>
+  var data = JSON.parse({{ chartData | tojson | safe }})
+  const dataSource = {
+    chart: {
+      caption: "Membership Distribution for our club",
+      subcaption: "For all users in {{year}}",
+      showpercentvalues: "1",
+      defaultcenterlabel: "Pay/Unpaid Users Distribution",
+      aligncaptionwithcanvas: "0",
+      captionpadding: "0",
+      decimals: "1",
+      plottooltext:
+        "<b>$percentValue</b> of our memberships are <b>$label</b>",
+      centerlabel: "# Users: $value",
+      theme: "umber"
+    },
+    data: data
+  };
+
+  FusionCharts.ready(function () {
+    var myChart = new FusionCharts({
+      type: "doughnut2d",
+      renderAt: "chart-container",
+      width: "100%",
+      height: "100%",
+      dataFormat: "json",
+      dataSource
+    }).render();
+  });
+</script>
+<main id="main">
+  <section class="inner-page">
+    <div class="container">
+      <div class="card">
+        <h1>Membership visualization</h1>
+        <form method="POST" action="{{ url_for('chart') }}">
+          <div class="col-md-3">
+            <label for="name">Year:</label>
+            <select class="form-select" id="validationCustom04" name="year" required>
+              <option selected disabled value="">Select the year</option>
+              {% for i in allyear %}
+              {% if i == year %}
+              <option value="{{i}}" selected>{{i}}</option>
+              {% else %}
+              <option value="{{i}}" >{{i}}</option>
+              {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <br>
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </form>
+      </div>
+      <hr>
+      <div id="chart-container"></div>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+    </div>
+  </section>
+</main>
+<style>
+  form {
+    margin-left: 1.6%;
+    margin-bottom: 2%;
+  }
+</style>
+{% endblock content %}

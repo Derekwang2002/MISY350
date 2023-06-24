@@ -1,4 +1,4 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/user_base.html" %}
 
 {% block title %} Sent Challenges {% endblock title %}
 
@@ -17,7 +17,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Challenge to</th>
+                        <th>Send to</th>
                         <th>UTR</th>
                         <th>Notes</th>
                         <th>Date</th>
@@ -30,8 +30,12 @@
                     {% for sentChallenge in sentChallenges %}
                     <tr>
                         <td>
+                            {% if sentChallenge.ChallengedMEID == 0 %}
+                            <strong>Bulletin</strong>
+                            {% else  %}
                             <i class="fa-solid fa-fish me-1 text-light"></i>
                             <strong>{{ sentChallenge.ChallengedMEID }}</strong>
+                            {% endif %}
                         </td>
                         <td><strong>UTR</strong></td>
                         <td>

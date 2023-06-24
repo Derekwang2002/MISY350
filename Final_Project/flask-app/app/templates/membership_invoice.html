@@ -1,0 +1,37 @@
+{% extends "layouts/user_base.html" %}
+
+{% block title %} My Store - Home {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="container">
+    <hr>
+    <div class="card">
+      <h3>This is your latest invoice record.</h3>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Membership ID</th>
+              <th>Member ID</th>
+              <th>StartDate</th>
+              <th>EndDate</th>
+              <th><b>DueDate</b></th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ membership.MSID }}</td>
+              <td>{{ membership.MEID }}</td>
+              <td>{{ membership.StartDate }}</td>
+              <td>{{ membership.EndDate }}</td>
+              <td>{{ membership.DueDate }}</td>
+              <td>${{ membership.Amount }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+{% endblock content %}

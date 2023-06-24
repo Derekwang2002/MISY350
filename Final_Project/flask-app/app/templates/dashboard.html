@@ -1,0 +1,185 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block title %} Admin {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<script src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+<script scr="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
+<script>
+    var activeItem = document.querySelector('#DashboardItem')
+    activeItem.classList.add('active')
+</script>
+
+<script>
+  function RunningClock(){
+    var placeHolder = document.getElementById('timer');
+    setInterval(updateTime, 1000);
+
+    function updateTime(){
+      var currentTime = new Date();
+      var hours = currentTime.getHours().toString();
+      var minutes = currentTime.getMinutes().toString();
+      var seconds = currentTime.getSeconds().toString();
+      if (hours.length<2){
+        hours = '0' + hours
+      }
+      if (minutes.length<2){
+        minutes = '0' + minutes
+      }
+      if (seconds.length<2){
+        seconds = '0' + seconds
+      }
+
+      placeHolder.innerHTML = hours + ':' + minutes + ":" + seconds;
+    }
+  }
+    window.addEventListener('load', RunningClock)
+</script>
+
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <div class="row">
+        <div class="col-lg-8 mb-4 order-0">
+          <div class="card">
+            <div class="d-flex align-items-end row">
+              <div class="col-sm-7">
+                <div class="card-body">
+                  <h3 class="card-title text-primary">Welcome back, Admin! 🎉</h3>
+                  <p class="mb-4">
+                    You have to do on some management on the website. Have a good day!
+                  </p>
+
+                </div>
+            </div>
+            <div class="col-sm-5 text-center text-sm-left">
+                <div class="card-body pb-0 px-0 px-md-4">
+                  <img
+                    src="static/assets/img/illustrations/man-with-laptop-light.png"
+                    height="140"
+                    alt="View Badge User"
+                    data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                    data-app-light-img="illustrations/man-with-laptop-light.png"
+                  />
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+          <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+            <div class="card-title">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="avatar flex-shrink-0">
+                                    <img
+                                    src="static/assets/img/icons/unicons/chart-success.png"
+                                    alt="chart success"
+                                    class="rounded"
+                                    />
+                                </div>
+                            </th>
+                            <th>                                                     </th>
+                            <th>
+                                <h3 class="text-nowrap mb-1">Work Timer</h3>
+                            </th>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="mt-sm-auto">
+              <small class="text-success text-nowrap fw-semibold">
+                <span class="badge bg-label-warning rounded-pill"><h1 class="mb-0" id="timer">00:00:00</h1></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-12 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+          <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+            <div class="card-title">
+              <h3 class="text-nowrap mb-2">User Account Creation</h3>
+              <span class="badge bg-label-warning rounded-pill">Year 2023</span>
+            </div>
+            <div class="mt-sm-auto">
+              <div id="chart-container">
+                <canvas id="chart"></canvas>
+              </div>
+                <script>
+
+
+                    var data = JSON.parse({{data | tojson | safe}});
+
+                    const dataSource = {
+                        chart: {
+                            caption: "Recent user creation",
+                            yaxisname: "Number of Users",
+                            aligncaptionwithcanvas: "0",
+                            plottooltext: "<b>$dataValue</b> number of users",
+                            theme: "fusion"
+                        },
+                            data: data
+                        };
+
+                        FusionCharts.ready(function() {
+                        var myChart = new FusionCharts({
+                            type: "bar2d",
+                            renderAt: "chart-container",
+                            width: "70%",
+                            height: "100%",
+                            dataFormat: "json",
+                            dataSource
+                        }).render();
+                        });
+
+
+
+                </script>
+            </div>
+          </div>
+          <div class="col-sm-3 text-center text-sm-left">
+            <div class="card-body pb-0 px-0 px-md-4">
+              <img
+                src="static/assets/img/elements/woman.gif"
+                height="300"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div>
+</div>
+
+
+
+   
+
+</div>
+
+
+{% endblock content %}

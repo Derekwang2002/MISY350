@@ -1,0 +1,136 @@
+{% extends "layouts/user_base.html" %}
+
+{% block title %} My Store - Home {% endblock title %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+                <div class="col-lg-8 mb-4 order-0">
+                        <div class="card">
+                        <div class="d-flex align-items-end row">
+                                <div class="col-sm-7">
+                                        <div class="card-body">
+                                        <h5 class="card-title text-primary">{{message}} {{session['name']}}</h5>
+                                        <p class="mb-4">
+                                                Welcome back! 🎉
+                                        </p>
+
+                                        <a href="accountsetting" class="btn btn-sm btn-outline-primary">My Profile</a>
+                                        </div>
+                                </div>
+                                <div class="col-sm-5 text-center text-sm-left">
+                                        <div class="card-body pb-0 px-0 px-md-4">
+                                        <img
+                                        src="/static/assets/img/illustrations/man-with-laptop-light.png"
+                                        height="140"
+                                        alt="View Badge User"
+                                        data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                        data-app-light-img="illustrations/man-with-laptop-light.png"
+                                        />
+                                        </div>
+                                </div>
+                        </div>
+
+                        </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                        <div class="card" style="height: 165px;">
+                        <div class="card-body">
+                        <!-- <div class="d-flex justify-content-between flex-sm-row flex-column gap-3"> -->
+                        <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                                <div class="card-title">
+                                <h5 class="text-nowrap mb-2">Historical Matches</h5>
+                                <span class="badge bg-label-primary rounded-pill">Date: {{session['now']}}</span>
+                                <p>You have won {{winnum}} matches and lost {{losenum}} matches.</p>
+                                </div>
+                                <!-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">Initiate A Challenge</a> -->
+                        </div>
+                        </div>
+                        </div>
+                </div>
+        </div>
+
+        <div class="col-12 mb-4">
+                <div class="card">
+                  <div class="card-body">
+                    <!-- <div class="d-flex justify-content-between flex-sm-row flex-column gap-3"> -->
+                      <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                        <div class="card-title">
+                          <h5 class="text-nowrap mb-2">Matches Held Today</h5>
+                          <span class="badge bg-label-warning rounded-pill">Date: {{session['now']}}</span>
+                          <table cellpadding="0" cellspacing="0" width="600">
+                                <thead>
+                                        <tr>
+                                                <th>MAID</th>
+                                                <th>Match Status</th>
+                                                <th>Winner MEID</th>
+                                                <th>Loser MEID</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        {% for i in match_info %}
+                                        <tr>
+                                                 <td>{{i.MAID}}</td>
+                                                 <td>{{i.MatchStatus}}</td>
+                                                 <td>{{i.WinnerMEID}}</td>
+                                                 <td>{{i.LoserMEID}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                </tbody>
+                          </table>
+                        </div>
+                      </div>                      
+                  </div>
+                </div>
+        </div>
+        <div class="col-12 mb-4">
+                <div class="card" style="height: 450px;">
+                  <div class="card-body">
+                    <!-- <div class="d-flex justify-content-between flex-sm-row flex-column gap-3"> -->
+                      <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                        <div class="card-title">
+                          <h5 class="text-nowrap mb-2">TOP 10 UTR members</h5>
+                          <span class="badge bg-label-warning rounded-pill">Year 2023</span>
+                        </div>
+                      </div>
+                      <div id="chart-container2"></div>
+                      <script>
+                        var data = JSON.parse({{data2 | tojson | safe}});
+                            const dataSource = {
+                                chart: {
+                                    caption: "Top 10 members of UTR",
+                                    xaxisname: 'Member ID',
+                                    yaxisname: "UTR",
+                                    aligncaptionwithcanvas: "0",
+                                    plottooltext: "The UTR levle is <b>$dataValue</b>",
+                                    theme: "fusion"
+                                },
+                                data: data
+                                };
+        
+                                FusionCharts.ready(function() {
+                                var myChart = new FusionCharts({
+                                    type: "bar2d",
+                                    renderAt: "chart-container2",
+                                    width: "100%",
+                                    height: "80%",
+                                    dataFormat: "json",
+                                    dataSource
+                                }).render();
+                                });
+                    </script>
+                  </div>
+                </div>
+        </div>
+
+
+
+        
+</div>
+</div>
+
+
+{% endblock content %}

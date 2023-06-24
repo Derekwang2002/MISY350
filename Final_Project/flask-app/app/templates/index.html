@@ -1,0 +1,281 @@
+{% extends "layouts/site_base.html" %}
+
+{% block title %} TennisClub Home {% endblock title %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<p class="title fs-sm-12 fs-md-30 fs-lg-80">Welcome to The Excellent Tennis Club</p>
+<p id="notation">Home for tennis lover</p>
+
+<div class="container">
+    <div class="intro">
+        <!-- <h2 class="my-4">The Excellent Tennis Club</h2> -->
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" style="width: 100%;">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" style="width: 100%;">
+                <div class="carousel-item active">
+                    <img class="d-block w-200 card-img" src="/static/assets/img/backgrounds/tennis1.jpg"
+                        alt="First slide" />
+                    <!-- <div class="card-img-overlay" style="text-align: center;">
+                        <h1>Welcome to The Excellent Tennis Club</h1>
+                    </div> -->
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>About Our Tennis Club</h3>
+                        <br>
+                        <h5> Here is the basic introduction of our club: Our club is created by 2002, which is a tennis
+                            ladder in a local
+                            tennis club. The ladder organizes year-round weekly tennis matches for the club members.
+                            You can not only feel the fun of tennis in our club, but also experience the excitement of
+                            competition and challenge.</h5>
+                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="/register">Join Us
+                                Today!</a></div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-200 card-img" src="/static/assets/img/backgrounds/tennis2.jpg"
+                        alt="Second slide" />
+                    <!-- <div class="card-img-overlay" style="text-align: center;">
+                        <h1>Welcome to The Excellent Tennis Club</h1>
+                    </div> -->
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Have Fun Here!</h3>
+                        <br>
+                        <h5>In our club, you can challenge the very best players and experience the excitement of the
+                            challenge,
+                            and you can also relax by starting a race with the lower UTR members.
+                            In short, you will always feel the pleasure in our club!</h5>
+                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="/register">Start
+                                Now!</a></div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-200 card-img" src="/static/assets/img/backgrounds/tennis3.jpg"
+                        alt="Third slide" />
+                    <!-- <div class="card-img-overlay" style="text-align: center;">
+                        <h1>Welcome to The Excellent Tennis Club</h1>
+                    </div> -->
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Be a membership</h3>
+                        <br>
+                        <h5>You can also choose to become a membership of our club. Then, you will be able to enjoy many
+                            privileges,
+                            and have a better experience here. See more by clicking the button below.
+                        </h5>
+                        <div class="intro-button mx-auto"><a class="btn btn-primary btn-xl" href="/register">Try
+                                Now!</a></div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-danger" role="alert">
+
+    {% for message in messages %}
+    <li>{{message}}</li>
+    {% endfor %}
+</div>
+
+
+{% endif %}
+{% endwith %}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded text-center rounded">
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-upper">Our Promise</span>
+                        <span class="section-heading-lower">To You</span>
+                    </h2>
+                    <p class="mb-0">When you walk into our shop to start your day, we are dedicated to providing you
+                        with friendly service, a welcoming atmosphere, and above all else, excellent products made with
+                        the highest quality ingredients.
+                        If you are not satisfied, please let us know and we will do whatever we can to make things
+                        right!
+                        JOIN US TODAY!!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="lh-1 me-3" style="text-align: center;">
+        <a href="/login" class="btn btn-primary btn-xl" tabindex="-1" role="button">Sign In</a>
+        <a href="/register" class="btn btn-secondary btn-xl" tabindex="-1" role="button">Sign up</a>
+    </div>
+    <br>
+    <br>
+    <section class="page-section cta">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <div class="cta-inner bg-faded text-center rounded">
+                        <h2 class="section-heading mb-4">
+                            <span class="section-heading-upper">About Our Members</span>
+                        </h2>
+                        <p class="mb-0">The charts below shows our current members' information about gender, age
+                            group, UTR rating level, and daily registrations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-5" style="margin: auto;">
+                <div class="card">
+                    <div class="card-body" style="height: 400px;">
+                        <div id="chart-container1"></div>
+                        <script>
+                            var data = JSON.parse({{ chartdata1 | tojson | safe}});
+                            const datas = {
+                                chart: {
+                                    caption: "Gender ratio of out members",
+                                    plottooltext: "<b>$percentValue</b> of our members are $label",
+                                    showlegend: "1",
+                                    showpercentvalues: "1",
+                                    legendposition: "bottom",
+                                    usedataplotcolorforlabels: "1",
+                                    theme: "fusion"
+                                },
+                                data: data
+                            };
+
+                            FusionCharts.ready(function () {
+                                var myChart = new FusionCharts({
+                                    type: "pie2d",
+                                    renderAt: "chart-container1",
+                                    width: "100%",
+                                    height: "93%",
+                                    dataFormat: "json",
+                                    dataSource: datas
+                                }).render();
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5" style="margin: auto;">
+                <div class="card">
+                    <div class="card-body" style="height: 400px;">
+                        <div id="chart-container2"></div>
+                        <script>
+                            var data = JSON.parse({{ data2 | tojson | safe}});
+                            const dataSource = {
+                                chart: {
+                                    caption: "Top 10 members of UTR",
+                                    xaxisname: 'Member ID',
+                                    yaxisname: "UTR",
+                                    aligncaptionwithcanvas: "0",
+                                    plottooltext: "The UTR levle is <b>$dataValue</b>",
+                                    theme: "fusion"
+                                },
+                                data: data
+                            };
+
+                            FusionCharts.ready(function () {
+                                var myChart = new FusionCharts({
+                                    type: "bar2d",
+                                    renderAt: "chart-container2",
+                                    width: "100%",
+                                    height: "93%",
+                                    dataFormat: "json",
+                                    dataSource
+                                }).render();
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-5" style="margin: auto;">
+                <div class="card">
+                    <div class="card-body" style="height: 400px;">
+                        <div id="chart-container3"></div>
+                        <script>
+                            var data = JSON.parse({{ data3 | tojson | safe}});
+                            const data3 = {
+                                chart: {
+                                    caption: "The Age Group of our Members",
+                                    xaxisname: 'Age Groups',
+                                    yaxisname: "Number of Members",
+                                    aligncaptionwithcanvas: "0",
+                                    plottooltext: "There are <b>$dataValue</b> members in this group",
+                                    theme: "fusion"
+                                },
+                                data: data
+                            };
+
+                            FusionCharts.ready(function () {
+                                var myChart = new FusionCharts({
+                                    type: "column2d",
+                                    renderAt: "chart-container3",
+                                    width: "100%",
+                                    height: "93%",
+                                    dataFormat: "json",
+                                    dataSource: data3
+                                }).render();
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-5" style="margin: auto;">
+                <div class="card">
+                    <div class="card-body" style="height: 400px;">
+                        <div id="chart-container4"></div>
+                        <script>
+                            var data = JSON.parse({{ data4 | tojson | safe}});
+                            const data4 = {
+                                chart: {
+                                    caption: "Daily Registrations",
+                                    yaxisname: "Sign up number",
+                                    yaxisname: 'Date of Creation',
+                                    subcaption: "Within a Week",
+                                    theme: "fusion"
+                                },
+                                data: data
+                            };
+
+                            FusionCharts.ready(function () {
+                                var myChart = new FusionCharts({
+                                    type: "line",
+                                    renderAt: "chart-container4",
+                                    width: "100%",
+                                    height: "93%",
+                                    dataFormat: "json",
+                                    dataSource: data4
+                                }).render();
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock content %}

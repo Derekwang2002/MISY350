@@ -258,4 +258,33 @@
         }
     });
 </script>
+
+
+# Match.append(json.dumps(
+    #     [{'value':str(v)} for v in winData.values()]
+    # ))
+    # Match.append(json.dumps(
+    #     [{'value':str(v)} for v in loseData.values()]
+    # ))
+    # memberMatches[f'{meid}'] = Match
+
+    # ============ DB: new a challenge record (removed to ajax route) =============
+    # if request.method == 'POST':
+    #     cdate = datetime.now()
+    #     cnote = request.form.get('challengeNote')
+    #     cedid = request.form.get('challengedID')
+    #     cerid = 2 # currentMEID
+        
+    #     # write challenge msg into database
+    #     add_challenge = Challenge(ChallengerMEID=cerid, ChallengedMEID=cedid, DateOfChallenge=cdate ,Notes=cnote, Status=0)
+    #     db.session.add(add_challenge)
+    #     db.session.commit()
+    #     db.session.refresh(add_challenge)
+    #     flash('Successfullyl sent request!')
+        
+    #     return render_template(
+    #         'challenges_init.html', 
+    #         members=members, chartLabel=chartLabel, memberMatches=memberMatches
+    #         # cnote=cnote, cedid=cedid, cerid=cerid, cdate=cdate
+    #     )
 {% endblock content %}

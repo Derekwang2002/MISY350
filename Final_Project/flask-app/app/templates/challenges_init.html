@@ -1,11 +1,10 @@
-{% extends "layouts/base.html" %}
+{% extends "layouts/user_base.html" %}
 
 {% block title %} Initiate Challenge {% endblock title %}
 
 {% block content %}
-
 <div class="container-xxl flex-grow-1 container-p-y">
-  <div class="d-flex justify-content-between w-100">
+  <div class="d-flex justify-content-between">
     <div>
       <h4 class="fw-bold pt-3 "><span class="text-muted fw-light">Challenge /</span> Initiate</h4>
       <p class="mb-2 px-1"><small>Either for specific member or post on bulletin board</small></p>
@@ -103,7 +102,21 @@
       </div>
     </div>
     {% endfor %}
+
+    <div style="margin-left: 35%; ">
+      <nav aria-label="Page navigation" >
+        <ul class="pagination">
+          {% set length = members|length %}
+          {% for i in range(1, (length // 10) + 2) %}
+          <li class="page-item" id="bottom-nav-page-{{i}}">
+            <a class="page-link" href="#" onclick="pageNav('{{i}}')">{{i}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
   </div>
+
 
   <div class="row pill-display" id="bulletin-pill-div" style="display: none;">
     <div class="col-12">
@@ -128,22 +141,9 @@
   </div>
 </div>
 
-<nav aria-label="Page navigation" style="margin: auto;">
-  <ul class="pagination">
-    <!-- <li class="page-item first">
-      <a class="page-link" href="#"><i class="bx bx-chevrons-left"></i></a>
-    </li> -->
-    {% set length = members|length %}
-    {% for i in range(1, (length // 10) + 2) %}
-    <li class="page-item" id="bottom-nav-page-{{i}}">
-      <a class="page-link" href="#" onclick="pageNav('{{i}}')">{{i}}</a>
-    </li>
-    {% endfor %}
-    <!-- <li class="page-item last">
-      <a class="page-link" href="#"><i class="bx bx-chevrons-right"></i></a>
-    </li> -->
-  </ul>
-</nav>
+
+
+
 
 <!-- drawing chart -->
 <script>
@@ -217,8 +217,6 @@
       data: formData,
       success: function (response) {
         // Handle the server response
-        console.log(response);
-        alert(response)
       },
       error: function (error) {
         // Handle any errors
@@ -228,11 +226,11 @@
 
     // Restore scroll position after the page reloads
     var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    window.location.reload();
-    window.scroll(0, scrollPosition);
     // remain in current subpage
-    var activatingNum = document.querySelector('ul.pagination li.active').innerHTML;
+    var activatingNum = document.querySelector('ul.pagination li.active').childNodes[0].textContent;
+    window.location.reload();
     pageNav(activatingNum);
+    window.scroll(0, scrollPosition);
   }
 
   function submitFormBulletin(event, formID) {

@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from app import db
 
-class Member(db.Model):
+class member(db.Model):
     MEID = db.Column(db.Integer, primary_key=True)
     FirstName = db.Column(db.String, nullable=False)
     LastName = db.Column(db.String)
@@ -17,13 +17,27 @@ class Member(db.Model):
     UTR = db.Column(db.Float, nullable=False)
     DateOfCreation = db.Column(db.Date, nullable=False)
 
-class Tmatch(db.Model):
+# class tmatch(db.Model):
+#     MAID = db.Column(db.Integer, primary_key=True)
+#     DateOfMatch = db.Column(db.Date, nullable=False)
+#     WinnerMEID = db.Column(db.Integer)
+#     LoserMEID = db.Column(db.Integer)
+    
+class tmatch(db.Model):
     MAID = db.Column(db.Integer, primary_key=True)
-    DateOfMatch = db.Column(db.Date, nullable=False)
-    WinnerMEID = db.Column(db.Integer)
-    LoserMEID = db.Column(db.Integer)
+    CID = db.Column(db.Integer, nullable=False)
+    DateOfMatch = db.Column(db.DateTime, nullable=False)
+    MatchStatus = db.Column(db.String(50), nullable=False)
+    MEID1Set1Score = db.Column(db.Integer, nullable=True)
+    MEID2Set1Score = db.Column(db.Integer, nullable=True)
+    MEID1Set2Score = db.Column(db.Integer, nullable=True)
+    MEID2Set2Score = db.Column(db.Integer, nullable=True)
+    MEID1Set3Score = db.Column(db.Integer, nullable=True)
+    MEID2Set3Score = db.Column(db.Integer, nullable=True)
+    WinnerMEID = db.Column(db.Integer, nullable=True)
+    LoserMEID = db.Column(db.Integer, nullable=True)
 
-class Challenge(db.Model):
+class challenge(db.Model):
     CID = db.Column(db.Integer, primary_key=True)
     ChallengerMEID = db.Column(db.Integer, nullable=False)
     ChallengedMEID = db.Column(db.Integer, nullable=False)
@@ -31,9 +45,16 @@ class Challenge(db.Model):
     Status = db.Column(db.Integer, nullable=False)
     IfBulletin = db.Column(db.Integer, nullable=False)
     Notes = db.Column(db.String(100))
-
-class Membership(db.Model):
+    
+class membership(db.Model):
     MSID = db.Column(db.Integer, primary_key=True)
+    MEID = db.Column(db.Integer, nullable=False)
+    StartDate = db.Column(db.Date, nullable=False)
+    EndDate = db.Column(db.Date, nullable=False)
+    InvoiceDate = db.Column(db.Date, nullable=False)
+    DueDate = db.Column(db.Date, nullable=False)
+    Amount = db.Column(db.Float, nullable=False)
+    PaidDate = db.Column(db.Date, nullable=False)
 
 # class Stats(db.Model):
 

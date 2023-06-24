@@ -1,0 +1,65 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block title %} My Store - Home {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<script>
+    var activeItem = document.querySelector('#memrecordItem')
+    var activeSuper = document.querySelector('#MembershipItem')
+    activeItem.classList.add('active')
+    activeSuper.classList.add('active', 'open')
+</script>
+
+<div class="container">
+    <div class="table-responsive card">
+        <hr>
+        <h4>{% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}</h4>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Membership ID</th>
+                    <th>MemberID</th>
+                    <th>StartDate</th>
+                    <th>EndDate</th>
+                    <th>InvoiceDate</th>
+                    <th>PaidDate</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in memberships %}
+                <tr>
+                    <td><strong>{{m.MSID}}</strong></td>
+                    <td>{{m.MEID}}</td>
+                    <td>{{m.StartDate}}</td>
+                    <td>{{m.EndDate}}</td>
+                    <td>{{m.InvoiceDate}}</td>
+                    <td>{{m.PaidDate}}</td>
+                    {% if now.date() < m.EndDate %} <td><span class="badge bg-label-primary me-1">Active</span></td>
+                        {% else %}
+                        <td><span class="badge bg-label-warning me-1">EXpired</span></td>
+                        {% endif %}
+                    <td>
+
+                            <a class="dropdown-item" href="{{ url_for('delete_ms', ms_id=m.MSID) }}"><i
+                                    class="bx bx-trash me-1"></i>Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

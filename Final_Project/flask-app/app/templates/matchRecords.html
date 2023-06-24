@@ -1,0 +1,123 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block title %} My Store - Home {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<script>
+    var activeItem = document.querySelector('#recordItem')
+    var activeSuper = document.querySelector('#MatchItem')
+    activeItem.classList.add('active')
+    activeSuper.classList.add('active', 'open')
+</script>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> 
+        Match Records Management        
+        <button type="button" class="btn rounded-pill me-2 btn-outline-primary"><a style="color:inherit;" href="{{url_for('form')}}">New Records</a></button>
+        <br>
+        {% if msg %}
+            <div class="bs-toast toast fade show bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                <i class='bx bx-bell' ></i>
+                <div class="me-auto fw-semibold">Succuessful message</div>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                {{msg}}
+                </div>
+            </div>
+        {% endif %}
+        </h4>
+    
+    <!-- Hoverable Table rows -->
+    <div class="card">
+        <h5 class="card-header">Match Records</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>MAID</th>
+                        <th>CID</th>
+                        <th>DateOfMatch</th>
+                        <th>Status</th>
+                        <th>Set1Score</th>
+                        <th>Set2Score</th>
+                        <th>Set3Score</th>
+                        <th>WinnerMEID</th>
+                        <th>LoserMEID</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                {% for i in match %}
+                    <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{i.MAID}}</strong></td>
+                        <td>{{i.CID}}</td>
+                        <td>{{i.DateOfMatch}}</td>
+                        {% if i.MatchStatus == 'Scheduled'%}
+                            <td><span class="badge bg-label-info">{{i.MatchStatus}}</span></td>
+                        {% elif i.MatchStatus == 'Active'%}
+                            <td><span class="badge bg-label-success">{{i.MatchStatus}}</span></td>
+                        {% else %}
+                            <td><span class="badge bg-label-primary">{{i.MatchStatus}}</span></td>
+                        {% endif %}
+                        {% if i.MEID1Set1Score == None %}
+                            <td>--</td>
+                        {% else %}
+                        <td>{{i.MEID1Set1Score}} : {{i.MEID2Set1Score}}</td>
+                        {% endif %}
+                        {% if i.MEID1Set2Score == None %}
+                            <td>--</td>
+                        {% else %}                       
+                        <td>{{i.MEID1Set2Score}} : {{i.MEID2Set2Score}}</td>
+                        {% endif %}
+                        {% if i.MEID1Set3Score == None %}
+                            <td>--</td>
+                        {% else %}
+                        <td>{{i.MEID1Set3Score}} : {{i.MEID2Set3Score}}</td>
+                        {% endif %}
+                        {% if i.WinnerMEID == None %}
+                            <td>--</td>
+                            <td>--</td>
+                        {% else %}  
+                            <td>{{i.WinnerMEID}}</td>
+                            <td>{{i.LoserMEID}}</td>
+                        {% endif %}
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                    data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:;" onclick="edit('{{i.MAID}}')"><i
+                                            class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    <a class="dropdown-item" href="javascript:;" onclick="delete_record('{{i.MAID}}')"><i class="bx bx-trash me-1"></i>
+                                        Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <script>
+                        function edit(MAID){
+                            location.href='/edit?MAID='+MAID
+                        }
+                        function delete_record(MAID){
+                            location.href='/del?MAID='+MAID
+                        }
+
+                    </script>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--/ Hoverable Table rows -->
+
+</div>
+
+
+{% endblock content %}

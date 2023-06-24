@@ -1,0 +1,46 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block title %} My Store - Home {% endblock title %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<script>
+    var activeItem = document.querySelector('#memvisualItem')
+    var activeSuper = document.querySelector('#MembershipItem')
+    activeItem.classList.add('active')
+    activeSuper.classList.add('active', 'open')
+</script>
+
+<div class="container">
+    <h1>Membership visualization</h1>
+    <form method="POST" action="{{ url_for('chart') }}">
+        <div class="col-md-3">
+            <label for="name">Year:</label>
+            <select class="form-select" id="validationCustom04" name="year" required>
+                <option selected disabled value="">Select the year</option>
+                {% for i in year %}
+                <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <hr>
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    </html>
+
+</div>
+{% endblock content %}
