@@ -198,9 +198,11 @@ def challenges_init():
 @app.route('/challenges_sent')
 def challenges_sent():
     currentMEID = session['mid']
-    sentChallenges = db.session.query(challenge).filter(challenge.ChallengerMEID == currentMEID)
-    sentCount = len(sentChallenges.all())
-    return render_template('challenges_sent.html', sentChallenges=sentChallenges, sentCount=sentCount)
+    sentChallenges = db.session.query(challenge, member).\
+        join(member, challenge.ChallengedMEID == member.MEID, isouter=True).\
+        filter(challenge.ChallengerMEID == currentMEID).all() # .options(joinedload(challenge.ChallengedMEID))
+    sentCount = len(sentChallenges)
+    return render_template('challenges_sent.html', sentChallenges=sentChallenges, sentCount=sentCount) # challenges_sent
 
 @app.route('/challenges_inbox')
 def challenges_inbox():
@@ -217,7 +219,6 @@ def challenges_settled():
     )
     settledCount = len(settledChallenges.all())
     return render_template('challenges_settled.html', settledChallenges=settledChallenges, settledCount=settledCount)
-
 
 # ================== ajax route ===================== #
 @app.route('/del', methods=['POST'])
@@ -276,11 +277,9 @@ def search():
 def about():
     return render_template('about.html')
 
-
 @app.route('/register')
 def register():
     return render_template('new_register.html')
-
 
 @app.route('/signup', methods=['GET', 'POST'])
 def successfullsignup():
@@ -354,7 +353,6 @@ def userhome():
         match_info=matches_today, winnum=winmatch_num, losenum=losematch_num
     )
 
-
 @app.route('/userhomepage', methods=['GET', 'POST'])
 def informationSubmit():
     # get input
@@ -415,11 +413,9 @@ def informationSubmit():
     # error checking
     return render_template('new_login.html')
 
-
 @app.route('/accountsetting')
 def account():
     return render_template('account.html')
-
 
 @app.route('/accountmodify', methods=['GET', 'POST'])
 def accountchange():
@@ -463,10 +459,10 @@ def accountchange():
         flash('Your information has been updated successfully!')
     return render_template('account.html')
 
-
 @app.route('/accountdelete')
 def aboutdelete():
     return render_template('accountdelete.html')
+
 
 # ======================================================= Match ======================================================= #
 # ======================================================= ----- ======================================================= #

@@ -40,11 +40,11 @@
       <div class="card mb-4">
         <a href="javascript:void(0);" class="border-bottom list-group-item-action flex-column align-items-start">
           <div class="d-flex justify-content-between w-100">
-            <h4 class="card-header">{{member.FirstName}} {{member.LastName}} (MEID:{{member.MEID}})
+            <h4 class="card-header">{{member.FirstName}} {{member.LastName}} ({{member.MEID}})
               {% if member.UTR|int <= 5 %} <i class="fa-solid fa-fish me-1 text-light"></i>
-                {% elif member.UTR|int <= 10 %} <i class="fa-solid fa-shield-halved me-1 text-light"></i>
+                {% elif member.UTR|int <= 10 %} <i class="bx bx-shield-quarter bx-md me-1 text-light"></i>
                   {% elif member.UTR|int >= 10 %}
-                  <i class="fa-solid fa-award me-1 text-light"></i>
+                  <i class="bx bxs-trophy bx-md me-1 text-light"></i>
                   {% endif %}
             </h4>
             <div class="m-4 mb-0 mt-3 px-2" style="text-align: center;"><small>{{member.Age}}, {{member.Gender}},
@@ -120,7 +120,7 @@
 
   <div class="row pill-display" id="bulletin-pill-div" style="display: none;">
     <div class="col-12">
-      <div class="card mt-3">
+      <div class="card mt-3 p-6">
         <form id="form-bulletin" class="px-4 py-3" action="#" method="post">
           <div class="mb-3">
             <h5 class="mt-3"><mark>Post Challenge Request to Bulletin Board</mark></h5>
@@ -192,6 +192,7 @@
   {% endfor %}
 </script>
 
+<!-- interaction -->
 <script>
   // active sidebar
   var activeItem = document.querySelector('#InitiateItem')

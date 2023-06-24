@@ -27,17 +27,23 @@
                 </thead>
                 <tbody class="table-border-bottom-0">
 
-                    {% for sentChallenge in sentChallenges %}
+                    {% for sentChallenge, member in sentChallenges %}
                     <tr>
                         <td>
                             {% if sentChallenge.ChallengedMEID == 0 %}
                             <strong>Bulletin</strong>
                             {% else  %}
-                            <i class="fa-solid fa-fish me-1 text-light"></i>
-                            <strong>{{ sentChallenge.ChallengedMEID }}</strong>
+                                {% if member.UTR|int <= 5 %} 
+                                <i class="fa-solid fa-fish me-1 text-light"></i>
+                                {% elif member.UTR|int <= 10 %} 
+                                <i class="bx bx-shield-quarter me-1 text-light"></i>
+                                {% elif member.UTR|int >= 10 %}
+                                <i class="bx bxs-trophy me-1 text-light"></i>
+                                {% endif %}
+                            <strong>{{ member.FirstName }} {{ member.LastName }} ({{ member.MEID }})</strong>
                             {% endif %}
                         </td>
-                        <td><strong>UTR</strong></td>
+                        <td><strong>{{ member.UTR }}</strong></td>
                         <td>
                             {{ sentChallenge.Notes }}
                         </td>
