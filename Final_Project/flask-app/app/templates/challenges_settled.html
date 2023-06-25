@@ -29,19 +29,19 @@
         </thead>
         <tbody class="table-border-bottom-0">
 
-          {% for settledChallenge in settledChallenges %}
+          {% for settledChallenge, tmatch, winner, cer, ced in settledChallenges %}
           <tr>
             <td>
               {{ settledChallenge.CID }}
             </td>
             <td>
-              MAID
+              {{ tmatch.MAID }}
             </td>
             <td>
-              <strong>{{ settledChallenge.ChallengerMEID }}</strong>
+              <strong>{{ cer.FirstName }} {{ cer.LastName }} ({{ cer.MEID }})</strong>
             </td>
             <td>
-              {{ settledChallenge.ChallengedMEID }}
+              {{ ced.FirstName }} {{ ced.LastName }} ({{ ced.MEID }})
             </td>
             <td>
               {{ settledChallenge.Notes }}
@@ -50,7 +50,7 @@
               {{ settledChallenge.DateOfChallenge }}
             </td>
             <td>
-              winner
+              {{ winner.FirstName }} {{ winner.LastName }}
             </td>
           </tr>
           {% endfor %}

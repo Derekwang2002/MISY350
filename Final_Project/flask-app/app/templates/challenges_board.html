@@ -36,6 +36,7 @@
         <div class="divider-text"><i class="menu-icon tf-icons fa-regular fa-hand-back-fist"></i></div>
     </div>
 
+    <!-- master -->
     <div class="row px-3 pill-display" id="master-pill-div" style="display: block;">
         <div class="col-12 card mb-2 mt-4">
             <h4 class="card-header">MASTER<i class="fa-solid fa-award mx-1 text-light"></i></h4>
@@ -46,26 +47,27 @@
                         <div class="demo-inline-spacing mt-3">
                             <div class="list-group">
 
-                                {% for bulletinChanllenge in bulletinChanllenges %}
+                                {% for bulletinChallenge, member in bulletinChallenges %}
+                                {% if member.UTR|int >= 10 %}
                                 <a href="javascript:void(0);"
                                     class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex justify-content-between w-100">
-                                        <h6 class="mt-2"> <mark>FROM: {{ bulletinChanllenge.ChallengerMEID }}</mark>
+                                        <h6 class="mt-2"> FROM: <mark>{{ member.FirstName }} {{ member.LastName }} ({{ member.MEID }})</mark>
                                         </h6>
-                                        <small class="text-muted">{{ bulletinChanllenge.DateOfChallenge }}</small>
+                                        <small class="text-muted">{{ bulletinChallenge.DateOfChallenge }}</small>
                                     </div>
 
                                     <p class="mb-1">
-                                        <b>{{ bulletinChanllenge.Notes }}</b>
+                                        <b>{{ bulletinChallenge.Notes }}</b>
                                     </p>
 
                                     <div class="d-flex justify-content-between w-100">
-                                        <small>UTR, win rate, total match</small>
+                                        <small>UTR: {{ member.UTR }} | Age: {{ member.Age }} | Gender: {{ member.Gender }}</small>
                                         <div class="d-flex justify-content-between">
-                                            <input type="hidden" id="cid-{{ bulletinChanllenge.CID }}"
-                                                value="{{ bulletinChanllenge.CID }}">
-                                            <form id="accept-{{ bulletinChanllenge.CID }}">
-                                                <input type="hidden" name="input-accept-{{ bulletinChanllenge.CID }}"
+                                            <input type="hidden" id="cid-{{ bulletinChallenge.CID }}"
+                                                value="{{ bulletinChallenge.CID }}">
+                                            <form id="accept-{{ bulletinChallenge.CID }}">
+                                                <input type="hidden" name="input-accept-{{ bulletinChallenge.CID }}"
                                                     value="accept">
                                                 <button type="submit" class="btn me-2 btn-success">
                                                     <b>Take it!</b>
@@ -74,6 +76,7 @@
                                         </div>
                                     </div>
                                 </a>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -84,6 +87,7 @@
         <!--  -->
     </div>
 
+    <!-- competitive -->
     <div class="row px-3 pill-display" id="competitive-pill-div" style="display: none;">
         <div class="col-12 card mb-2 mt-4">
             <h4 class="card-header">COMPETITIVE<i class="fa-solid fa-shield-halved mx-1 text-light"></i></h4>
@@ -94,26 +98,27 @@
                         <div class="demo-inline-spacing mt-3">
                             <div class="list-group">
 
-                                {% for bulletinChanllenge in bulletinChanllenges %}
+                                {% for bulletinChallenge, member in bulletinChallenges %}
+                                {% if member.UTR|int > 5 and member.UTR|int <= 10 %}
                                 <a href="javascript:void(0);"
                                     class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex justify-content-between w-100">
-                                        <h6 class="mt-2"> <mark>FROM: {{ bulletinChanllenge.ChallengerMEID }}</mark>
+                                        <h6 class="mt-2"> FROM: <mark>{{ member.FirstName }} {{ member.LastName }} ({{ member.MEID }})</mark>
                                         </h6>
-                                        <small class="text-muted">{{ bulletinChanllenge.DateOfChallenge }}</small>
+                                        <small class="text-muted">{{ bulletinChallenge.DateOfChallenge }}</small>
                                     </div>
 
                                     <p class="mb-1">
-                                        <b>{{ bulletinChanllenge.Notes }}</b>
+                                        <b>{{ bulletinChallenge.Notes }}</b>
                                     </p>
 
                                     <div class="d-flex justify-content-between w-100">
-                                        <small>UTR, win rate, total match</small>
+                                        <small>UTR: {{ member.UTR }} | Age: {{ member.Age }} | Gender: {{ member.Gender }}</small>
                                         <div class="d-flex justify-content-between">
-                                            <input type="hidden" id="cid-{{ bulletinChanllenge.CID }}"
-                                                value="{{ bulletinChanllenge.CID }}">
-                                            <form id="accept-{{ bulletinChanllenge.CID }}">
-                                                <input type="hidden" name="input-accept-{{ bulletinChanllenge.CID }}"
+                                            <input type="hidden" id="cid-{{ bulletinChallenge.CID }}"
+                                                value="{{ bulletinChallenge.CID }}">
+                                            <form id="accept-{{ bulletinChallenge.CID }}">
+                                                <input type="hidden" name="input-accept-{{ bulletinChallenge.CID }}"
                                                     value="accept">
                                                 <button type="submit" class="btn me-2 btn-success">
                                                     <b>Take it!</b>
@@ -122,6 +127,7 @@
                                         </div>
                                     </div>
                                 </a>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -132,44 +138,52 @@
         <!--  -->
     </div>
 
+    <!-- fish -->
     <div class="row px-3 pill-display" id="fish-pill-div" style="display: none;">
         <div class="col-12 card mb-2 mt-4">
-            <h4 class="card-header">Fish<i class="fa-solid fa-fish mx-1 text-light"></i></h4>
+            <h4 class="card-header">FISH<i class="fa-solid fa-fish mx-1 text-light"></i></h4>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
                         <!-- <small class="text-light fw-semibold"></small> -->
                         <div class="demo-inline-spacing mt-3">
                             <div class="list-group">
-
-                                {% for bulletinChanllenge in bulletinChanllenges %}
+                                {% for bulletinChallenge, member in bulletinChallenges %}
+                                {% if member.UTR|int <= 5 %} 
                                 <a href="javascript:void(0);"
                                     class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex justify-content-between w-100">
-                                        <h6 class="mt-2"> <mark>FROM: {{ bulletinChanllenge.ChallengerMEID }}</mark>
+                                        <h6 class="mt-2"> FROM: <mark>{{ member.FirstName }} {{ member.LastName }} ({{ member.MEID }})</mark>
                                         </h6>
-                                        <small class="text-muted">{{ bulletinChanllenge.DateOfChallenge }}</small>
+                                        <small class="text-muted">{{ bulletinChallenge.DateOfChallenge }}</small>
                                     </div>
 
                                     <p class="mb-1">
-                                        <b>{{ bulletinChanllenge.Notes }}</b>
+                                        <b>{{ bulletinChallenge.Notes }}</b>
                                     </p>
 
                                     <div class="d-flex justify-content-between w-100">
-                                        <small>UTR, win rate, total match</small>
+                                        <small>UTR: {{ member.UTR }} | Age: {{ member.Age }} | Gender: {{ member.Gender }}</small>
                                         <div class="d-flex justify-content-between">
-                                            <input type="hidden" id="cid-{{ bulletinChanllenge.CID }}"
-                                                value="{{ bulletinChanllenge.CID }}">
-                                            <form id="accept-{{ bulletinChanllenge.CID }}">
-                                                <input type="hidden" name="input-accept-{{ bulletinChanllenge.CID }}"
-                                                    value="accept">
+                                            {% if bulletinChallenge.Status|int == 0 %}
+                                            <!-- <input type="hidden" id="cid-{{ bulletinChallenge.CID }}"
+                                                value="{{ bulletinChallenge.CID }}"> -->
+                                            <form id="take-{{ bulletinChallenge.CID }}">
+                                                <!-- <input type="hidden" name="input-take-{{ bulletinChallenge.CID }}"
+                                                    value="accept"> -->
                                                 <button type="submit" class="btn me-2 btn-success">
                                                     <b>Take it!</b>
                                                 </button>
                                             </form>
+                                            {% elif bulletinChallenge.Status|int == 1 %}
+                                            <span class="badge bg-label-success me-1">accepted</span>
+                                            {% elif bulletinChallenge.Status|int == 2 %}
+                                            <span class="badge bg-label-info me-1">matched</span>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </a>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -195,6 +209,51 @@
         });
         $(pillID).attr('style', 'display: block');
     }
+
+    $(document).ready(function () {
+
+        function decideForm(formID, cid) {
+            $(formID).submit(function (e) {
+                e.preventDefault();  // Prevent form submission
+
+                // Get the form data
+                var formData = {
+                    'status': 'take',
+                    'cid': cid,
+                };
+
+                // Send an AJAX POST request to the Flask route
+                $.ajax({
+                    type: 'POST',
+                    url: '/change_status',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log(response);
+                        // Handle the response from the server
+                        alert(response.status.status + response.status.cid + response.message);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        // Handle errors, if any
+                        alert('Error occurred!');
+                    }
+                });
+
+                // Restore scroll position after the page reloads
+                var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                window.location.reload();
+                window.scroll(0, scrollPosition);
+            });
+        }
+
+        {% for bulletinChallenge, member in bulletinChallenges %}
+        decideForm('#take-{{ bulletinChallenge.CID }}', '{{ bulletinChallenge.CID }}')
+        {% endfor %}
+
+
+
+    });
 </script>
 
 {% endblock content %}

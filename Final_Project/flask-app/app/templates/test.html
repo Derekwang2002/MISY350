@@ -6,11 +6,12 @@
 
 {% block content %}
 
-{{sentChallenges}}
-
+{% for j, i in bulletinChanllenges %}
+    {{ i.MEID }}
+{% endfor %}
 <br>
 
-{{sentCount}}
+
 
 <!-- <div class="card-datatable table-responsive pt-0">
     <table class="datatables-basic table border-top">

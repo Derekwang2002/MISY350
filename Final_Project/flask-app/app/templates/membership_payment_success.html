@@ -4,15 +4,20 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 text-center">
-        <i class="bi bi-check-circle text-success display-1"></i>
-        <h2 class="mt-4">Payment Successful</h2>
-        <p class="lead">Thank you for your payment. Your transaction was successful.</p>
-        <p>You will receive a confirmation email shortly with the details of your purchase.</p>
-        <a href="/userhome" class="btn btn-primary">Back to your personal page</a>
-      </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 text-center">
+      <i class="bi bi-check-circle text-success display-1"></i>
+      <h2 class="mt-4">Payment Successful</h2>
+      <p class="lead">Thank you for your payment. Your transaction was successful.</p>
+      <p>You will receive a confirmation email shortly with the details of your purchase.</p>
+      <a href="/userhome" class="btn btn-primary">Back to your personal page</a>
     </div>
   </div>
-  
+</div>
+
+<script>
+  var activeItem = document.querySelector('#membershipItem')
+  activeItem.classList.add('active')
+</script>
+
 {% endblock content %}

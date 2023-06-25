@@ -20,12 +20,17 @@
                     <div class="demo-inline-spacing mt-3">
                         <div class="list-group">
 
-                            {% for inChallenge in inChallenges %}
+                            {% for inChallenge, member in inChallenges %}
                             <a href="javascript:void(0);"
                                 class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex justify-content-between w-100">
-                                    <h6>FROM: {{ inChallenge.ChallengerMEID }} <i
-                                            class="fa-solid fa-fish me-1 text-light"></i></h6>
+                                    <h6>FROM: <b>{{ member.FirstName }} {{ member.LastName }}</b>
+                                        {% if member.UTR|int <= 5 %} <i class="fa-solid fa-fish me-1 text-light"></i>
+                                        {% elif member.UTR|int <= 10 %} <i class="bx bx-shield-quarter me-1 text-light"></i>
+                                          {% elif member.UTR|int >= 10 %}
+                                          <i class="bx bxs-trophy me-1 text-light"></i>
+                                          {% endif %}
+                                    </h6>
                                     <small class="text-muted">{{ inChallenge.DateOfChallenge }}</small>
                                 </div>
 
@@ -34,8 +39,9 @@
                                 </p>
 
                                 <div class="d-flex justify-content-between w-100">
-                                    <small>UTR, win rate, total match</small>
+                                    <small>UTR: {{ member.UTR }} | Age: {{ member.Age }} | Gender: {{ member.Gender }}</small>
                                     <div class="d-flex justify-content-between">
+                                        {% if inChallenge.Status|int == 0 %}
                                         <input type="hidden" id="cid-{{ inChallenge.CID }}"
                                             value="{{ inChallenge.CID }}">
                                         <form id="accept-{{ inChallenge.CID }}">
@@ -52,6 +58,13 @@
                                                 <span class="tf-icons bx bx-x"></span>
                                             </button>
                                         </form>
+                                        {% elif inChallenge.Status|int == 1 %}
+                                        <span class="badge bg-label-success me-1">accepted</span>
+                                        {% elif inChallenge.Status|int == -1 %}
+                                        <span class="badge bg-label-danger me-1">rejected</span>
+                                        {% elif inChallenge.Status|int == 2 %}
+                                        <span class="badge bg-label-info me-1">matched</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </a>
@@ -112,10 +125,15 @@
                         alert('Error occurred!');
                     }
                 });
+
+                // Restore scroll position after the page reloads
+                var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                window.location.reload();
+                window.scroll(0, scrollPosition);
             });
         }
 
-        {% for inChallenge in inChallenges %}
+        {% for inChallenge, member in inChallenges %}
         decideForm('#accept-{{ inChallenge.CID }}', '{{ inChallenge.CID }}')
         decideForm('#reject-{{ inChallenge.CID }}', '{{ inChallenge.CID }}')
         {% endfor %}

@@ -11,15 +11,23 @@ from jinja2  import TemplateNotFound
 from app import app, db
 from app.models import member, tmatch, challenge, membership
 
-# other modules
+# Other modules
 import datetime
 from sqlalchemy import extract, func
 import json
+from sqlalchemy.orm import aliased
 
 # App main route + generic routing
 
+# Structure: #
+# ---------- #
+# Home Page  #
+# Challenge  #
+# Member     #
+# Match      #
+# Membership #
 
-# ================================================= Home Page ================================================= #
+# ============================================ Home Page (by Lv Wentian) ============================================= #
 @app.route('/', methods=['POST', 'GET'])
 def indexhome():
     # gender ratio
@@ -107,7 +115,7 @@ def indexhome():
 
 
 # ===================================================== CHALLENGE ===================================================== #
-# ===================================================== --------- ===================================================== #
+# ===================================================== by Wang Xingen ================================================ #
 @app.route('/cindex')
 def cindex():
     session['mid'] = 4
@@ -115,11 +123,14 @@ def cindex():
 
 @app.route('/challenges_board')
 def challenges_board():
-    bulletinChanllenges = db.session.query(challenge).filter(challenge.IfBulletin == 1)
-    return render_template('challenges_board.html', bulletinChanllenges=bulletinChanllenges)
+    bulletinChallenges = db.session.query(challenge, member).\
+        join(challenge, challenge.ChallengerMEID == member.MEID, isouter=True).\
+        filter(challenge.IfBulletin == 1 and member.MEID <= 5).all()
+    return render_template('challenges_board.html', bulletinChallenges=bulletinChallenges) # challenges_board
 
 @app.route('/challenges_init', methods=['GET', 'POST'])
 def challenges_init():
+    currentMEID = session['mid']
     members = member.query.all()
     meids = db.session.query(member.MEID).all()
     
@@ -190,8 +201,8 @@ def challenges_init():
     
     return render_template(
         'challenges_init.html', 
-        members=members, chartLabel=chartLabel, memberMatches=memberMatches
-        # totalWin=totalWin, totalLose=totalLose
+        members=members, chartLabel=chartLabel, memberMatches=memberMatches, 
+        currentMEID=currentMEID
     )
 
 # join table are required to present chellenged name and his/her UTR
@@ -200,24 +211,35 @@ def challenges_sent():
     currentMEID = session['mid']
     sentChallenges = db.session.query(challenge, member).\
         join(member, challenge.ChallengedMEID == member.MEID, isouter=True).\
-        filter(challenge.ChallengerMEID == currentMEID).all() # .options(joinedload(challenge.ChallengedMEID))
+        filter(challenge.ChallengerMEID == currentMEID).all()  # .options(joinedload(challenge.ChallengedMEID))
     sentCount = len(sentChallenges)
     return render_template('challenges_sent.html', sentChallenges=sentChallenges, sentCount=sentCount) # challenges_sent
 
 @app.route('/challenges_inbox')
 def challenges_inbox():
     currentMEID = session['mid']
-    inChallenges = db.session.query(challenge).filter(challenge.ChallengedMEID == currentMEID)
+    inChallenges = db.session.query(challenge, member).\
+        join(member, challenge.ChallengerMEID == member.MEID, isouter=True).\
+        filter(challenge.ChallengedMEID == currentMEID).all()
     return render_template('challenges_inbox.html', inChallenges=inChallenges)
 
 @app.route('/challenges_settled')
 def challenges_settled():
     currentMEID = session['mid']
-    settledChallenges = db.session.query(challenge).filter(
-        challenge.Status == 2, 
-        challenge.ChallengedMEID==currentMEID or challenge.ChallengerMEID==currentMEID
-    )
-    settledCount = len(settledChallenges.all())
+    Tmatch = aliased(tmatch)
+    Challenge = aliased(challenge)
+    WinnerMember = aliased(member, name='winner_member')
+    ChallengerMember = aliased(member, name='challenger_member')
+    ChallengedMember = aliased(member, name='challenged_member')
+    
+    settledChallenges = db.session.query(Tmatch, Challenge, WinnerMember, ChallengerMember, ChallengedMember).\
+        join(Tmatch, Challenge.CID == Tmatch.MAID, isouter=True).\
+        join(WinnerMember, Tmatch.WinnerMEID == WinnerMember.MEID, isouter=True).\
+        join(ChallengerMember, Challenge.ChallengerMEID == ChallengerMember.MEID, isouter=True).\
+        join(ChallengedMember, Challenge.ChallengedMEID == ChallengedMember.MEID, isouter=True).\
+        filter(Challenge.Status == 2, 
+               Challenge.ChallengedMEID==currentMEID or Challenge.ChallengerMEID==currentMEID).all()
+    settledCount = len(settledChallenges)
     return render_template('challenges_settled.html', settledChallenges=settledChallenges, settledCount=settledCount)
 
 # ================== ajax route ===================== #
@@ -231,6 +253,7 @@ def delete():
 
 @app.route('/change_status', methods=['POST'])
 def change_status():
+    currentMEID = session['mid']
     status = request.json
     cid = int(status['cid'])
     status_change_challenge = challenge.query.get(cid)
@@ -239,6 +262,9 @@ def change_status():
         status_change_challenge.Status = 1
     elif status['status'] == 'reject':
         status_change_challenge.Status = -1
+    elif status['status'] == 'take':
+        status_change_challenge.Status = 1
+        status_change_challenge.ChallengedMEID = currentMEID
     
     result = {'message':'Success', 'status':status}
     db.session.commit()
@@ -272,7 +298,7 @@ def search():
 
 
 # ======================================================= Member ====================================================== #
-# ======================================================= ------ ====================================================== #
+# ======================================================= by Lv Wentian =============================================== #
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -464,8 +490,9 @@ def aboutdelete():
     return render_template('accountdelete.html')
 
 
+
 # ======================================================= Match ======================================================= #
-# ======================================================= ----- ======================================================= #
+# ======================================================= by Luo Jinghua ============================================== #
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime.datetime):
@@ -528,8 +555,7 @@ def createSubmit():
 
     # error checking
      #maid 系统自己给
-
-    
+     
     # database operation
     match=""
     match = tmatch(CID=cid, DateOfMatch=match_date, MatchStatus=matchStatus, MEID1Set1Score=meid1set1, MEID2Set1Score=meid2set1, 
@@ -634,14 +660,9 @@ def visualSubmit():
         
         return render_template('visual.html', data=data, winLose=winLose, memberID=memberID)
 
-########################################################
-
-
-
 
 # ======================================================= Membership ================================================== #
-# ======================================================= ---------- ================================================== #
-
+# ======================================================= by Shi Haoling ============================================== #
 @app.route('/membership_registration')
 def membership_registration():
     return render_template('membership_registration.html')

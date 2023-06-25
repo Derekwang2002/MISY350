@@ -34,6 +34,7 @@
   <div class="row pill-display" id="personal-pill-div" style="display: block;">
     <!-- each card -->
     {% for member in members %}
+    {% if member.MEID != 26 and member.MEID != currentMEID|int %}
 
     <div class="col-12 memebr-card" style="display: block;">
       <br>
@@ -101,6 +102,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     {% endfor %}
 
     <div style="margin-left: 35%; ">
@@ -230,7 +232,7 @@
     // remain in current subpage
     var activatingNum = document.querySelector('ul.pagination li.active').childNodes[0].textContent;
     window.location.reload();
-    pageNav(activatingNum);
+    pageNav(parseInt(activatingNum));
     window.scroll(0, scrollPosition);
   }
 
