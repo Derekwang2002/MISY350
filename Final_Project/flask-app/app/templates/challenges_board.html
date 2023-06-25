@@ -39,7 +39,9 @@
     <!-- master -->
     <div class="row px-3 pill-display" id="master-pill-div" style="display: block;">
         <div class="col-12 card mb-2 mt-4">
-            <h4 class="card-header">MASTER<i class="fa-solid fa-award mx-1 text-light"></i></h4>
+            <h4 class="card-header">MASTER
+                <i class="bx bxs-trophy bx-md me-1 text-light"></i>
+            </h4>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
@@ -48,6 +50,7 @@
                             <div class="list-group">
 
                                 {% for bulletinChallenge, member in bulletinChallenges %}
+                                {% if member.MEID != currentMEID|int %}
                                 {% if member.UTR|int >= 10 %}
                                 <a href="javascript:void(0);"
                                     class="list-group-item list-group-item-action flex-column align-items-start">
@@ -66,16 +69,17 @@
                                         <div class="d-flex justify-content-between">
                                             <input type="hidden" id="cid-{{ bulletinChallenge.CID }}"
                                                 value="{{ bulletinChallenge.CID }}">
-                                            <form id="accept-{{ bulletinChallenge.CID }}">
+                                            <form id="take-{{ bulletinChallenge.CID }}">
                                                 <input type="hidden" name="input-accept-{{ bulletinChallenge.CID }}"
                                                     value="accept">
-                                                <button type="submit" class="btn me-2 btn-success">
+                                                <button type="button" class="btn me-2 btn-success" onclick="decideForm(event, '{{ bulletinChallenge.CID }}')">
                                                     <b>Take it!</b>
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
                                 </a>
+                                {% endif %}
                                 {% endif %}
                                 {% endfor %}
                             </div>
@@ -90,7 +94,9 @@
     <!-- competitive -->
     <div class="row px-3 pill-display" id="competitive-pill-div" style="display: none;">
         <div class="col-12 card mb-2 mt-4">
-            <h4 class="card-header">COMPETITIVE<i class="fa-solid fa-shield-halved mx-1 text-light"></i></h4>
+            <h4 class="card-header">COMPETITIVE
+                <i class="bx bx-shield-quarter bx-md me-1 text-light"></i>
+            </h4>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
@@ -99,6 +105,7 @@
                             <div class="list-group">
 
                                 {% for bulletinChallenge, member in bulletinChallenges %}
+                                {% if member.MEID != currentMEID|int %}
                                 {% if member.UTR|int > 5 and member.UTR|int <= 10 %}
                                 <a href="javascript:void(0);"
                                     class="list-group-item list-group-item-action flex-column align-items-start">
@@ -117,16 +124,17 @@
                                         <div class="d-flex justify-content-between">
                                             <input type="hidden" id="cid-{{ bulletinChallenge.CID }}"
                                                 value="{{ bulletinChallenge.CID }}">
-                                            <form id="accept-{{ bulletinChallenge.CID }}">
+                                            <form id="take-{{ bulletinChallenge.CID }}">
                                                 <input type="hidden" name="input-accept-{{ bulletinChallenge.CID }}"
                                                     value="accept">
-                                                <button type="submit" class="btn me-2 btn-success">
+                                                <button type="button" class="btn me-2 btn-success" onclick="decideForm(event, '{{ bulletinChallenge.CID }}')">
                                                     <b>Take it!</b>
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
                                 </a>
+                                {% endif %}
                                 {% endif %}
                                 {% endfor %}
                             </div>
@@ -149,7 +157,8 @@
                         <div class="demo-inline-spacing mt-3">
                             <div class="list-group">
                                 {% for bulletinChallenge, member in bulletinChallenges %}
-                                {% if member.UTR|int <= 5 %} 
+                                {% if member.MEID != currentMEID|int %}
+                                {% if member.UTR|int <= 5 %}
                                 <a href="javascript:void(0);"
                                     class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex justify-content-between w-100">
@@ -171,7 +180,7 @@
                                             <form id="take-{{ bulletinChallenge.CID }}">
                                                 <!-- <input type="hidden" name="input-take-{{ bulletinChallenge.CID }}"
                                                     value="accept"> -->
-                                                <button type="submit" class="btn me-2 btn-success">
+                                                <button type="button" class="btn me-2 btn-success" onclick="decideForm(event, '{{ bulletinChallenge.CID }}')">
                                                     <b>Take it!</b>
                                                 </button>
                                             </form>
@@ -183,6 +192,7 @@
                                         </div>
                                     </div>
                                 </a>
+                                {% endif %}
                                 {% endif %}
                                 {% endfor %}
                             </div>
@@ -210,50 +220,31 @@
         $(pillID).attr('style', 'display: block');
     }
 
-    $(document).ready(function () {
+    function decideForm(event, cid) {
+        event.preventDefault();  // Prevent form submission
+        // Send an AJAX POST request to the Flask route
+        $.ajax({
+            url: '/change_status_new',
+            method: 'POST',
+            data: {'cid':cid },
+            success: function (response) {
+                console.log(response);
+                // Handle the response from the server
+                alert(response.message + 'take' +cid);
+            },
+            error: function (error) {
+                console.log(error);
+                // Handle errors, if any
+                alert('Error occurred!');
+            }
+        });
+        // Restore scroll position after the page reloads
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        window.location.reload();
+        window.scroll(0, scrollPosition);
 
-        function decideForm(formID, cid) {
-            $(formID).submit(function (e) {
-                e.preventDefault();  // Prevent form submission
+    }
 
-                // Get the form data
-                var formData = {
-                    'status': 'take',
-                    'cid': cid,
-                };
-
-                // Send an AJAX POST request to the Flask route
-                $.ajax({
-                    type: 'POST',
-                    url: '/change_status',
-                    data: JSON.stringify(formData),
-                    contentType: 'application/json',
-                    success: function (response) {
-                        console.log(response);
-                        // Handle the response from the server
-                        alert(response.status.status + response.status.cid + response.message);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                        // Handle errors, if any
-                        alert('Error occurred!');
-                    }
-                });
-
-                // Restore scroll position after the page reloads
-                var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-                window.location.reload();
-                window.scroll(0, scrollPosition);
-            });
-        }
-
-        {% for bulletinChallenge, member in bulletinChallenges %}
-        decideForm('#take-{{ bulletinChallenge.CID }}', '{{ bulletinChallenge.CID }}')
-        {% endfor %}
-
-
-
-    });
 </script>
 
 {% endblock content %}

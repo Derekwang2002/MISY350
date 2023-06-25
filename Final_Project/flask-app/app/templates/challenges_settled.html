@@ -41,7 +41,7 @@
               <strong>{{ cer.FirstName }} {{ cer.LastName }} ({{ cer.MEID }})</strong>
             </td>
             <td>
-              {{ ced.FirstName }} {{ ced.LastName }} ({{ ced.MEID }})
+              <strong>{{ ced.FirstName }} {{ ced.LastName }} ({{ ced.MEID }})</strong>
             </td>
             <td>
               {{ settledChallenge.Notes }}
@@ -50,7 +50,7 @@
               {{ settledChallenge.DateOfChallenge }}
             </td>
             <td>
-              {{ winner.FirstName }} {{ winner.LastName }}
+              <mark><b>{{ winner.FirstName }} {{ winner.LastName }}</b></mark>
             </td>
           </tr>
           {% endfor %}

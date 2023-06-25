@@ -69,11 +69,21 @@
                                     <a class="dropdown-item">
                                         <i class="bx bx-info-circle me-2"></i>CID:{{ sentChallenge.CID }}
                                     </a>
+                                    {% if sentChallenge.Status == 0 %}
                                     <a href="#" class="dropdown-item"
-                                        onclick="cancelForm(event, '{{ sentChallenge.CID }}')">
-                                        <i class="bx bx-undo me-1"></i>
-                                        Cancel
+                                    onclick="cancelForm(event, '{{ sentChallenge.CID }}')">
+                                    <i class="bx bx-undo me-1"></i>
+                                    Cancel
                                     </a>
+                                    {% else %}
+                                    <a class="dropdown-item"
+                                    onclick="cancelForm(event, '{{ sentChallenge.CID }}')">
+                                    <i class="bx bx-undo me-1"></i>
+                                    Can't Cancel
+                                    </a>
+                                    {% endif %}
+                                    
+                                
                                 </div>
                             </div>
                         </td>
@@ -112,6 +122,7 @@
             },
             error: function (error) {
                 // Handle any errors
+                console.log(error)
                 alert(error);
             }
         });

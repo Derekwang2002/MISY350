@@ -6,6 +6,31 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+<script>
+        function RunningClock(){
+          var placeHolder = document.getElementById('timer');
+          setInterval(updateTime, 1000);
+      
+          function updateTime(){
+            var currentTime = new Date();
+            var hours = currentTime.getHours().toString();
+            var minutes = currentTime.getMinutes().toString();
+            var seconds = currentTime.getSeconds().toString();
+            if (hours.length<2){
+              hours = '0' + hours
+            }
+            if (minutes.length<2){
+              minutes = '0' + minutes
+            }
+            if (seconds.length<2){
+              seconds = '0' + seconds
+            }
+      
+            placeHolder.innerHTML = hours + ':' + minutes + ":" + seconds;
+          }
+        }
+          window.addEventListener('load', RunningClock)
+      </script>
 <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
                 <div class="col-lg-8 mb-4 order-0">
@@ -36,24 +61,45 @@
 
                         </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                        <div class="card" style="height: 165px;">
-                        <div class="card-body">
-                        <!-- <div class="d-flex justify-content-between flex-sm-row flex-column gap-3"> -->
-                        <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                <div class="col-sm-4">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                              <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                                 <div class="card-title">
-                                <h5 class="text-nowrap mb-2">Historical Matches</h5>
-                                <span class="badge bg-label-primary rounded-pill">Date: {{session['now']}}</span>
-                                <p>You have won {{winnum}} matches and lost {{losenum}} matches.</p>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div class="avatar flex-shrink-0">
+                                                        <img
+                                                        src="static/assets/img/icons/unicons/chart-success.png"
+                                                        alt="chart success"
+                                                        class="rounded"
+                                                        />
+                                                    </div>
+                                                </th>
+                                                <th></th>
+                                                <th>
+                                                    <h3 class="text-nowrap mb-1">Work Timer</h3>
+                                                </th>
+                                        </thead>
+                                    </table>
                                 </div>
-                                <!-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">Initiate A Challenge</a> -->
+                    
+                                <div class="mt-sm-auto">
+                                  <small class="text-nowrap fw-semibold">
+                                    <span class="badge bg-label-warning rounded-pill"><h1 class="mb-0" id="timer">00:00:00</h1></span>
+                                </div>
+                              </div>
+                    
+                            </div>
+                          </div>
                         </div>
-                        </div>
-                        </div>
-                </div>
+                      </div>
         </div>
-
-        <div class="col-12 mb-4">
+<div class="row">
+        <div class="col-lg-8 mb-4">
                 <div class="card">
                   <div class="card-body">
                     <!-- <div class="d-flex justify-content-between flex-sm-row flex-column gap-3"> -->
@@ -61,31 +107,55 @@
                         <div class="card-title">
                           <h5 class="text-nowrap mb-2">Matches Held Today</h5>
                           <span class="badge bg-label-warning rounded-pill">Date: {{session['now']}}</span>
-                          <table cellpadding="0" cellspacing="0" width="600">
-                                <thead>
-                                        <tr>
-                                                <th>MAID</th>
-                                                <th>Match Status</th>
-                                                <th>Winner MEID</th>
-                                                <th>Loser MEID</th>
-                                        </tr>
-                                </thead>
-                                <tbody>
-                                        {% for i in match_info %}
-                                        <tr>
-                                                 <td>{{i.MAID}}</td>
-                                                 <td>{{i.MatchStatus}}</td>
-                                                 <td>{{i.WinnerMEID}}</td>
-                                                 <td>{{i.LoserMEID}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                </tbody>
-                          </table>
+                        </div>
+                        <div class="card-text">
+                                <table cellpadding="0" cellspacing="0" width="600">
+                                        <thead>
+                                                <tr>
+                                                        <th>MAID</th>
+                                                        <th>Match Status</th>
+                                                        <th>Winner MEID</th>
+                                                        <th>Loser MEID</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                                {% for i in match_info %}
+                                                <tr>
+                                                         <td>{{i.MAID}}</td>
+                                                         <td>{{i.MatchStatus}}</td>
+                                                         <td>{{i.WinnerMEID}}</td>
+                                                         <td>{{i.LoserMEID}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                        </tbody>
+                                  </table>
                         </div>
                       </div>                      
                   </div>
                 </div>
         </div>
+        <div class="col-lg-4 mb-4">
+                <div class="card" style="height: 150px;">
+                <div class="card-body">
+                <!-- <div class="d-flex justify-content-between flex-sm-row flex-column gap-3"> -->
+                <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                        <div class="card-title">
+                                <h5 class="text-nowrap mb-2">Historical Matches</h5>
+                                <span class="badge bg-label-primary rounded-pill">Date: {{session['now']}}</span>
+                        </div>
+                        <div class="card-text">
+                                <h6>You have won {{winnum}} matches.</h6>
+                                <h6>You have lost {{losenum}} matches.</h6>
+                        </div>
+                        
+                        
+                        
+                        <!-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">Initiate A Challenge</a> -->
+                </div>
+                </div>
+                </div>
+        </div>
+</div>
         <div class="col-12 mb-4">
                 <div class="card" style="height: 450px;">
                   <div class="card-body">

@@ -42,11 +42,6 @@ def indexhome():
                    'value': m_ratio
                    }]
     gender_lay = json.dumps(gender_lay)
-    # (member.query.group_by(member.Gender).count())/(member.query.all().count())
-
-    # gender_layout = db.session.query(member.Gender.label('label'),
-    #                                  (((func.count(member.MEID)).group_by(member.Gender))/((member.MEID).all().count())).label('value'))
-    # gender_lay = [row._asdict() for row in gender_layout]
 
     # top utr members
     order_member = member.query.order_by((member.UTR).desc()).all()
@@ -99,7 +94,7 @@ def indexhome():
     age_group.append(age_group5)
     age_group.append(age_group6)
     age_group = json.dumps(age_group)
-    # age_group = {'label':}
+
     createDate = db.session.query(member.DateOfCreation, (func.count(member.MEID))).group_by(member.DateOfCreation).all()
     list = []
     for i in createDate:
@@ -116,17 +111,18 @@ def indexhome():
 
 # ===================================================== CHALLENGE ===================================================== #
 # ===================================================== by Wang Xingen ================================================ #
-@app.route('/cindex')
-def cindex():
-    session['mid'] = 4
-    return render_template('cindex.html')
+@app.route('/challengeLogin', methods=['GET', 'POST'])
+def challengeLogin():
+    return render_template('challenges_login.html')
+
 
 @app.route('/challenges_board')
 def challenges_board():
+    currentMEID = session['mid']
     bulletinChallenges = db.session.query(challenge, member).\
         join(challenge, challenge.ChallengerMEID == member.MEID, isouter=True).\
-        filter(challenge.IfBulletin == 1 and member.MEID <= 5).all()
-    return render_template('challenges_board.html', bulletinChallenges=bulletinChallenges) # challenges_board
+        filter(challenge.IfBulletin == 1, challenge.Status == 0).all()
+    return render_template('challenges_board.html', bulletinChallenges=bulletinChallenges, currentMEID=currentMEID) # challenges_board
 
 @app.route('/challenges_init', methods=['GET', 'POST'])
 def challenges_init():
@@ -209,9 +205,11 @@ def challenges_init():
 @app.route('/challenges_sent')
 def challenges_sent():
     currentMEID = session['mid']
-    sentChallenges = db.session.query(challenge, member).\
-        join(member, challenge.ChallengedMEID == member.MEID, isouter=True).\
-        filter(challenge.ChallengerMEID == currentMEID).all()  # .options(joinedload(challenge.ChallengedMEID))
+    Challenge = aliased(challenge)
+    Member = aliased(member)
+    sentChallenges = db.session.query(Challenge, Member).\
+        join(Member, Challenge.ChallengedMEID == Member.MEID, isouter=True).\
+        filter(Challenge.ChallengerMEID == currentMEID).all()  # .options(joinedload(challenge.ChallengedMEID))
     sentCount = len(sentChallenges)
     return render_template('challenges_sent.html', sentChallenges=sentChallenges, sentCount=sentCount) # challenges_sent
 
@@ -232,15 +230,15 @@ def challenges_settled():
     ChallengerMember = aliased(member, name='challenger_member')
     ChallengedMember = aliased(member, name='challenged_member')
     
-    settledChallenges = db.session.query(Tmatch, Challenge, WinnerMember, ChallengerMember, ChallengedMember).\
-        join(Tmatch, Challenge.CID == Tmatch.MAID, isouter=True).\
+    settledChallenges = db.session.query(Challenge, Tmatch, WinnerMember, ChallengerMember, ChallengedMember).\
+        join(Tmatch, Challenge.CID == Tmatch.CID, isouter=True).\
         join(WinnerMember, Tmatch.WinnerMEID == WinnerMember.MEID, isouter=True).\
         join(ChallengerMember, Challenge.ChallengerMEID == ChallengerMember.MEID, isouter=True).\
         join(ChallengedMember, Challenge.ChallengedMEID == ChallengedMember.MEID, isouter=True).\
         filter(Challenge.Status == 2, 
                Challenge.ChallengedMEID==currentMEID or Challenge.ChallengerMEID==currentMEID).all()
     settledCount = len(settledChallenges)
-    return render_template('challenges_settled.html', settledChallenges=settledChallenges, settledCount=settledCount)
+    return render_template('challenges_settled.html', settledChallenges=settledChallenges, settledCount=settledCount) # challenges_settled
 
 # ================== ajax route ===================== #
 @app.route('/del', methods=['POST'])
@@ -253,7 +251,6 @@ def delete():
 
 @app.route('/change_status', methods=['POST'])
 def change_status():
-    currentMEID = session['mid']
     status = request.json
     cid = int(status['cid'])
     status_change_challenge = challenge.query.get(cid)
@@ -262,14 +259,24 @@ def change_status():
         status_change_challenge.Status = 1
     elif status['status'] == 'reject':
         status_change_challenge.Status = -1
-    elif status['status'] == 'take':
-        status_change_challenge.Status = 1
-        status_change_challenge.ChallengedMEID = currentMEID
     
     result = {'message':'Success', 'status':status}
     db.session.commit()
     return result
 
+@app.route('/change_status_new', methods=['POST'])
+def change_status_new():
+    currentMEID = session['mid']
+    cid = request.form.get('cid')
+    
+    status_change_challenge = challenge.query.get(int(cid))
+    status_change_challenge.Status = 1
+    status_change_challenge.ChallengedMEID = currentMEID
+    result = {'message':'Success'}
+    db.session.commit()
+    return result
+    
+    
 @app.route('/init', methods=['POST'])
 def init():
     cdate = datetime.datetime.now()

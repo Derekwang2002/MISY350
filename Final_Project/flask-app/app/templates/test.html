@@ -6,12 +6,13 @@
 
 {% block content %}
 
-{% for j, i in bulletinChanllenges %}
-    {{ i.MEID }}
-{% endfor %}
 <br>
 
+{{settledChallenges}}
 
+{% for i, a, s, d, f in settledChallenges %}
+    {{ i.CID }}
+{% endfor %}
 
 <!-- <div class="card-datatable table-responsive pt-0">
     <table class="datatables-basic table border-top">
