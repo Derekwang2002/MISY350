@@ -1,5 +1,5 @@
 # MISY350
-> For reference only, directly copy code in this repository as assignment submission is not allowed!
+> For reference only!
 
 Basic knowledge for web development.
 
